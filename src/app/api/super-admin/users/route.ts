@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { verifyAccessToken } from '@/lib/auth/token';
 import { cookies } from 'next/headers';
 
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/generated/client';
 
 // GET: List all users
 export async function GET(req: NextRequest) {

@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { signAccessToken, signRefreshToken } from '@/lib/auth/token';
 import { hashPassword } from '@/lib/auth/password';
 
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/generated/client';
 
 async function getGoogleUser(code: string) {
   const tokenParams = new URLSearchParams({

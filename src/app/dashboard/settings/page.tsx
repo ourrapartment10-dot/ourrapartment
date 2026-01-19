@@ -15,7 +15,7 @@ import {
 import UserVerificationList from '@/components/admin/UserVerificationList';
 import { ProfileSettings } from '@/components/shared/ProfileSettings';
 import { useAuth } from '@/components/auth/AuthContext';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/generated/client';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdminSettingsPage() {

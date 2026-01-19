@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/components/auth/AuthContext';
 import { Loader2, Shield, Search, Filter } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/generated/client';
 
 interface UserData {
   id: string;

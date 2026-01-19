@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyAccessToken } from '@/lib/auth/token';
 import { cookies } from 'next/headers';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/generated/client';
 import { handleApiError, ApiError } from '@/lib/api-error';
 
 const UserStatus = {
