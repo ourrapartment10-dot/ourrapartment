@@ -1,0 +1,9 @@
+﻿src/app/dashboard/facilities/page.tsx(3,25): error TS2307: Cannot find module '@/components/auth/AuthContext' or its corresponding type declarations.
+src/app/dashboard/facilities/page.tsx(5,26): error TS2307: Cannot find module '@/generated/client' or its corresponding type declarations.
+src/app/dashboard/facilities/page.tsx(8,26): error TS2307: Cannot find module '@/components/facilities/FacilityCard' or its corresponding type declarations.
+src/app/dashboard/facilities/page.tsx(9,33): error TS2307: Cannot find module '@/components/facilities/CreateFacilityModal' or its corresponding type declarations.
+src/app/dashboard/facilities/page.tsx(10,25): error TS2307: Cannot find module '@/components/facilities/BookingList' or its corresponding type declarations.
+src/components/facilities/BookingList.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+src/components/facilities/CreateFacilityModal.tsx(6,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+src/components/facilities/CreateFacilityModal.tsx(7,29): error TS2307: Cannot find module '@/hooks/useS3' or its corresponding type declarations.
+src/components/facilities/CreateFacilityModal.tsx(8,21): error TS2307: Cannot find module '@/components/common/S3Image' or its corresponding type declarations.

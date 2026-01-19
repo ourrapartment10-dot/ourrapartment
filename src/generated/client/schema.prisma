@@ -1,0 +1,423 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+  RESIDENT
+}
+
+enum UserStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DEACTIVATED
+}
+
+enum FacilityBookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PENDING_VERIFICATION
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentType {
+  MAINTENANCE
+  FACILITY
+  EVENT
+  OTHER
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  UPI
+  BANK_TRANSFER
+  ONLINE
+}
+
+enum AuthProvider {
+  CREDENTIALS
+  GOOGLE
+}
+
+model User {
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  email           String       @unique
+  phone           String?
+  name            String
+  password        String?
+  role            UserRole     @default(USER)
+  status          UserStatus   @default(PENDING)
+  rejectionReason String?
+  provider        AuthProvider @default(CREDENTIALS)
+  image           String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  refreshTokens     RefreshToken[]
+  pushSubscriptions PushSubscription[]
+  notifications     Notification[]
+  property          Property?
+
+  // Approval tracking
+  approvedById String? @db.ObjectId
+  approvedBy   User?   @relation("UserApprovals", fields: [approvedById], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  approvals    User[]  @relation("UserApprovals")
+
+  notificationsEnabled Boolean @default(true)
+
+  // Announcement relations
+  announcements        Announcement[]
+  announcementLikes    AnnouncementLike[]
+  announcementComments AnnouncementComment[]
+
+  // Poll relations
+  createdPolls Poll[]     @relation("PollCreator")
+  pollVotes    PollVote[]
+
+  // Facility relations
+  facilityBookings FacilityBooking[]
+
+  // Complaint relations
+  complaints Complaint[]
+
+  // Payment relations
+  payments Payment[]
+
+  // Finance relations
+  recordedFinances CommunityFinance[]
+
+  // Chat relations
+  messages Message[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String   @unique
+  userId    String   @db.ObjectId
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model PushSubscription {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("push_subscriptions")
+}
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId // Recipient
+  title     String
+  message   String
+  type      String // e.g., "VERIFICATION_REQUEST", "ANNOUCEMENT"
+  read      Boolean  @default(false)
+  link      String? // Action link e.g. /dashboard/admin/verifications
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("notifications")
+}
+
+model Property {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  block      String
+  floor      String
+  flatNumber String
+
+  userId String? @unique @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("properties")
+}
+
+model Announcement {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  content         String
+  imageUrl        String?
+  authorId        String    @db.ObjectId
+  commentsEnabled Boolean   @default(true)
+  isPinned        Boolean   @default(false)
+  pinnedAt        DateTime?
+  expiresAt       DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  author   User                  @relation(fields: [authorId], references: [id])
+  likes    AnnouncementLike[]
+  comments AnnouncementComment[]
+  poll     Poll?
+
+  @@map("announcements")
+}
+
+model AnnouncementLike {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  announcementId String   @db.ObjectId
+  userId         String   @db.ObjectId
+  createdAt      DateTime @default(now())
+
+  announcement Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([announcementId, userId])
+  @@map("announcement_likes")
+}
+
+model AnnouncementComment {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  content        String
+  announcementId String   @db.ObjectId
+  userId         String   @db.ObjectId
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  announcement Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("announcement_comments")
+}
+
+model ApartmentConfig {
+  id                    String                @id @default(auto()) @map("_id") @db.ObjectId
+  maxProperties         Int                   @default(0) // 0 means no limit initially or until set
+  numberOfBlocks        Int                   @default(0)
+  blockNamingConvention BlockNamingConvention @default(NUMERIC)
+  numberOfFloors        Int                   @default(0)
+  unitsPerFloor         Int                   @default(0)
+
+  updatedAt DateTime @updatedAt
+
+  @@map("apartment_configs")
+}
+
+enum BlockNamingConvention {
+  NUMERIC
+  ALPHABETIC
+}
+
+model Poll {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  question    String
+  description String?
+  isAnonymous Boolean   @default(false)
+  isPinned    Boolean   @default(false)
+  pinnedAt    DateTime?
+  endsAt      DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  createdById String @db.ObjectId
+  createdBy   User   @relation("PollCreator", fields: [createdById], references: [id])
+
+  options PollOption[]
+  votes   PollVote[]
+
+  announcementId String?       @unique @db.ObjectId
+  announcement   Announcement? @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+
+  @@map("polls")
+}
+
+model PollOption {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  text   String
+  pollId String @db.ObjectId
+  poll   Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+
+  votes PollVote[]
+
+  @@map("poll_options")
+}
+
+model PollVote {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  pollId String @db.ObjectId
+  poll   Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+
+  optionId String     @db.ObjectId
+  option   PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, pollId])
+  @@map("poll_votes")
+}
+
+model Facility {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  capacity    Int?
+  hourlyRate  Float?
+  isActive    Boolean  @default(true)
+  amenities   String[]
+  rules       String?
+  images      String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  bookings FacilityBooking[]
+
+  @@map("facilities")
+}
+
+model FacilityBooking {
+  id         String                @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String                @db.ObjectId
+  facilityId String                @db.ObjectId
+  startTime  DateTime
+  endTime    DateTime
+  purpose    String?
+  status     FacilityBookingStatus @default(PENDING)
+  totalCost  Float?
+  notes      String?
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id])
+  facility Facility @relation(fields: [facilityId], references: [id])
+
+  @@index([facilityId])
+  @@index([userId])
+  @@index([startTime])
+  @@index([status])
+  @@map("facility_bookings")
+}
+
+enum ComplaintType {
+  PUBLIC
+  PRIVATE
+}
+
+enum ComplaintStatus {
+  OPEN
+  RESOLVED
+}
+
+model Complaint {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  type        ComplaintType
+  status      ComplaintStatus @default(OPEN)
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  resolvedAt DateTime?
+  resolvedBy String? // Could be admin name or ID, keeping simple with ID if needed or just string
+
+  rating   Int?
+  feedback String?
+  images   String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("complaints")
+}
+
+model Payment {
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String         @db.ObjectId
+  amount            Float
+  type              PaymentType
+  description       String
+  status            PaymentStatus  @default(PENDING)
+  dueDate           DateTime?
+  paidDate          DateTime?
+  paymentMethod     PaymentMethod?
+  transactionId     String?
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  receiptUrl        String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([dueDate])
+  @@index([createdAt])
+  @@map("payments")
+}
+
+model CommunityFinance {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount      Float
+  type        String   @default("expense") // "expense"
+  category    String // e.g., "maintenance", "salary", "electricity"
+  description String?
+  date        DateTime @default(now())
+
+  recordedById String @db.ObjectId
+  recordedBy   User   @relation(fields: [recordedById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date])
+  @@index([category])
+  @@map("community_finances")
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  senderId  String   @db.ObjectId
+  sender    User     @relation(fields: [senderId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+  @@map("messages")
+}
