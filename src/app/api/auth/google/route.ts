@@ -7,11 +7,10 @@ export async function GET(req: NextRequest) {
     'client_id',
     process.env.GOOGLE_CLIENT_ID || ''
   );
-  googleAuthUrl.searchParams.set(
-    'redirect_uri',
-    process.env.GOOGLE_REDIRECT_URI ||
-      'http://localhost:3000/api/auth/google/callback'
-  );
+  const origin = req.nextUrl.origin;
+  const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${origin}/api/auth/google/callback`;
+
+  googleAuthUrl.searchParams.set('redirect_uri', redirectUri);
   googleAuthUrl.searchParams.set('response_type', 'code');
   googleAuthUrl.searchParams.set('scope', 'email profile openid');
   googleAuthUrl.searchParams.set('access_type', 'offline');

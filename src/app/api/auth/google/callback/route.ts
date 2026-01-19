@@ -5,15 +5,13 @@ import { hashPassword } from '@/lib/auth/password';
 
 import { UserRole } from '@/generated/client';
 
-async function getGoogleUser(code: string) {
+async function getGoogleUser(code: string, redirectUri: string) {
   const tokenParams = new URLSearchParams({
     client_id: process.env.GOOGLE_CLIENT_ID!,
     client_secret: process.env.GOOGLE_CLIENT_SECRET!,
     code,
     grant_type: 'authorization_code',
-    redirect_uri:
-      process.env.GOOGLE_REDIRECT_URI ||
-      'http://localhost:3000/api/auth/google/callback',
+    redirect_uri: redirectUri,
   });
 
   const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
@@ -50,7 +48,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(new URL('/login?error=no_code', req.url));
     }
 
-    const googleUser = await getGoogleUser(code);
+    const origin = req.nextUrl.origin;
+    const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${origin}/api/auth/google/callback`;
+
+    const googleUser = await getGoogleUser(code, redirectUri);
     const { email, name, picture, id: googleId } = googleUser;
 
     // Check if user exists
