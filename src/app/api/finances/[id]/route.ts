@@ -19,7 +19,7 @@ async function getAuthenticatedUser() {
     });
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
         const user = await getAuthenticatedUser();
 
@@ -27,7 +27,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const { id } = params;
+        const { id } = await params;
         const body = await request.json();
         const { amount, description, date, category } = body;
 
@@ -54,7 +54,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
         const user = await getAuthenticatedUser();
 
@@ -62,7 +62,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const { id } = params;
+        const { id } = await params;
 
         await prisma.communityFinance.delete({
             where: { id },

@@ -35,7 +35,7 @@ export function useApartmentConfig() {
         if (!config || config.numberOfBlocks <= 0) return [];
 
         const options = [];
-        if (config.blockNamingConvention === 'ALPHABET') {
+        if (config.blockNamingConvention === 'ALPHABETIC') {
             for (let i = 1; i <= config.numberOfBlocks; i++) {
                 options.push(String.fromCharCode(64 + i)); // 1=A, 2=B...
             }

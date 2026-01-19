@@ -133,3 +133,14 @@
   backdrop-filter: blur(12px);
   border: 1px solid hsl(255 255 255 / 0.1);
 }
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
