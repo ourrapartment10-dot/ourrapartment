@@ -9,18 +9,18 @@
  * @returns S3 key (e.g., folder/file.jpg)
  */
 export function extractS3Key(url: string): string | null {
-    try {
-        const urlParts = url.split('/');
-        if (urlParts.length < 2) return null;
+  try {
+    const urlParts = url.split('/');
+    if (urlParts.length < 2) return null;
 
-        const folder = urlParts[urlParts.length - 2];
-        const fileName = urlParts[urlParts.length - 1];
+    const folder = urlParts[urlParts.length - 2];
+    const fileName = urlParts[urlParts.length - 1];
 
-        return `${folder}/${fileName}`;
-    } catch (error) {
-        console.error('Error extracting S3 key:', error);
-        return null;
-    }
+    return `${folder}/${fileName}`;
+  } catch (error) {
+    console.error('Error extracting S3 key:', error);
+    return null;
+  }
 }
 
 /**
@@ -29,7 +29,7 @@ export function extractS3Key(url: string): string | null {
  * @returns true if the file is an image
  */
 export function isImageFile(fileName: string): boolean {
-    return /\.(jpeg|jpg|png|gif|webp|jfif)$/i.test(fileName);
+  return /\.(jpeg|jpg|png|gif|webp|jfif)$/i.test(fileName);
 }
 
 /**
@@ -38,20 +38,25 @@ export function isImageFile(fileName: string): boolean {
  * @returns Signed URL or null if failed
  */
 export async function fetchSignedUrl(key: string): Promise<string | null> {
-    try {
-        const response = await fetch(`/api/s3-signed-url?key=${encodeURIComponent(key)}`);
+  try {
+    const response = await fetch(
+      `/api/s3-signed-url?key=${encodeURIComponent(key)}`
+    );
 
-        if (!response.ok) {
-            console.error(`Failed to get signed URL for ${key}:`, await response.text());
-            return null;
-        }
-
-        const data = await response.json();
-        return data.url;
-    } catch (error) {
-        console.error(`Error fetching signed URL for ${key}:`, error);
-        return null;
+    if (!response.ok) {
+      console.error(
+        `Failed to get signed URL for ${key}:`,
+        await response.text()
+      );
+      return null;
     }
+
+    const data = await response.json();
+    return data.url;
+  } catch (error) {
+    console.error(`Error fetching signed URL for ${key}:`, error);
+    return null;
+  }
 }
 
 /**
@@ -59,23 +64,25 @@ export async function fetchSignedUrl(key: string): Promise<string | null> {
  * @param urls - Array of S3 URLs
  * @returns Map of original URL to signed URL
  */
-export async function fetchSignedUrls(urls: string[]): Promise<Map<string, string | null>> {
-    const results = new Map<string, string | null>();
+export async function fetchSignedUrls(
+  urls: string[]
+): Promise<Map<string, string | null>> {
+  const results = new Map<string, string | null>();
 
-    await Promise.all(
-        urls.map(async (url) => {
-            const key = extractS3Key(url);
-            if (!key) {
-                results.set(url, null);
-                return;
-            }
+  await Promise.all(
+    urls.map(async (url) => {
+      const key = extractS3Key(url);
+      if (!key) {
+        results.set(url, null);
+        return;
+      }
 
-            const signedUrl = await fetchSignedUrl(key);
-            results.set(url, signedUrl);
-        })
-    );
+      const signedUrl = await fetchSignedUrl(key);
+      results.set(url, signedUrl);
+    })
+  );
 
-    return results;
+  return results;
 }
 
 /**
@@ -84,35 +91,38 @@ export async function fetchSignedUrls(urls: string[]): Promise<Map<string, strin
  * @param folder - S3 folder (e.g., "announcement-attachments")
  * @returns Public S3 URL or null if failed
  */
-export async function uploadToS3(file: File, folder: string): Promise<string | null> {
-    try {
-        // Generate unique filename
-        const extension = file.name.split(".").pop() || "jpg";
-        const fileName = `${crypto.randomUUID()}.${extension}`;
+export async function uploadToS3(
+  file: File,
+  folder: string
+): Promise<string | null> {
+  try {
+    // Generate unique filename
+    const extension = file.name.split('.').pop() || 'jpg';
+    const fileName = `${crypto.randomUUID()}.${extension}`;
 
-        // Create FormData
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("fileName", fileName);
-        formData.append("folder", folder);
+    // Create FormData
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('fileName', fileName);
+    formData.append('folder', folder);
 
-        // Upload
-        const response = await fetch("/api/upload", {
-            method: "POST",
-            body: formData
-        });
+    // Upload
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || "Failed to upload file");
-        }
-
-        const { url } = await response.json();
-        return url;
-    } catch (error) {
-        console.error("Error uploading to S3:", error);
-        return null;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to upload file');
     }
+
+    const { url } = await response.json();
+    return url;
+  } catch (error) {
+    console.error('Error uploading to S3:', error);
+    return null;
+  }
 }
 
 /**
@@ -122,34 +132,43 @@ export async function uploadToS3(file: File, folder: string): Promise<string | n
  * @returns Error message or null if valid
  */
 export function validateFile(
-    file: File,
-    options: {
-        maxSizeMB?: number;
-        allowedTypes?: string[];
-    } = {}
+  file: File,
+  options: {
+    maxSizeMB?: number;
+    allowedTypes?: string[];
+  } = {}
 ): string | null {
-    const { maxSizeMB = 5, allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp"] } = options;
+  const {
+    maxSizeMB = 5,
+    allowedTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+    ],
+  } = options;
 
-    // Check file type
-    if (!allowedTypes.includes(file.type)) {
-        return `Invalid file type. Allowed types: ${allowedTypes.join(", ")}`;
-    }
+  // Check file type
+  if (!allowedTypes.includes(file.type)) {
+    return `Invalid file type. Allowed types: ${allowedTypes.join(', ')}`;
+  }
 
-    // Check file size
-    const maxSizeBytes = maxSizeMB * 1024 * 1024;
-    if (file.size > maxSizeBytes) {
-        return `File size exceeds ${maxSizeMB}MB limit`;
-    }
+  // Check file size
+  const maxSizeBytes = maxSizeMB * 1024 * 1024;
+  if (file.size > maxSizeBytes) {
+    return `File size exceeds ${maxSizeMB}MB limit`;
+  }
 
-    return null;
+  return null;
 }
 
 /**
  * S3 URL cache entry
  */
 export interface S3UrlCacheEntry {
-    url: string | null;
-    expiresAt: number;
+  url: string | null;
+  expiresAt: number;
 }
 
 /**
@@ -157,36 +176,36 @@ export interface S3UrlCacheEntry {
  * @param expirationMinutes - Cache expiration time in minutes (default: 14)
  */
 export function createS3UrlCache(expirationMinutes: number = 14) {
-    const cache = new Map<string, S3UrlCacheEntry>();
-    const expirationMs = expirationMinutes * 60 * 1000;
+  const cache = new Map<string, S3UrlCacheEntry>();
+  const expirationMs = expirationMinutes * 60 * 1000;
 
-    return {
-        get(key: string): string | null {
-            const entry = cache.get(key);
-            if (!entry) return null;
+  return {
+    get(key: string): string | null {
+      const entry = cache.get(key);
+      if (!entry) return null;
 
-            const now = Date.now();
-            if (entry.expiresAt <= now) {
-                cache.delete(key);
-                return null;
-            }
+      const now = Date.now();
+      if (entry.expiresAt <= now) {
+        cache.delete(key);
+        return null;
+      }
 
-            return entry.url;
-        },
+      return entry.url;
+    },
 
-        set(key: string, url: string | null): void {
-            cache.set(key, {
-                url,
-                expiresAt: Date.now() + expirationMs
-            });
-        },
+    set(key: string, url: string | null): void {
+      cache.set(key, {
+        url,
+        expiresAt: Date.now() + expirationMs,
+      });
+    },
 
-        clear(): void {
-            cache.clear();
-        },
+    clear(): void {
+      cache.clear();
+    },
 
-        delete(key: string): void {
-            cache.delete(key);
-        }
-    };
+    delete(key: string): void {
+      cache.delete(key);
+    },
+  };
 }

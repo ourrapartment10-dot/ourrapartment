@@ -3,6 +3,7 @@
 ## ✅ What We've Accomplished
 
 ### 1. **Fixed S3 Upload and Display Issues**
+
 - ✅ Resolved "Failed to fetch" error during uploads
 - ✅ Fixed "403 Forbidden" error for image previews
 - ✅ Implemented signed URL pattern matching reference project
@@ -11,6 +12,7 @@
 ### 2. **Created Modular, Reusable S3 System**
 
 #### **Core Utilities** (`src/lib/s3-utils.ts`)
+
 - `extractS3Key()` - Extract S3 key from URL
 - `fetchSignedUrl()` - Fetch signed URL for single object
 - `fetchSignedUrls()` - Batch fetch signed URLs
@@ -20,14 +22,17 @@
 - `isImageFile()` - Check if file is an image
 
 #### **React Hooks** (`src/hooks/useS3.ts`)
+
 - `useS3SignedUrls()` - Fetch and cache multiple signed URLs
 - `useS3Upload()` - Manage file upload with state
 - `useS3Image()` - Simplified hook for single image
 
 #### **React Components** (`src/components/common/S3Image.tsx`)
+
 - `<S3Image />` - Reusable component with auto-fetching and error handling
 
 ### 3. **Refactored Existing Components**
+
 - ✅ `CreateAnnouncementModal` - Now uses `useS3Upload` hook and `S3Image` component
 - ✅ `AnnouncementFeed` - Fetches signed URLs with caching
 - ✅ `PostCard` - Displays images using signed URLs
@@ -35,24 +40,28 @@
 ### 4. **Production-Grade Features**
 
 #### Security
+
 - ✅ Authentication required for all S3 operations
 - ✅ File validation (type, size)
 - ✅ Signed URLs with 15-minute expiration
 - ✅ No public ACLs (bucket owner enforced)
 
 #### Performance
+
 - ✅ Automatic caching (14-minute cache for 15-minute signed URLs)
 - ✅ Batch fetching for multiple images
 - ✅ Loading states for better UX
 - ✅ Error boundaries and fallbacks
 
 #### Maintainability
+
 - ✅ Single source of truth for S3 logic
 - ✅ Type-safe with TypeScript
 - ✅ Comprehensive documentation
 - ✅ Reusable across entire application
 
 #### Scalability
+
 - ✅ Modular design for easy extension
 - ✅ Consistent patterns
 - ✅ Easy to add new features (compression, resizing, etc.)
@@ -82,30 +91,35 @@ src/
 ## 🚀 How to Use
 
 ### Upload a File
+
 ```tsx
 import { useS3Upload } from '@/hooks/useS3';
 
-const { upload, uploading, uploadedUrl } = useS3Upload('announcement-attachments');
+const { upload, uploading, uploadedUrl } = useS3Upload(
+  'announcement-attachments'
+);
 
 const handleUpload = async (file: File) => {
-    const url = await upload(file);
-    // url is the public S3 URL
+  const url = await upload(file);
+  // url is the public S3 URL
 };
 ```
 
 ### Display an S3 Image
+
 ```tsx
 import S3Image from '@/components/common/S3Image';
 
-<S3Image 
-    src={s3Url} 
-    alt="My Image" 
-    className="w-full h-64"
-    showLoader={true}
-/>
+<S3Image
+  src={s3Url}
+  alt="My Image"
+  className="h-64 w-full"
+  showLoader={true}
+/>;
 ```
 
 ### Fetch Signed URLs for Multiple Images
+
 ```tsx
 import { useS3SignedUrls } from '@/hooks/useS3';
 
@@ -115,6 +129,7 @@ const { signedUrls, loading, getSignedUrl } = useS3SignedUrls(imageUrls);
 ## 🔧 Configuration
 
 ### Environment Variables
+
 ```env
 AWS_ACCESS_KEY_ID=AKIA...
 AWS_SECRET_ACCESS_KEY=...
@@ -123,6 +138,7 @@ AWS_BUCKET_NAME=ourrapartment
 ```
 
 ### S3 Bucket Settings
+
 - **Block Public Access**: Can be ON
 - **Object Ownership**: Bucket owner enforced
 - **CORS**: Configured for localhost:3000
@@ -137,6 +153,7 @@ AWS_BUCKET_NAME=ourrapartment
 ## 🎯 Future Enhancements
 
 ### Planned Features
+
 1. **Image Optimization**
    - Automatic compression
    - Multiple size generation
@@ -175,6 +192,7 @@ AWS_BUCKET_NAME=ourrapartment
 ## 🧪 Testing
 
 ### Manual Testing Checklist
+
 - [x] Upload image in CreateAnnouncementModal
 - [x] Preview shows correctly with signed URL
 - [x] Posted announcement displays image in feed
@@ -183,6 +201,7 @@ AWS_BUCKET_NAME=ourrapartment
 - [x] Error handling works correctly
 
 ### Automated Testing (Future)
+
 - [ ] Unit tests for utilities
 - [ ] Integration tests for hooks
 - [ ] E2E tests for upload flow
@@ -198,6 +217,7 @@ AWS_BUCKET_NAME=ourrapartment
 ## 📞 Support
 
 For issues or questions:
+
 1. Check `.gemini/S3_MODULAR_GUIDE.md`
 2. Review code comments
 3. Check browser console for errors

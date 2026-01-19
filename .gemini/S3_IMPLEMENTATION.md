@@ -1,14 +1,17 @@
 # S3 Implementation - Aligned with Reference Project
 
 ## Overview
+
 The S3 upload and display flow has been updated to match the `community-management-main` reference project pattern.
 
 ## Architecture
 
 ### 1. Upload Flow
+
 **Endpoint**: `/api/upload` (POST)
 
 **Request Format**:
+
 ```typescript
 FormData {
   file: File,
@@ -18,6 +21,7 @@ FormData {
 ```
 
 **Response**:
+
 ```json
 {
   "url": "https://ourrapartment.s3.ap-south-1.amazonaws.com/announcement-attachments/{uuid}.{ext}"
@@ -25,19 +29,23 @@ FormData {
 ```
 
 **Key Points**:
+
 - File is uploaded directly to S3 from the server
 - No ACL is set (bucket uses "Bucket owner enforced" setting)
 - Returns the public S3 URL for database storage
 
 ### 2. Display Flow
+
 **Endpoint**: `/api/s3-signed-url` (GET)
 
 **Request Format**:
+
 ```
 GET /api/s3-signed-url?key=announcement-attachments/{filename}
 ```
 
 **Response**:
+
 ```json
 {
   "url": "https://ourrapartment.s3.ap-south-1.amazonaws.com/announcement-attachments/{filename}?X-Amz-..."
@@ -45,6 +53,7 @@ GET /api/s3-signed-url?key=announcement-attachments/{filename}
 ```
 
 **Key Points**:
+
 - Generates temporary signed URLs (15 minutes validity)
 - Used for displaying images in the UI
 - Bypasses public access restrictions
@@ -65,19 +74,21 @@ GET /api/s3-signed-url?key=announcement-attachments/{filename}
 
 3. **State Management**:
    ```typescript
-   imageUrl: string | null          // Public S3 URL
-   signedImageUrl: string | null    // Temporary signed URL for preview
-   finalImageUrl: string | null     // URL to save in database
+   imageUrl: string | null; // Public S3 URL
+   signedImageUrl: string | null; // Temporary signed URL for preview
+   finalImageUrl: string | null; // URL to save in database
    ```
 
 ### Backend APIs
 
 #### `/api/upload/route.ts`
+
 - Accepts FormData with file, fileName, folder
 - Uploads to S3 using PutObjectCommand
 - Returns public URL
 
 #### `/api/s3-signed-url/route.ts`
+
 - Accepts S3 key as query parameter
 - Generates signed URL using GetObjectCommand
 - Returns temporary URL (15 min expiry)
@@ -115,25 +126,28 @@ NEXT_PUBLIC_PUSHER_CLUSTER="ap2"
    - This is why ACL is NOT used in uploads
 
 3. **CORS Configuration** (if needed for direct browser access):
+
 ```json
 [
-    {
-        "AllowedHeaders": ["*"],
-        "AllowedMethods": ["GET", "PUT", "POST"],
-        "AllowedOrigins": ["http://localhost:3000"],
-        "ExposeHeaders": []
-    }
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["GET", "PUT", "POST"],
+    "AllowedOrigins": ["http://localhost:3000"],
+    "ExposeHeaders": []
+  }
 ]
 ```
 
 ## Differences from Previous Implementation
 
 ### Before:
+
 - Used presigned URLs for upload (two-step process)
 - Tried to use ACL: "public-read" (caused 500 errors)
 - Mixed approach with both signed and public URLs
 
 ### After:
+
 - Direct server-side upload (one-step process)
 - No ACL usage (matches bucket settings)
 - Clear separation: public URL for storage, signed URL for display

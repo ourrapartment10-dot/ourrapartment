@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       target: runner
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - DATABASE_URL=mongodb://mongo:27017/ourrapartment
     depends_on:
@@ -15,7 +15,7 @@ services:
   mongo:
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo_data:/data/db
 
