@@ -206,6 +206,8 @@ model Announcement {
   @@map("announcements")
   @@index([createdAt])
   @@index([isPinned])
+  @@index([expiresAt])
+  @@index([isPinned, pinnedAt, createdAt])
 }
 
 model AnnouncementLike {
@@ -219,6 +221,8 @@ model AnnouncementLike {
 
   @@unique([announcementId, userId])
   @@map("announcement_likes")
+  @@index([userId])
+  @@index([announcementId])
 }
 
 model AnnouncementComment {

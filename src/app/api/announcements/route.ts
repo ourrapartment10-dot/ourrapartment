@@ -7,7 +7,7 @@ import { UserRole } from '@/generated/client';
 import { pusherServer } from '@/lib/pusher';
 import { sendPushNotification } from '@/lib/push';
 
-// GET: Fetch feed
+// GET: Fetch feed - OPTIMIZED
 export async function GET(req: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -40,7 +40,12 @@ export async function GET(req: NextRequest) {
         author: {
           select: { id: true, name: true, image: true, role: true },
         },
-        likes: true,
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+          },
+        },
         comments: {
           include: {
             user: { select: { id: true, name: true, image: true } },
@@ -63,6 +68,17 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    // Fetch user's likes separately for better performance
+    const userLikes = await prisma.announcementLike.findMany({
+      where: {
+        userId: userId,
+        announcementId: { in: announcements.map(a => a.id) },
+      },
+      select: { announcementId: true },
+    });
+
+    const likedAnnouncementIds = new Set(userLikes.map(like => like.announcementId));
+
     const total = await prisma.announcement.count({
       where: {
         OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
@@ -72,9 +88,9 @@ export async function GET(req: NextRequest) {
     // Transform data to include user interactions
     const feed = announcements.map((post) => ({
       ...post,
-      isLiked: post.likes.some((like) => like.userId === userId),
-      likeCount: post.likes.length,
-      commentCount: post.comments.length,
+      isLiked: likedAnnouncementIds.has(post.id),
+      likeCount: post._count.likes,
+      commentCount: post._count.comments,
     }));
 
     return NextResponse.json({
@@ -82,7 +98,7 @@ export async function GET(req: NextRequest) {
       pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
     }, {
       headers: {
-        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
       },
     });
   } catch (error) {

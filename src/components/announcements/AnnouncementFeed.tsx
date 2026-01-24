@@ -25,7 +25,7 @@ export default function AnnouncementFeed({
   const [editingPost, setEditingPost] = useState<any | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  // Fetch signed URLs for images
+  // Fetch signed URLs for images - OPTIMIZED with parallel fetching
   useEffect(() => {
     const fetchSignedUrls = async () => {
       setLoadingImages(true);
@@ -42,45 +42,58 @@ export default function AnnouncementFeed({
         }
       }
 
-      // Second pass: Fetch signed URLs for posts not in cache
-      for (const post of posts) {
-        if (urls[post.id] !== undefined) {
-          continue; // Already cached
-        }
+      // Second pass: Fetch signed URLs for posts not in cache - PARALLEL FETCHING
+      const postsNeedingUrls = posts.filter(
+        (post) => urls[post.id] === undefined && post.imageUrl
+      );
 
-        if (post.imageUrl) {
-          try {
-            const urlParts = post.imageUrl.split('/');
-            const folder = urlParts[urlParts.length - 2];
-            const fileName = urlParts[urlParts.length - 1];
-            const key = `${folder}/${fileName}`;
+      // Fetch all URLs in parallel using Promise.all
+      const urlPromises = postsNeedingUrls.map(async (post) => {
+        try {
+          const urlParts = post.imageUrl!.split('/');
+          const folder = urlParts[urlParts.length - 2];
+          const fileName = urlParts[urlParts.length - 1];
+          const key = `${folder}/${fileName}`;
 
-            const response = await fetch(
-              `/api/s3-signed-url?key=${encodeURIComponent(key)}`
-            );
-            if (response.ok) {
-              const data = await response.json();
-              urls[post.id] = data.url;
-              // Cache with 14 minute expiration (signed URLs are valid for 15 min)
-              imageUrlCache.current[post.id] = {
-                url: data.url,
-                expiresAt: now + 14 * 60 * 1000,
-              };
-            } else {
-              console.error(`Failed to get signed URL for post ${post.id}`);
-              urls[post.id] = null;
-            }
-          } catch (error) {
-            console.error(
-              `Error fetching signed URL for post ${post.id}:`,
-              error
-            );
-            urls[post.id] = null;
+          const response = await fetch(
+            `/api/s3-signed-url?key=${encodeURIComponent(key)}`
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            // Cache with 14 minute expiration (signed URLs are valid for 15 min)
+            imageUrlCache.current[post.id] = {
+              url: data.url,
+              expiresAt: now + 14 * 60 * 1000,
+            };
+            return { postId: post.id, url: data.url };
+          } else {
+            console.error(`Failed to get signed URL for post ${post.id}`);
+            return { postId: post.id, url: null };
           }
-        } else {
+        } catch (error) {
+          console.error(
+            `Error fetching signed URL for post ${post.id}:`,
+            error
+          );
+          return { postId: post.id, url: null };
+        }
+      });
+
+      // Wait for all promises to resolve
+      const results = await Promise.all(urlPromises);
+
+      // Merge results into urls object
+      results.forEach(({ postId, url }) => {
+        urls[postId] = url;
+      });
+
+      // Set null for posts without images
+      posts.forEach((post) => {
+        if (urls[post.id] === undefined) {
           urls[post.id] = null;
         }
-      }
+      });
 
       setSignedImageUrls(urls);
       setLoadingImages(false);

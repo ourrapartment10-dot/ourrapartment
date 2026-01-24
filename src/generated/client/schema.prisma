@@ -204,6 +204,8 @@ model Announcement {
 
   @@index([createdAt])
   @@index([isPinned])
+  @@index([expiresAt])
+  @@index([isPinned, pinnedAt, createdAt])
   @@map("announcements")
 }
 
@@ -217,6 +219,8 @@ model AnnouncementLike {
   user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([announcementId, userId])
+  @@index([userId])
+  @@index([announcementId])
   @@map("announcement_likes")
 }
 

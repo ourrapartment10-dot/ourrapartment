@@ -25,7 +25,7 @@ export default async function AnnouncementsPage() {
 
   if (!user) return redirect('/login');
 
-  // Fetch Initial Feed
+  // Fetch Initial Feed - OPTIMIZED
   const announcements = await prisma.announcement.findMany({
     where: {
       OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
@@ -40,7 +40,12 @@ export default async function AnnouncementsPage() {
       author: {
         select: { id: true, name: true, image: true, role: true },
       },
-      likes: true,
+      _count: {
+        select: {
+          likes: true,
+          comments: true,
+        },
+      },
       comments: {
         include: {
           user: { select: { id: true, name: true, image: true } },
@@ -63,12 +68,23 @@ export default async function AnnouncementsPage() {
     },
   });
 
+  // Fetch user's likes separately for better performance
+  const userLikes = await prisma.announcementLike.findMany({
+    where: {
+      userId: userId,
+      announcementId: { in: announcements.map(a => a.id) },
+    },
+    select: { announcementId: true },
+  });
+
+  const likedAnnouncementIds = new Set(userLikes.map(like => like.announcementId));
+
   // Process feed for basic stats
   const feed = announcements.map((post) => ({
     ...post,
-    isLiked: post.likes.some((like) => like.userId === userId),
-    likeCount: post.likes.length,
-    commentCount: post.comments.length,
+    isLiked: likedAnnouncementIds.has(post.id),
+    likeCount: post._count.likes,
+    commentCount: post._count.comments,
   }));
 
   return (
