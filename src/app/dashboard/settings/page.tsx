@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import UserVerificationList from '@/components/admin/UserVerificationList';
 import { ProfileSettings } from '@/components/shared/ProfileSettings';
+import { NotificationSettings } from '@/components/shared/NotificationSettings';
 import { useAuth } from '@/components/auth/AuthContext';
 import { UserRole } from '@/generated/client';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -30,12 +31,12 @@ export default function AdminSettingsPage() {
     { id: 'profile', name: 'Profile Settings', icon: User },
     ...(isAdmin
       ? [
-          {
-            id: 'verifications',
-            name: 'User Verifications',
-            icon: CheckCircle2,
-          },
-        ]
+        {
+          id: 'verifications',
+          name: 'User Verifications',
+          icon: CheckCircle2,
+        },
+      ]
       : []),
     { id: 'notifications', name: 'Notifications', icon: Bell },
     { id: 'security', name: 'Security', icon: Shield },
@@ -47,15 +48,42 @@ export default function AdminSettingsPage() {
 
   return (
     <div className="space-y-6 pb-20 sm:pb-8">
-      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <h1 className="font-outfit flex items-center gap-2 text-2xl font-bold text-gray-900">
-            <Settings className="h-6 w-6 text-blue-600" />
-            Account Settings
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Manage your account preferences and administrative tasks.
-          </p>
+      <div className="relative px-2 pt-8">
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <div className="max-w-2xl space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex w-fit items-center gap-3 rounded-2xl bg-blue-600/10 px-4 py-2 text-blue-600"
+            >
+              <Settings className="h-4 w-4" />
+              <span className="text-[10px] font-black tracking-[0.2em] uppercase">
+                System Configuration
+              </span>
+            </motion.div>
+
+            <div className="space-y-2">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-5xl leading-[0.9] font-[900] tracking-tighter text-slate-900 lg:text-7xl"
+              >
+                Account <br />
+                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Settings.
+                </span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="max-w-lg text-lg leading-relaxed font-medium text-slate-500 lg:text-xl"
+              >
+                Manage your account preferences and administrative tasks.
+              </motion.p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -69,11 +97,10 @@ export default function AdminSettingsPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex min-w-fit items-center gap-2 rounded-2xl px-6 py-3 text-sm font-bold whitespace-nowrap transition-all ${
-                  isActive
-                    ? 'bg-white text-blue-600 shadow-sm ring-1 ring-gray-200/50'
-                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
-                }`}
+                className={`flex min-w-fit items-center gap-2 rounded-2xl px-6 py-3 text-sm font-bold whitespace-nowrap transition-all ${isActive
+                  ? 'bg-white text-blue-600 shadow-sm ring-1 ring-gray-200/50'
+                  : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
+                  }`}
               >
                 <Icon
                   className={`h-4 w-4 ${isActive ? 'text-blue-600' : 'text-gray-400'}`}
@@ -125,11 +152,10 @@ export default function AdminSettingsPage() {
                           setActiveTab(tab.id);
                           setIsMobileMenuOpen(false);
                         }}
-                        className={`flex w-full items-center gap-3 rounded-xl px-4 py-4 text-sm font-bold transition-all ${
-                          isActive
-                            ? 'bg-blue-50 text-blue-700'
-                            : 'text-gray-500 hover:bg-gray-50'
-                        }`}
+                        className={`flex w-full items-center gap-3 rounded-xl px-4 py-4 text-sm font-bold transition-all ${isActive
+                          ? 'bg-blue-50 text-blue-700'
+                          : 'text-gray-500 hover:bg-gray-50'
+                          }`}
                       >
                         <Icon
                           className={`h-5 w-5 ${isActive ? 'text-blue-700' : 'text-gray-400'}`}
@@ -168,7 +194,9 @@ export default function AdminSettingsPage() {
 
             {activeTab === 'profile' && <ProfileSettings />}
 
-            {['notifications', 'security', 'billing'].includes(activeTab) && (
+            {activeTab === 'notifications' && <NotificationSettings />}
+
+            {['security', 'billing'].includes(activeTab) && (
               <div className="animate-in fade-in flex flex-col items-center justify-center py-24 text-center duration-500">
                 <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gray-50 ring-1 ring-gray-100">
                   <HelpCircle className="h-10 w-10 text-gray-200" />

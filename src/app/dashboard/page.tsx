@@ -6,22 +6,22 @@ import {
   Building,
   AlertCircle,
   Calendar,
-  CreditCard,
-  Activity,
-  CheckCircle,
   Wallet,
   FileText,
   Megaphone,
   Plus,
   ArrowUpRight,
   TrendingUp,
-  HandCoins,
   Timer,
   Vote,
-  ChevronRight,
-  Bell,
-  Settings,
-  ExternalLink,
+  MoreHorizontal,
+  Activity,
+  CheckCircle2,
+  DollarSign,
+  Briefcase,
+  Wrench,
+  Search,
+  Filter,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -34,29 +34,13 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
 } from 'recharts';
 import { useRouter } from 'next/navigation';
 
-interface StatCard {
-  label: string;
-  value: string | number;
-  change: string;
-  icon: any;
-  color: string;
-  bg: string;
-  link?: string;
-  trend?: 'up' | 'down' | 'neutral';
-}
-
-interface ActivityItem {
-  id: string;
-  type: 'BOOKING' | 'COMPLAINT' | 'ANNOUNCEMENT' | 'PAYMENT';
-  title: string;
-  subtitle: string;
-  date: string;
-  status?: string;
-}
-
+// --- Types ---
 interface DashboardData {
   role: string;
   stats: {
@@ -71,10 +55,7 @@ interface DashboardData {
     openComplaints?: number;
     upcomingBookings?: number;
     property?: any;
-  };
-  performance?: {
-    resolvedComplaints: number;
-    totalComplaints: number;
+    occupancyRate?: number;
   };
   charts: {
     revenue?: { month: string; amount: number }[];
@@ -82,7 +63,7 @@ interface DashboardData {
   };
   activePolls?: any[];
   latestEvent?: any;
-  activities: ActivityItem[];
+  activities: any[];
 }
 
 export default function DashboardPage() {
@@ -97,6 +78,12 @@ export default function DashboardPage() {
         const res = await fetch('/api/dashboard/stats');
         if (res.ok) {
           const jsonData = await res.json();
+          // Calculate occupancy rate if missing (mock logic or derived)
+          if (jsonData.stats.totalProperties > 0 && !jsonData.stats.occupancyRate) {
+            jsonData.stats.occupancyRate = Math.round(
+              (jsonData.stats.occupiedProperties / jsonData.stats.totalProperties) * 100
+            );
+          }
           setData(jsonData);
         }
       } catch (error) {
@@ -114,15 +101,8 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <div className="relative">
-          <div className="h-16 w-16 animate-spin rounded-full border-4 border-blue-100 border-t-blue-600"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Building className="h-6 w-6 text-blue-600" />
-          </div>
-        </div>
-        <p className="animate-pulse font-medium text-gray-500">
-          Syncing community data...
-        </p>
+        <div className="h-12 w-12 animate-spin rounded-xl bg-slate-900"></div>
+        <p className="animate-pulse font-bold text-slate-400">Loading Dashboard...</p>
       </div>
     );
   }
@@ -131,551 +111,408 @@ export default function DashboardPage() {
 
   const isAdmin = data.role === 'ADMIN' || data.role === 'SUPER_ADMIN';
 
-  const adminCards: StatCard[] = [
-    {
-      label: 'Residents',
-      value: data.stats.totalResidents || 0,
-      change: 'Active Members',
-      icon: Users,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50/50',
-      trend: 'up',
-      link: '/dashboard/admin/residents',
-    },
-    {
-      label: 'Occupancy',
-      value: `${Math.round(((data.stats.occupiedProperties || 0) / (data.stats.totalProperties || 1)) * 100)}%`,
-      change: `${data.stats.occupiedProperties}/${data.stats.totalProperties} Units`,
-      icon: Building,
-      color: 'text-indigo-600',
-      bg: 'bg-indigo-50/50',
-      link: '/dashboard/admin/properties',
-    },
-    {
-      label: 'Revenue',
-      value: `₹${(data.stats.totalRevenue || 0).toLocaleString()}`,
-      change: 'Total Collections',
-      icon: Wallet,
-      color: 'text-emerald-600',
-      bg: 'bg-emerald-50/50',
-      trend: 'up',
-      link: '/dashboard/finances',
-    },
-    {
-      label: 'Complaints',
-      value: data.stats.pendingComplaints || 0,
-      change: 'Pending Resolution',
-      icon: AlertCircle,
-      color: 'text-orange-600',
-      bg: 'bg-orange-50/50',
-      trend: 'down',
-      link: '/dashboard/complaints',
-    },
-  ];
+  // --- Components ---
 
-  const residentCards: StatCard[] = [
-    {
-      label: 'My Dues',
-      value: `₹${(data.stats.pendingPayments * 2500).toLocaleString()}`, // Approximate for UI
-      change: `${data.stats.pendingPayments} Pending Bills`,
-      icon: CreditCard,
-      color: 'text-red-600',
-      bg: 'bg-red-50/50',
-      link: '/dashboard/payments',
-    },
-    {
-      label: 'Complaints',
-      value: data.stats.openComplaints || 0,
-      change: 'Status Tracker',
-      icon: FileText,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50/50',
-      link: '/dashboard/complaints',
-    },
-    {
-      label: 'Facility Bookings',
-      value: data.stats.upcomingBookings || 0,
-      change: 'Upcoming Events',
-      icon: Calendar,
-      color: 'text-purple-600',
-      bg: 'bg-purple-50/50',
-      link: '/dashboard/facilities',
-    },
-  ];
+  const StatTile = ({ label, value, icon: Icon, color, trend }: any) => (
+    <motion.div
+      whileHover={{ y: -2 }}
+      className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 transition-all hover:shadow-md"
+    >
+      <div className={`absolute top-4 right-4 rounded-xl p-2 ${color} bg-opacity-10`}>
+        <Icon className={`h-5 w-5 ${color.replace('bg-', 'text-')}`} />
+      </div>
+      <div className="mt-2">
+        <p className="text-xs font-bold tracking-wider text-slate-400 uppercase">{label}</p>
+        <h3 className="mt-1 text-3xl font-black text-slate-900">{value}</h3>
+      </div>
+      {trend && (
+        <div className="mt-4 flex items-center gap-2">
+          <span className="flex items-center text-xs font-bold text-emerald-600">
+            <TrendingUp className="mr-1 h-3 w-3" />
+            {trend}
+          </span>
+          <span className="text-[10px] font-medium text-slate-400">vs last month</span>
+        </div>
+      )}
+    </motion.div>
+  );
 
-  const cards = isAdmin ? adminCards : residentCards;
+  const ActionButton = ({ label, icon: Icon, href, colorClass }: any) => (
+    <Link
+      href={href}
+      className={`group flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-4 transition-all hover:border-solid hover:bg-white hover:shadow-md ${colorClass} hover:border-current`}
+    >
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm transition-transform group-hover:scale-110">
+        <Icon className="h-6 w-6" />
+      </div>
+      <span className="text-xs font-black tracking-wide uppercase">{label}</span>
+    </Link>
+  );
 
   return (
     <div className="space-y-8 pb-10">
-      {/* --- Header Section --- */}
-      <header className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
-            Hi, {user?.name?.split(' ')[0]}! 👋
-          </h1>
-          <p className="mt-1 font-medium text-gray-500 italic">
-            {isAdmin
-              ? 'The community is running smoothly today.'
-              : 'Everything you need to manage your home is here.'}
-          </p>
+      {/* Header Area */}
+      <div className="relative pt-8">
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <div className="max-w-2xl space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex w-fit items-center gap-3 rounded-2xl bg-indigo-600/10 px-4 py-2 text-indigo-600"
+            >
+              <Activity className="h-4 w-4" />
+              <span className="text-[10px] font-black tracking-[0.2em] uppercase">
+                Dashboard Overview
+              </span>
+            </motion.div>
+
+            <div className="space-y-2">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-5xl leading-[0.9] font-[900] tracking-tighter text-slate-900 lg:text-7xl"
+              >
+                Welcome, <br />
+                <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                  {user?.name?.split(' ')[0]} 👋
+                </span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="max-w-lg text-lg leading-relaxed font-medium text-slate-500 lg:text-xl"
+              >
+                Here&apos;s what&apos;s happening in your community today.
+              </motion.p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 pb-2">
+            <span className="hidden text-xs font-bold text-slate-400 sm:inline-block">
+              {new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* --- BENTO GRID LAYOUT --- */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-4 lg:grid-rows-[auto_auto_auto]">
+
+        {/* ROW 1: Quick Stats (Span 4) */}
+        {isAdmin ? (
+          <>
+            <StatTile
+              label="Total Revenue"
+              value={`₹${(data.stats.totalRevenue || 0).toLocaleString()}`}
+              icon={DollarSign}
+              color="bg-emerald-500 text-emerald-600"
+              trend="+12%"
+            />
+            <StatTile
+              label="Active Residents"
+              value={data.stats.totalResidents || 0}
+              icon={Users}
+              color="bg-blue-500 text-blue-600"
+              trend="+5"
+            />
+            <StatTile
+              label="Occupancy Rate"
+              value={`${data.stats.occupancyRate || 0}%`}
+              icon={Building}
+              color="bg-violet-500 text-violet-600"
+            />
+            <StatTile
+              label="Open Issues"
+              value={data.stats.pendingComplaints || 0}
+              icon={AlertCircle}
+              color="bg-orange-500 text-orange-600"
+            />
+          </>
+        ) : (
+          <>
+            <StatTile
+              label="My Due Amount"
+              value={`₹${(data.stats.pendingPayments * 2500).toLocaleString()}`}
+              icon={Wallet}
+              color="bg-rose-500 text-rose-600"
+            />
+            <StatTile
+              label="Active Complaints"
+              value={data.stats.openComplaints || 0}
+              icon={Wrench}
+              color="bg-orange-500 text-orange-600"
+            />
+            <StatTile
+              label="Next Booking"
+              value={data.stats.upcomingBookings || 0}
+              icon={Calendar}
+              color="bg-purple-500 text-purple-600"
+            />
+            <StatTile
+              label="Notifications"
+              value="3" // Mock for now
+              icon={Megaphone}
+              color="bg-blue-500 text-blue-600"
+            />
+          </>
+        )}
+
+        {/* ROW 2: Main Content */}
+
+        {/* BIG CHART WIDGET (Span 2/4 on Desktop) */}
+        <div className="col-span-1 min-h-[320px] rounded-[2.5rem] bg-white p-8 shadow-sm ring-1 ring-slate-100 md:col-span-2 lg:col-span-2">
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-black text-slate-900">
+                {isAdmin ? 'Financial Performance' : 'Spending History'}
+              </h3>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                Last 6 Months
+              </p>
+            </div>
+            <button className="rounded-xl bg-slate-50 p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-900">
+              <MoreHorizontal className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="h-[200px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={isAdmin ? data.charts.revenue : data.charts.payments}>
+                <defs>
+                  <linearGradient id="colorGraph" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#0f172a" stopOpacity={0.1} />
+                    <stop offset="95%" stopColor="#0f172a" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis
+                  dataKey="month"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }}
+                  dy={10}
+                />
+                <YAxis hide />
+                <Tooltip
+                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}
+                  formatter={(value: any) => [`₹${Number(value || 0).toLocaleString()}`, 'Amount']}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="amount"
+                  stroke="#0f172a"
+                  strokeWidth={3}
+                  fillOpacity={1}
+                  fill="url(#colorGraph)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* ACTION CENTER (Span 1) */}
+        <div className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
+          <div className="flex-1 rounded-[2.5rem] bg-slate-900 p-8 text-white shadow-xl">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+                <Briefcase className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="font-bold">Quick Actions</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {isAdmin ? (
+                <>
+                  <Link href="/dashboard/announcements" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Post Notice
+                  </Link>
+                  <Link href="/dashboard/admin/residents" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Add User
+                  </Link>
+                  <Link href="/dashboard/finances" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Record Pay
+                  </Link>
+                  <Link href="/dashboard/complaints" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Resolve
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/dashboard/facilities" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Book Now
+                  </Link>
+                  <Link href="/dashboard/payments" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Pay Due
+                  </Link>
+                  <Link href="/dashboard/complaints" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Get Help
+                  </Link>
+                  <Link href="/dashboard/connect" className="rounded-xl bg-white/10 p-4 text-center text-xs font-bold transition-colors hover:bg-white/20">
+                    Chat
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* COMMUNITY PULSE / POLLS (Span 1) */}
+        <div className="col-span-1 rounded-[2.5rem] bg-white p-6 shadow-sm ring-1 ring-slate-100 lg:col-span-1">
+          <div className="mb-6 flex items-center justify-between">
+            <h3 className="text-lg font-black text-slate-900">Live Pulse</h3>
+            <Vote className="h-5 w-5 text-slate-400" />
+          </div>
+
+          <div className="space-y-4">
+            {data.activePolls && data.activePolls.length > 0 ? (
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-5 transition-all hover:bg-indigo-50 hover:border-indigo-100">
+                <div className="mb-3 flex items-center gap-2">
+                  <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-500">Active Poll</span>
+                </div>
+                <h4 className="mb-4 text-sm font-bold text-slate-900 line-clamp-2">
+                  {data.activePolls[0].question}
+                </h4>
+                <Link
+                  href="/dashboard/announcements"
+                  className="block w-full rounded-xl bg-indigo-600 py-3 text-center text-xs font-bold text-white transition-transform active:scale-95"
+                >
+                  Cast Your Vote
+                </Link>
+              </div>
+            ) : (
+              <div className="flex h-32 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-100">
+                <Vote className="mb-2 h-6 w-6 text-slate-300" />
+                <p className="text-xs font-bold text-slate-400">No active polls</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ROW 3: Dense Lists */}
+
+        {/* RECENT ACTIVITY (Span 2) */}
+        <div className="col-span-1 flex flex-col rounded-[2.5rem] bg-white p-8 shadow-sm ring-1 ring-slate-100 md:col-span-2 lg:col-span-2">
+          <div className="mb-6 flex items-center justify-between">
+            <h3 className="text-lg font-black text-slate-900">Top Highlights</h3>
+            <Link href="/dashboard/announcements" className="text-xs font-bold text-blue-600 hover:underline">View All</Link>
+          </div>
+          <div className="flex-1 space-y-4 overflow-y-auto pr-2 custom-scrollbar max-h-[300px]">
+            {data.activities.length > 0 ? (
+              data.activities.slice(0, 5).map((item, i) => (
+                <div key={i} className="flex items-start gap-4 rounded-2xl p-2 transition-colors hover:bg-slate-50">
+                  <div className={`mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl font-black text-xs ${item.type === 'PAYMENT' ? 'bg-emerald-100 text-emerald-700' :
+                    item.type === 'COMPLAINT' ? 'bg-orange-100 text-orange-700' :
+                      item.type === 'BOOKING' ? 'bg-purple-100 text-purple-700' :
+                        'bg-blue-100 text-blue-700'
+                    }`}>
+                    {item.type[0]}
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-900">{item.title}</p>
+                    <p className="text-xs font-medium text-slate-500 line-clamp-1">{item.subtitle}</p>
+                    <p className="mt-1 text-[10px] font-bold text-slate-300 uppercase">{new Date(item.date).toLocaleDateString()}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                <p className="text-sm font-bold text-slate-300">Quiet day in the community</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* CONTEXT WIDGET: Unit Details or Occupancy Chart (Span 1) */}
+        <div className="col-span-1 rounded-[2.5rem] bg-white p-8 shadow-sm ring-1 ring-slate-100 md:col-span-2 lg:col-span-1 lg:col-start-3">
           {isAdmin ? (
-            <>
-              <Link
-                href="/dashboard/announcements"
-                className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 shadow-sm transition-all hover:bg-gray-50"
-              >
-                <Plus className="h-4 w-4" /> Announcement
+            <div className="flex flex-col h-full">
+              <h3 className="mb-6 text-lg font-black text-slate-900">Occupancy</h3>
+              <div className="flex flex-1 items-center justify-center relative">
+                <div className="h-40 w-40 relative">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={[
+                          { name: 'Occupied', value: data.stats.occupancyRate || 0 },
+                          { name: 'Vacant', value: 100 - (data.stats.occupancyRate || 0) }
+                        ]}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={45}
+                        outerRadius={60}
+                        paddingAngle={5}
+                        dataKey="value"
+                        startAngle={90}
+                        endAngle={-270}
+                        cornerRadius={10}
+                      >
+                        <Cell fill="#0f172a" />
+                        <Cell fill="#f1f5f9" />
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="absolute inset-0 flex items-center justify-center flex-col">
+                    <span className="text-2xl font-black text-slate-900">{data.stats.occupancyRate}%</span>
+                    <span className="text-[10px] uppercase font-bold text-slate-400">Filled</span>
+                  </div>
+                </div>
+              </div>
+              <Link href="/dashboard/admin/properties" className="mt-4 text-center text-xs font-bold text-blue-600 hover:underline">
+                Manage Units
               </Link>
-              <Link
-                href="/dashboard/finances"
-                className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-blue-200 transition-all hover:bg-blue-700"
-              >
-                <TrendingUp className="h-4 w-4" /> Reports
-              </Link>
-            </>
+            </div>
           ) : (
-            <div className="flex items-center gap-4">
-              <Link
-                href="/dashboard/facilities"
-                className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-nowrap text-white shadow-lg shadow-blue-200 transition-all hover:bg-blue-700"
-              >
-                <Calendar className="h-4 w-4" /> Book Facility
-              </Link>
+            <div className="flex flex-col h-full">
+              <h3 className="mb-6 text-lg font-black text-slate-900">My Unit</h3>
+              <div className="flex-1 flex flex-col items-center justify-center gap-4 rounded-3xl bg-slate-50 p-6 border border-slate-100">
+                <div className="h-16 w-16 flex items-center justify-center rounded-2xl bg-white shadow-sm text-slate-900 font-black text-2xl">
+                  {data.stats.property?.block || 'A'}
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-black text-slate-900">{data.stats.property ? `${data.stats.property.block}-${data.stats.property.flatNumber}` : 'N/A'}</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Resident Owner</p>
+                </div>
+              </div>
             </div>
           )}
         </div>
-      </header>
 
-      {/* --- Key Metrics Grid --- */}
-      <div
-        className={`grid grid-cols-1 md:grid-cols-2 ${isAdmin ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6`}
-      >
-        {cards.map((stat, i) => (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            key={i}
-            className="group relative"
-          >
-            {stat.link ? (
-              <Link href={stat.link} className="block">
-                <MetricCard stat={stat} />
-              </Link>
-            ) : (
-              <MetricCard stat={stat} />
-            )}
-          </motion.div>
-        ))}
-      </div>
-
-      {/* --- Main Dashboard Body --- */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Visual Data Section */}
-        <div className="space-y-8 lg:col-span-2">
-          {/* Insights / Charts */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="rounded-[2rem] border border-gray-100 bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.03)]"
-          >
-            <div className="mb-8 flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">
-                  {isAdmin ? 'Revenue Overview' : 'Maintenance Trends'}
-                </h3>
-                <p className="text-sm font-medium text-gray-500">
-                  Monthly collection history
-                </p>
-              </div>
-              <select className="rounded-lg border-none bg-gray-50 px-3 py-1.5 text-sm font-bold text-gray-600 outline-none">
-                <option>Last 6 Months</option>
-              </select>
+        {/* UPCOMING EVENT (Span 1) */}
+        <div className="col-span-1 rounded-[2.5rem] bg-gradient-to-br from-indigo-600 to-violet-600 p-8 text-white shadow-xl shadow-indigo-200 md:col-span-2 lg:col-span-1">
+          <div className="flex items-start justify-between mb-8">
+            <div className="h-12 w-12 flex items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md border border-white/10">
+              <Calendar className="h-6 w-6" />
             </div>
-
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  data={isAdmin ? data.charts.revenue : data.charts.payments}
-                >
-                  <defs>
-                    <linearGradient
-                      id="colorAmount"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="5%" stopColor="#2563eb" stopOpacity={0.1} />
-                      <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    vertical={false}
-                    stroke="#f1f5f9"
-                  />
-                  <XAxis
-                    dataKey="month"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 500 }}
-                    dy={10}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 500 }}
-                    tickFormatter={(val) => `₹${val}`}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      borderRadius: '16px',
-                      border: 'none',
-                      boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
-                    }}
-                    formatter={(val) => [`₹${val}`, 'Amount']}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="amount"
-                    stroke="#2563eb"
-                    strokeWidth={3}
-                    fillOpacity={1}
-                    fill="url(#colorAmount)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
-
-          {/* Secondary Row: Activity & Performance */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {/* activity */}
-            <div className="overflow-hidden rounded-[2rem] border border-gray-100 bg-white p-6 shadow-sm">
-              <div className="mb-6 flex items-center justify-between">
-                <h3 className="text-lg font-bold text-gray-900">
-                  Recent Updates
-                </h3>
-                <Link
-                  href="/dashboard/announcements"
-                  className="text-blue-600 hover:text-blue-700"
-                >
-                  <Activity className="h-5 w-5" />
-                </Link>
-              </div>
-              <div className="space-y-5">
-                {data.activities.length > 0 ? (
-                  data.activities.slice(0, 5).map((activity, i) => (
-                    <div
-                      key={i}
-                      className="group flex cursor-pointer items-start gap-4 rounded-lg p-1 transition-colors hover:bg-gray-50"
-                      onClick={() => {
-                        if (activity.type === 'COMPLAINT')
-                          router.push('/dashboard/complaints');
-                        if (activity.type === 'BOOKING')
-                          router.push('/dashboard/facilities');
-                        if (activity.type === 'ANNOUNCEMENT')
-                          router.push('/dashboard/announcements');
-                        if (activity.type === 'PAYMENT')
-                          router.push('/dashboard/payments');
-                      }}
-                    >
-                      <div
-                        className={`mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg ${
-                          activity.type === 'BOOKING'
-                            ? 'bg-purple-50 text-purple-600'
-                            : activity.type === 'COMPLAINT'
-                              ? 'bg-orange-50 text-orange-600'
-                              : activity.type === 'PAYMENT'
-                                ? 'bg-emerald-50 text-emerald-600'
-                                : 'bg-blue-50 text-blue-600'
-                        }`}
-                      >
-                        <ActivityIcon type={activity.type} />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-bold text-gray-900 transition-colors group-hover:text-blue-600">
-                          {activity.title}
-                        </p>
-                        <p className="text-[11px] font-medium text-gray-500">
-                          {new Date(activity.date).toLocaleDateString()} •{' '}
-                          {activity.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="py-10 text-center text-xs font-semibold tracking-wider text-gray-400 uppercase">
-                    No recent records
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* Performance / Quick Links */}
-            <div className="group relative overflow-hidden rounded-[2rem] bg-gray-900 p-6 text-white">
-              <div className="absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 rounded-full bg-blue-500/20 blur-3xl transition-all duration-700 group-hover:bg-blue-500/30" />
-
-              <h3 className="mb-6 flex items-center gap-2 text-lg font-bold">
-                <TrendingUp className="h-5 w-5 text-blue-400" />
-                {isAdmin ? 'Community Status' : 'Property Details'}
-              </h3>
-
-              {isAdmin ? (
-                <div className="space-y-6">
-                  <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-md">
-                    <p className="mb-3 text-xs font-bold text-gray-400 uppercase">
-                      Service Level
-                    </p>
-                    <div className="mb-2 flex items-end justify-between">
-                      <span className="text-2xl font-black">
-                        {data.performance?.totalComplaints
-                          ? Math.round(
-                              (data.performance.resolvedComplaints /
-                                data.performance.totalComplaints) *
-                                100
-                            )
-                          : 0}
-                        %
-                      </span>
-                      <span className="text-[10px] font-bold tracking-widest text-blue-400 uppercase">
-                        Resolution
-                      </span>
-                    </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{
-                          width: `${data.performance?.totalComplaints ? (data.performance.resolvedComplaints / data.performance.totalComplaints) * 100 : 0}%`,
-                        }}
-                        className="h-full rounded-full bg-blue-500"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <Link
-                      href="/dashboard/settings"
-                      className="rounded-xl bg-white/5 p-3 text-center text-xs font-bold transition-colors hover:bg-white/10"
-                    >
-                      Settings
-                    </Link>
-                    <Link
-                      href="/dashboard/subscription"
-                      className="rounded-xl bg-white/5 p-3 text-center text-xs font-bold transition-colors hover:bg-white/10"
-                    >
-                      Billing
-                    </Link>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-md">
-                    <p className="mb-2 text-xs font-bold text-gray-400 uppercase">
-                      My Unit
-                    </p>
-                    <p className="text-xl font-bold">
-                      {data.stats.property
-                        ? `${data.stats.property.block}-${data.stats.property.flatNumber}`
-                        : 'Not Assigned'}
-                    </p>
-                    <p className="mt-1 text-[11px] font-bold text-gray-400 uppercase">
-                      {data.stats.property
-                        ? `Floor ${data.stats.property.floor}`
-                        : 'Contact Admin'}
-                    </p>
-                  </div>
-                  <Link
-                    href="/dashboard/complaints"
-                    className="group flex w-full items-center justify-between rounded-2xl bg-blue-600 p-4 transition-colors hover:bg-blue-700"
-                  >
-                    <span className="text-sm font-bold">
-                      Raise Help Request
-                    </span>
-                    <ArrowUpRight className="h-5 w-5 transform transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </Link>
-                </div>
-              )}
-            </div>
+            {data.latestEvent && <span className="rounded-lg bg-green-400/20 px-2 py-1 text-[10px] font-black uppercase text-green-300 border border-green-400/20">New</span>}
           </div>
-        </div>
 
-        {/* Right Sidebar: Notifications & Polls */}
-        <aside className="space-y-8">
-          {/* Calendar / Reminder Card */}
-          <div className="rounded-[2rem] bg-blue-600 p-6 text-white shadow-xl shadow-blue-200">
-            <div className="mb-6 flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md">
-                <Timer className="h-6 w-6" />
-              </div>
-              <div className="min-w-0">
-                <h4 className="truncate font-bold">
-                  {data.latestEvent ? 'Important Update' : 'No Next Event'}
-                </h4>
-                <p className="truncate text-xs font-medium text-blue-100">
-                  {data.latestEvent?.title || 'Stay tuned for updates'}
-                </p>
-              </div>
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs font-bold text-indigo-200 uppercase tracking-widest">Next Priority</p>
+              <h3 className="mt-2 text-xl font-black leading-tight">
+                {data.latestEvent ? data.latestEvent.title : 'No upcoming events'}
+              </h3>
             </div>
-            <div className="mb-4 rounded-2xl border border-white/10 bg-white/10 p-4">
-              {data.latestEvent ? (
-                <>
-                  <p className="text-lg font-black">
-                    {new Date(data.latestEvent.createdAt).toLocaleDateString()}
-                  </p>
-                  <p className="mt-1 text-[10px] font-bold tracking-widest text-blue-200 uppercase">
-                    Check Announcements
-                  </p>
-                </>
-              ) : (
-                <p className="text-xs text-blue-100 italic">
-                  No scheduled events found in messages.
-                </p>
-              )}
-            </div>
+            <p className="text-xs font-medium text-indigo-100 line-clamp-2 opacity-80">
+              {data.latestEvent ? 'Check the announcements page for full details regarding this event.' : 'Enjoy your day! We will notify you when something comes up.'}
+            </p>
+
             <Link
               href="/dashboard/announcements"
-              className="block w-full rounded-xl bg-white py-3 text-center text-sm font-bold text-blue-600 shadow-lg shadow-black/5 transition-colors hover:bg-blue-50"
+              className="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white hover:text-indigo-200"
             >
-              {data.latestEvent ? 'View Details' : 'All Notices'}
+              Read More <ArrowUpRight className="h-3 w-3" />
             </Link>
           </div>
+        </div>
 
-          {/* Active Polls */}
-          <div className="rounded-[2rem] border border-gray-100 bg-white p-6 shadow-sm">
-            <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-lg font-bold text-gray-900">Society Polls</h3>
-              <Vote className="h-5 w-5 text-gray-300" />
-            </div>
-            <div className="space-y-4">
-              {data.activePolls && data.activePolls.length > 0 ? (
-                data.activePolls.map((poll, i) => (
-                  <div
-                    key={i}
-                    className="group cursor-pointer rounded-2xl border border-transparent bg-gray-50 p-4 transition-all hover:border-blue-100 hover:bg-blue-50/50"
-                    onClick={() => router.push('/dashboard/announcements')}
-                  >
-                    <div className="mb-2 flex items-center gap-2">
-                      <span className="rounded bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700 uppercase">
-                        Open
-                      </span>
-                      <span className="text-[10px] font-bold text-gray-400 uppercase">
-                        Ends {new Date(poll.endsAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                    <p className="text-sm font-bold text-gray-900 transition-colors group-hover:text-blue-700">
-                      {poll.question}
-                    </p>
-                    <div className="mt-3 flex items-center justify-between">
-                      <div className="flex -space-x-1">
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-blue-100 text-[8px] font-bold text-blue-600">
-                          {poll._count.votes}
-                        </div>
-                      </div>
-                      <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
-                        Participate
-                      </span>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="py-8 text-center text-xs font-bold tracking-tighter text-gray-400 uppercase">
-                  No active polls
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Quick Access Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            <Link
-              href="/dashboard/faqs"
-              className="group cursor-pointer rounded-[2rem] border border-indigo-100 bg-indigo-50 p-4 text-center transition-all hover:bg-indigo-100/50"
-            >
-              <Bell className="mx-auto mb-2 h-5 w-5 text-indigo-600 transition-transform group-hover:scale-110" />
-              <p className="text-xs font-bold text-indigo-600 uppercase">
-                FAQS
-              </p>
-            </Link>
-            <Link
-              href={isAdmin ? '/dashboard/settings' : '/dashboard/profile'}
-              className="group cursor-pointer rounded-[2rem] border border-gray-100 bg-gray-50 p-4 text-center transition-all hover:bg-gray-100/50"
-            >
-              <Settings className="mx-auto mb-2 h-5 w-5 text-gray-600 transition-transform group-hover:rotate-45" />
-              <p className="text-xs font-bold text-gray-600 uppercase">
-                Profile
-              </p>
-            </Link>
-          </div>
-        </aside>
       </div>
     </div>
   );
-}
-
-function MetricCard({ stat }: { stat: StatCard }) {
-  const Icon = stat.icon;
-  return (
-    <div
-      className={`group overflow-hidden rounded-[2.5rem] border border-gray-100 bg-white p-7 shadow-[0_15px_40px_rgba(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.06)]`}
-    >
-      {/* Background Accent */}
-      <div
-        className={`absolute top-0 right-0 h-24 w-24 ${stat.bg} -mt-8 -mr-8 rounded-full opacity-50 blur-3xl transition-opacity group-hover:opacity-100`}
-      />
-
-      <div className="relative z-10">
-        <div
-          className={`h-14 w-14 rounded-2xl ${stat.bg} ${stat.color} mb-6 flex items-center justify-center shadow-inner transition-transform group-hover:scale-110`}
-        >
-          <Icon className="h-7 w-7" />
-        </div>
-        <div className="space-y-1">
-          <p className="text-xs font-bold tracking-widest text-gray-400 uppercase">
-            {stat.label}
-          </p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-3xl font-black tracking-tighter text-gray-900">
-              {stat.value}
-            </h3>
-            {stat.trend && (
-              <span
-                className={`rounded px-1.5 py-0.5 text-[10px] font-black ${
-                  stat.trend === 'up'
-                    ? 'bg-emerald-50 text-emerald-600'
-                    : 'bg-rose-50 text-rose-600'
-                }`}
-              >
-                {stat.trend === 'up' ? '↑' : '↓'}
-              </span>
-            )}
-          </div>
-          <p className="text-xs font-semibold text-gray-500">{stat.change}</p>
-        </div>
-      </div>
-
-      {/* Subtle Arrow */}
-      <div className="absolute right-6 bottom-6 translate-x-4 transform text-gray-300 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">
-        <ChevronRight className="h-5 w-5" />
-      </div>
-    </div>
-  );
-}
-
-function ActivityIcon({ type }: { type: ActivityItem['type'] }) {
-  switch (type) {
-    case 'BOOKING':
-      return <Calendar className="h-4 w-4" />;
-    case 'COMPLAINT':
-      return <FileText className="h-4 w-4" />;
-    case 'ANNOUNCEMENT':
-      return <Megaphone className="h-4 w-4" />;
-    case 'PAYMENT':
-      return <CreditCard className="h-4 w-4" />;
-    default:
-      return <Activity className="h-4 w-4" />;
-  }
 }

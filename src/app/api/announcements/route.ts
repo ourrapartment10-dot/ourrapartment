@@ -80,6 +80,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       data: feed,
       pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
     });
   } catch (error) {
     return handleApiError(error);
@@ -133,19 +137,19 @@ export async function POST(req: NextRequest) {
         authorId: payload.userId as string,
         poll: pollData
           ? {
-              create: {
-                question: pollData.question,
-                description: pollData.description,
-                isAnonymous: pollData.isAnonymous ?? false,
-                endsAt: pollData.endsAt ? new Date(pollData.endsAt) : null,
-                createdById: payload.userId as string,
-                options: {
-                  create: pollData.options.map((opt: string) => ({
-                    text: opt,
-                  })),
-                },
+            create: {
+              question: pollData.question,
+              description: pollData.description,
+              isAnonymous: pollData.isAnonymous ?? false,
+              endsAt: pollData.endsAt ? new Date(pollData.endsAt) : null,
+              createdById: payload.userId as string,
+              options: {
+                create: pollData.options.map((opt: string) => ({
+                  text: opt,
+                })),
               },
-            }
+            },
+          }
           : undefined,
       },
       include: {

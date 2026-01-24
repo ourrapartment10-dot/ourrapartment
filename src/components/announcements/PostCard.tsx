@@ -281,7 +281,7 @@ export default function PostCard({
                 referrerPolicy="no-referrer"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-blue-100 font-bold text-blue-600">
+              <div className="flex h-full w-full items-center justify-center bg-purple-100 font-bold text-purple-600">
                 {author.name[0]}
               </div>
             )}
@@ -290,7 +290,7 @@ export default function PostCard({
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-bold text-gray-900">{author.name}</h3>
               {author.role === 'ADMIN' || author.role === 'SUPER_ADMIN' ? (
-                <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-blue-600">
+                <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-600">
                   Admin
                 </span>
               ) : null}
@@ -334,10 +334,10 @@ export default function PostCard({
             </button>
             <button
               onClick={() => onEdit?.()}
-              className="group rounded-full p-2 transition-colors hover:bg-blue-50"
+              className="group rounded-full p-2 transition-colors hover:bg-purple-50"
               title="Edit announcement"
             >
-              <Edit2 className="h-4 w-4 text-gray-400 group-hover:text-blue-600" />
+              <Edit2 className="h-4 w-4 text-gray-400 group-hover:text-purple-600" />
             </button>
             <button
               onClick={() => setShowDeleteDialog(true)}
@@ -376,7 +376,7 @@ export default function PostCard({
           {(loadingImage || !signedImageUrl || isImageLoading) && (
             <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-50/80 backdrop-blur-sm">
               <div className="flex flex-col items-center gap-2">
-                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
                 <span className="text-xs font-medium text-gray-500">
                   Loading image...
                 </span>
@@ -443,7 +443,7 @@ export default function PostCard({
             poll={poll}
             currentUserId={currentUserId}
             isAdmin={isAdmin}
-            // For now we don't have separate edit/delete for polls within posts
+          // For now we don't have separate edit/delete for polls within posts
           />
         </div>
       )}
@@ -479,7 +479,7 @@ export default function PostCard({
             onClick={() => setShowComments(!showComments)}
             className="group flex items-center gap-2 outline-none"
           >
-            <MessageCircle className="h-5 w-5 text-gray-400 transition-colors group-hover:text-blue-500 sm:h-7 sm:w-7" />
+            <MessageCircle className="h-5 w-5 text-gray-400 transition-colors group-hover:text-purple-500 sm:h-7 sm:w-7" />
             {comments.length > 0 && (
               <span className="text-xs font-bold text-gray-700 sm:text-sm">
                 {comments.length}
@@ -611,7 +611,7 @@ export default function PostCard({
                     onSubmit={handleComment}
                     className="flex items-center gap-3"
                   >
-                    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-500 text-sm font-bold text-white shadow-md">
+                    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-violet-500 text-sm font-bold text-white shadow-md">
                       You
                     </div>
                     <MentionAutocomplete
@@ -636,10 +636,10 @@ export default function PostCard({
                     <button
                       type="submit"
                       disabled={!newComment.trim() || isSubmittingComment}
-                      className="flex-shrink-0 p-2 text-blue-600 transition-colors hover:text-blue-700 disabled:cursor-not-allowed disabled:text-gray-300"
+                      className="flex-shrink-0 p-2 text-purple-600 transition-colors hover:text-purple-700 disabled:cursor-not-allowed disabled:text-gray-300"
                     >
                       {isSubmittingComment ? (
-                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-purple-600 border-t-transparent" />
                       ) : (
                         <Send className="h-5 w-5" />
                       )}

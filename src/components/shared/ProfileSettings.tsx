@@ -10,7 +10,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/components/auth/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PushNotificationManager } from './PushNotificationManager';
 
 export function ProfileSettings() {
   const { user, updateUser } = useAuth();
@@ -18,9 +17,6 @@ export function ProfileSettings() {
   // Profile form state
   const [name, setName] = useState(user?.name || '');
   const [phone, setPhone] = useState(user?.phone || '');
-  const [notificationsEnabled, setNotificationsEnabled] = useState(
-    user?.notificationsEnabled ?? true
-  );
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
@@ -32,7 +28,6 @@ export function ProfileSettings() {
     if (user) {
       setName(user.name || '');
       setPhone(user.phone || '');
-      setNotificationsEnabled(user.notificationsEnabled ?? true);
     }
   }, [user]);
 
@@ -49,7 +44,12 @@ export function ProfileSettings() {
       const res = await fetch('/api/user/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, notificationsEnabled }),
+        // Preserving existing notification setting from user context
+        body: JSON.stringify({
+          name,
+          phone,
+          notificationsEnabled: user?.notificationsEnabled
+        }),
       });
 
       const data = await res.json();
@@ -89,11 +89,10 @@ export function ProfileSettings() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold ${
-                message.type === 'success'
-                  ? 'border border-emerald-100 bg-emerald-50 text-emerald-700'
-                  : 'border border-red-100 bg-red-50 text-red-700'
-              }`}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold ${message.type === 'success'
+                ? 'border border-emerald-100 bg-emerald-50 text-emerald-700'
+                : 'border border-red-100 bg-red-50 text-red-700'
+                }`}
             >
               {message.type === 'success' ? (
                 <CheckCircle className="h-4 w-4" />
@@ -143,7 +142,7 @@ export function ProfileSettings() {
             className="w-full cursor-not-allowed rounded-2xl border border-gray-100 bg-gray-100/50 px-5 py-4 text-sm font-medium text-gray-400 outline-none"
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 md:col-span-2">
           <label className="pl-1 text-xs font-bold tracking-widest text-gray-400 uppercase">
             Phone Number
           </label>
@@ -154,42 +153,6 @@ export function ProfileSettings() {
             placeholder="Not provided"
             className="w-full rounded-2xl border border-gray-100 bg-gray-50 px-5 py-4 text-sm font-medium text-gray-700 transition-all outline-none placeholder:text-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
           />
-        </div>
-        {/* Notification Toggle */}
-        <div className="col-span-1 pt-2 md:col-span-2">
-          <div
-            className="group flex cursor-pointer items-center justify-between rounded-2xl border border-gray-100 bg-gray-50 p-5 transition-all hover:border-blue-100"
-            onClick={() => setNotificationsEnabled(!notificationsEnabled)}
-          >
-            <div className="flex items-start gap-3">
-              <div
-                className={`rounded-xl p-2 transition-all ${notificationsEnabled ? 'bg-blue-100 text-blue-600' : 'bg-gray-200 text-gray-400'}`}
-              >
-                <Bell className="h-5 w-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-gray-900">
-                  In-App Notifications
-                </h4>
-                <p className="mt-0.5 max-w-sm text-xs text-gray-500">
-                  Receive alerts about verification requests and important
-                  community announcements.
-                </p>
-              </div>
-            </div>
-            <div
-              className={`relative h-7 w-12 rounded-full transition-all duration-300 ${notificationsEnabled ? 'bg-blue-600' : 'bg-gray-300'}`}
-            >
-              <div
-                className={`absolute top-1 left-1 h-5 w-5 rounded-full bg-white shadow-sm transition-all duration-300 ${notificationsEnabled ? 'translate-x-5' : 'translate-x-0'}`}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Push Notifications */}
-        <div className="col-span-1 md:col-span-2">
-          <PushNotificationManager />
         </div>
       </div>
       <div className="border-t border-gray-50 pt-4">

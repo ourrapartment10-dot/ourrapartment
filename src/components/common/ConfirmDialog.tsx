@@ -15,6 +15,9 @@ interface ConfirmDialogProps {
   isLoading?: boolean;
 }
 
+import { createPortal } from 'react-dom';
+import { useEffect } from 'react';
+
 export default function ConfirmDialog({
   isOpen,
   onClose,
@@ -26,6 +29,17 @@ export default function ConfirmDialog({
   variant = 'danger',
   isLoading = false,
 }: ConfirmDialogProps) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const variantStyles = {
     danger: {
       icon: 'text-red-600',
@@ -46,7 +60,9 @@ export default function ConfirmDialog({
 
   const styles = variantStyles[variant];
 
-  return (
+  if (typeof window === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -56,7 +72,7 @@ export default function ConfirmDialog({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm"
           />
 
           {/* Dialog */}
@@ -64,7 +80,7 @@ export default function ConfirmDialog({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed top-1/2 left-1/2 z-[110] w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white shadow-2xl sm:w-full"
+            className="fixed top-1/2 left-1/2 z-[10000] w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white shadow-2xl sm:w-full"
           >
             {/* Header */}
             <div className="p-6 pb-4">
@@ -119,6 +135,7 @@ export default function ConfirmDialog({
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

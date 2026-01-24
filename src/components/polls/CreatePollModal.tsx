@@ -163,7 +163,7 @@ export default function CreatePollModal({
                   className={cn(
                     'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:rounded-xl sm:px-6 sm:text-sm',
                     activeTab === 'edit'
-                      ? 'bg-white text-indigo-600 shadow-sm'
+                      ? 'bg-white text-purple-600 shadow-sm'
                       : 'text-gray-500 hover:text-gray-900'
                   )}
                 >
@@ -175,7 +175,7 @@ export default function CreatePollModal({
                   className={cn(
                     'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:rounded-xl sm:px-6 sm:text-sm',
                     activeTab === 'preview'
-                      ? 'bg-white text-indigo-600 shadow-sm'
+                      ? 'bg-white text-purple-600 shadow-sm'
                       : 'text-gray-500 hover:text-gray-900'
                   )}
                 >
@@ -224,7 +224,7 @@ export default function CreatePollModal({
                 className={cn(
                   'custom-scrollbar flex-1 overflow-y-auto bg-white p-8 transition-all duration-500',
                   activeTab === 'preview' &&
-                    'pointer-events-none hidden scale-95 opacity-40 grayscale lg:block'
+                  'pointer-events-none hidden scale-95 opacity-40 grayscale lg:block'
                 )}
               >
                 <form
@@ -242,7 +242,7 @@ export default function CreatePollModal({
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         placeholder="What is your question?"
-                        className="w-full border-b-2 border-gray-100 bg-transparent px-0 py-2 text-xl font-bold text-gray-900 transition-all outline-none placeholder:text-gray-200 focus:border-indigo-600 sm:py-4 sm:text-2xl"
+                        className="w-full border-b-2 border-gray-100 bg-transparent px-0 py-2 text-xl font-bold text-gray-900 transition-all outline-none placeholder:text-gray-200 focus:border-purple-600 sm:py-4 sm:text-2xl"
                         required
                       />
                     </div>
@@ -256,7 +256,7 @@ export default function CreatePollModal({
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Add context..."
                         rows={3}
-                        className="w-full resize-none rounded-2xl border border-gray-100 bg-gray-50 px-4 py-4 text-base font-medium text-gray-900 transition-all outline-none placeholder:text-gray-300 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/5 sm:rounded-3xl sm:px-6 sm:py-5 sm:text-lg"
+                        className="w-full resize-none rounded-2xl border border-gray-100 bg-gray-50 px-4 py-4 text-base font-medium text-gray-900 transition-all outline-none placeholder:text-gray-300 focus:border-purple-600 focus:ring-4 focus:ring-purple-600/5 sm:rounded-3xl sm:px-6 sm:py-5 sm:text-lg"
                       />
                     </div>
                   </div>
@@ -279,10 +279,10 @@ export default function CreatePollModal({
                                 handleOptionChange(index, e.target.value)
                               }
                               placeholder={`Choice ${index + 1}`}
-                              className="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 pl-12 font-bold text-gray-900 shadow-sm transition-all outline-none focus:border-indigo-600 focus:shadow-md"
+                              className="w-full rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 pl-12 font-bold text-gray-900 shadow-sm transition-all outline-none focus:border-purple-600 focus:shadow-md"
                               required
                             />
-                            <span className="absolute top-1/2 left-5 -translate-y-1/2 text-xs font-black text-indigo-300">
+                            <span className="absolute top-1/2 left-5 -translate-y-1/2 text-xs font-black text-purple-300">
                               {index + 1}
                             </span>
                           </div>
@@ -301,7 +301,7 @@ export default function CreatePollModal({
                         <button
                           type="button"
                           onClick={addOption}
-                          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-gray-100 py-4 text-sm font-black text-indigo-400 transition-all hover:border-indigo-200 hover:bg-indigo-50/50"
+                          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-gray-100 py-4 text-sm font-black text-purple-400 transition-all hover:border-purple-200 hover:bg-purple-50/50"
                         >
                           <Plus className="h-5 w-5" />
                           Add New Perspective
@@ -322,7 +322,7 @@ export default function CreatePollModal({
                         type="datetime-local"
                         value={endsAt}
                         onChange={(e) => setEndsAt(e.target.value)}
-                        className="w-full rounded-xl border border-gray-100 bg-white px-4 py-2 text-sm font-bold text-gray-900 transition-all outline-none focus:border-indigo-600"
+                        className="w-full rounded-xl border border-gray-100 bg-white px-4 py-2 text-sm font-bold text-gray-900 transition-all outline-none focus:border-purple-600"
                       />
                     </div>
 
@@ -340,7 +340,7 @@ export default function CreatePollModal({
                         onClick={() => setIsAnonymous(!isAnonymous)}
                         className={cn(
                           'relative h-7 w-14 rounded-full p-1 transition-all',
-                          isAnonymous ? 'bg-indigo-600' : 'bg-gray-200'
+                          isAnonymous ? 'bg-purple-600' : 'bg-gray-200'
                         )}
                       >
                         <div
@@ -364,7 +364,7 @@ export default function CreatePollModal({
               >
                 <div className="w-full max-w-md">
                   <div className="mb-8 text-center">
-                    <span className="flex items-center justify-center gap-2 text-[10px] font-black tracking-[0.4em] text-indigo-500 uppercase">
+                    <span className="flex items-center justify-center gap-2 text-[10px] font-black tracking-[0.4em] text-purple-500 uppercase">
                       <Sparkles className="h-3 w-3" />
                       Live Sentiment View
                     </span>
@@ -373,15 +373,15 @@ export default function CreatePollModal({
                   <div className="scale-110 transform-gpu space-y-6 overflow-hidden rounded-[2.5rem] border border-gray-100 bg-white p-8 shadow-2xl">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-50">
-                          <BarChart3 className="h-5 w-5 text-indigo-600" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-50">
+                          <BarChart3 className="h-5 w-5 text-purple-600" />
                         </div>
                         <div>
                           <h3 className="leading-tight font-black text-gray-900">
                             {question || 'Question Placeholder'}
                           </h3>
                           <div className="mt-1 flex items-center gap-2">
-                            <span className="text-[9px] font-black tracking-widest text-indigo-400 uppercase">
+                            <span className="text-[9px] font-black tracking-widest text-purple-400 uppercase">
                               Live Poll
                             </span>
                             {isAnonymous && (
@@ -409,7 +409,7 @@ export default function CreatePollModal({
                               className="group flex w-full items-center justify-between rounded-2xl border border-gray-100 bg-gray-50 px-6 py-4 text-xs font-black text-gray-700"
                             >
                               <span>{opt}</span>
-                              <div className="h-4 w-4 rounded-full border-2 border-indigo-200 transition-colors group-hover:border-indigo-600" />
+                              <div className="h-4 w-4 rounded-full border-2 border-purple-200 transition-colors group-hover:border-purple-600" />
                             </div>
                           )
                       )}

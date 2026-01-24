@@ -53,7 +53,7 @@ export default function PollCard({
   const [isVoting, setIsVoting] = useState(false);
   const [showResults, setShowResults] = useState(
     !!userVote ||
-      !!(initialPoll.endsAt && new Date(initialPoll.endsAt) < new Date())
+    !!(initialPoll.endsAt && new Date(initialPoll.endsAt) < new Date())
   );
   const [isResultsModalOpen, setIsResultsModalOpen] = useState(false);
   const [isPinned, setIsPinned] = useState(initialPoll.isPinned || false);
@@ -128,8 +128,8 @@ export default function PollCard({
       <div className="p-6">
         <div className="mb-4 flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50">
-              <CheckCircle2 className="h-6 w-6 text-blue-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-50">
+              <CheckCircle2 className="h-6 w-6 text-purple-600" />
             </div>
             <div>
               <h3 className="leading-tight font-black text-gray-900">
@@ -172,7 +172,7 @@ export default function PollCard({
               </button>
               <button
                 onClick={onEdit}
-                className="rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-50 hover:text-blue-600"
+                className="rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-50 hover:text-purple-600"
               >
                 <Edit2 className="h-4 w-4" />
               </button>
@@ -208,7 +208,7 @@ export default function PollCard({
                   'relative w-full overflow-hidden rounded-2xl border transition-all duration-300',
                   showResults ? 'py-4 text-left' : 'py-3 text-center font-bold',
                   isSelected
-                    ? 'border-blue-600 bg-blue-50/30'
+                    ? 'border-purple-600 bg-purple-50/30'
                     : 'border-gray-100 bg-gray-50/50 hover:border-gray-200 hover:bg-gray-100',
                   isVoting && 'cursor-not-allowed opacity-50'
                 )}
@@ -221,7 +221,7 @@ export default function PollCard({
                     transition={{ duration: 1, ease: 'easeOut' }}
                     className={cn(
                       'absolute inset-y-0 left-0 z-0',
-                      isSelected ? 'bg-blue-600/10' : 'bg-gray-200/30'
+                      isSelected ? 'bg-purple-600/10' : 'bg-gray-200/30'
                     )}
                   />
                 )}
@@ -232,14 +232,14 @@ export default function PollCard({
                       className={cn(
                         'text-sm',
                         isSelected
-                          ? 'font-black text-blue-700'
+                          ? 'font-black text-purple-700'
                           : 'font-bold text-gray-700'
                       )}
                     >
                       {option.text}
                     </span>
                     {isSelected && (
-                      <CheckCircle2 className="h-4 w-4 text-blue-600" />
+                      <CheckCircle2 className="h-4 w-4 text-purple-600" />
                     )}
                   </div>
 
@@ -287,7 +287,7 @@ export default function PollCard({
           {!userVote && !isExpired && !showResults && (
             <button
               onClick={() => setShowResults(true)}
-              className="text-[10px] font-black tracking-widest text-blue-600 uppercase transition-colors hover:text-blue-800"
+              className="text-[10px] font-black tracking-widest text-purple-600 uppercase transition-colors hover:text-purple-800"
             >
               View Results
             </button>
@@ -296,7 +296,7 @@ export default function PollCard({
           {showResults && (!poll.isAnonymous || isAdmin) && (
             <button
               onClick={() => setIsResultsModalOpen(true)}
-              className="text-[10px] font-black tracking-widest text-blue-600 uppercase transition-colors hover:text-blue-800"
+              className="text-[10px] font-black tracking-widest text-purple-600 uppercase transition-colors hover:text-purple-800"
             >
               View Detailed Results
             </button>

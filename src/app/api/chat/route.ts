@@ -20,6 +20,9 @@ export async function GET(req: NextRequest) {
     }
 
     const messages = await prisma.message.findMany({
+      where: {
+        conversationId: null, // Only global messages
+      },
       take: 50,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -29,6 +32,19 @@ export async function GET(req: NextRequest) {
             name: true,
             image: true,
             role: true,
+          },
+        },
+        replyTo: {
+          select: {
+            id: true,
+            content: true,
+            sender: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+              },
+            },
           },
         },
       },
@@ -55,7 +71,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const { content } = await req.json();
+    const { content, replyToId } = await req.json();
 
     if (
       !content ||
@@ -72,6 +88,9 @@ export async function POST(req: NextRequest) {
       data: {
         content,
         senderId,
+        conversationId: null, // explicit
+        readBy: [senderId],
+        replyToId: replyToId || undefined,
       },
       include: {
         sender: {
@@ -80,6 +99,19 @@ export async function POST(req: NextRequest) {
             name: true,
             image: true,
             role: true,
+          },
+        },
+        replyTo: {
+          select: {
+            id: true,
+            content: true,
+            sender: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+              },
+            },
           },
         },
       },

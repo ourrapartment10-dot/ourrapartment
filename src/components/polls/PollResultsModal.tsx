@@ -82,7 +82,7 @@ export default function PollResultsModal({
             <div className="custom-scrollbar flex-1 overflow-y-auto p-6">
               {loading ? (
                 <div className="flex flex-col items-center justify-center gap-4 py-20">
-                  <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                  <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
                   <p className="text-sm font-bold tracking-widest text-gray-400 uppercase">
                     Loading voters...
                   </p>
@@ -95,7 +95,7 @@ export default function PollResultsModal({
                         <h3 className="font-black text-gray-900">
                           {option.text}
                         </h3>
-                        <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-600">
+                        <span className="rounded-full bg-purple-50 px-3 py-1 text-xs font-black text-purple-600">
                           {option.votes?.length || option.count || 0}
                         </span>
                       </div>
@@ -116,7 +116,7 @@ export default function PollResultsModal({
                                     className="object-cover"
                                   />
                                 ) : (
-                                  <div className="flex h-full w-full items-center justify-center bg-blue-100 text-xs font-bold text-blue-600 uppercase">
+                                  <div className="flex h-full w-full items-center justify-center bg-purple-100 text-xs font-bold text-purple-600 uppercase">
                                     {vote.user.name[0]}
                                   </div>
                                 )}

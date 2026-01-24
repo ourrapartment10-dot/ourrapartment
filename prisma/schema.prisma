@@ -111,7 +111,16 @@ model User {
   // Chat relations
   messages Message[]
 
+  conversationIds String[] @db.ObjectId
+  conversations   Conversation[] @relation(fields: [conversationIds], references: [id])
+
+  // Service Provider relations
+  addedServices   ServiceProvider[]
+  serviceReviews  ServiceReview[]
+
   @@map("users")
+  @@index([role])
+  @@index([createdAt])
 }
 
 model RefreshToken {
@@ -195,6 +204,8 @@ model Announcement {
   poll     Poll?
 
   @@map("announcements")
+  @@index([createdAt])
+  @@index([isPinned])
 }
 
 model AnnouncementLike {
@@ -263,6 +274,7 @@ model Poll {
   announcement   Announcement? @relation(fields: [announcementId], references: [id], onDelete: Cascade)
 
   @@map("polls")
+  @@index([endsAt])
 }
 
 model PollOption {
@@ -331,6 +343,7 @@ model FacilityBooking {
   @@index([userId])
   @@index([startTime])
   @@index([status])
+  @@index([createdAt])
 }
 
 enum ComplaintType {
@@ -364,6 +377,9 @@ model Complaint {
   updatedAt   DateTime @updatedAt
 
   @@map("complaints")
+  @@index([status])
+  @@index([userId])
+  @@index([createdAt])
 }
 
 model Payment {
@@ -416,9 +432,77 @@ model Message {
   content   String
   senderId  String   @db.ObjectId
   sender    User     @relation(fields: [senderId], references: [id])
+  
+  conversationId String? @db.ObjectId
+  conversation   Conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  // Reply functionality
+  replyToId String? @db.ObjectId
+  replyTo   Message? @relation("MessageReplies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Message[] @relation("MessageReplies")
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  readBy    String[] @db.ObjectId
   
   @@map("messages")
   @@index([createdAt])
+  @@index([conversationId])
+}
+
+model Conversation {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  participantIds String[] @db.ObjectId
+  participants  User[]    @relation(fields: [participantIds], references: [id])
+  
+  messages      Message[]
+  
+  lastMessageAt DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("conversations")
+  @@index([participantIds])
+  @@index([updatedAt])
+}
+
+model ServiceProvider {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  category    String   // e.g. "Maid", "Plumber", "Electrician"
+  phone       String
+  description String?
+  price       String?  // e.g. "₹500/hr", "₹2000/month", "Free consultation"
+  isActive    Boolean  @default(true)
+  
+  // Who added this provider
+  addedById   String   @db.ObjectId
+  addedBy     User     @relation(fields: [addedById], references: [id])
+  
+  reviews     ServiceReview[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("service_providers")
+  @@index([category])
+}
+
+model ServiceReview {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  rating            Int             // 1-5
+  comment           String?
+  
+  serviceProviderId String          @db.ObjectId
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [id], onDelete: Cascade)
+  
+  userId            String          @db.ObjectId
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@unique([serviceProviderId, userId]) // One review per provider per user
+  @@map("service_reviews")
 }

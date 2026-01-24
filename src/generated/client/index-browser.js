@@ -128,7 +128,8 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   approvedById: 'approvedById',
-  notificationsEnabled: 'notificationsEnabled'
+  notificationsEnabled: 'notificationsEnabled',
+  conversationIds: 'conversationIds'
 };
 
 exports.Prisma.RefreshTokenScalarFieldEnum = {
@@ -318,6 +319,40 @@ exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   content: 'content',
   senderId: 'senderId',
+  conversationId: 'conversationId',
+  replyToId: 'replyToId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  readBy: 'readBy'
+};
+
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id',
+  participantIds: 'participantIds',
+  lastMessageAt: 'lastMessageAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ServiceProviderScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category',
+  phone: 'phone',
+  description: 'description',
+  price: 'price',
+  isActive: 'isActive',
+  addedById: 'addedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ServiceReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  comment: 'comment',
+  serviceProviderId: 'serviceProviderId',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -413,7 +448,10 @@ exports.Prisma.ModelName = {
   Complaint: 'Complaint',
   Payment: 'Payment',
   CommunityFinance: 'CommunityFinance',
-  Message: 'Message'
+  Message: 'Message',
+  Conversation: 'Conversation',
+  ServiceProvider: 'ServiceProvider',
+  ServiceReview: 'ServiceReview'
 };
 
 /**

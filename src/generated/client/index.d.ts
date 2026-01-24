@@ -103,6 +103,21 @@ export type CommunityFinance = $Result.DefaultSelection<Prisma.$CommunityFinance
  * 
  */
 export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = $Result.DefaultSelection<Prisma.$ConversationPayload>
+/**
+ * Model ServiceProvider
+ * 
+ */
+export type ServiceProvider = $Result.DefaultSelection<Prisma.$ServiceProviderPayload>
+/**
+ * Model ServiceReview
+ * 
+ */
+export type ServiceReview = $Result.DefaultSelection<Prisma.$ServiceReviewPayload>
 
 /**
  * Enums
@@ -507,6 +522,36 @@ export class PrismaClient<
     * ```
     */
   get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conversation`: Exposes CRUD operations for the **Conversation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Conversations
+    * const conversations = await prisma.conversation.findMany()
+    * ```
+    */
+  get conversation(): Prisma.ConversationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.serviceProvider`: Exposes CRUD operations for the **ServiceProvider** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ServiceProviders
+    * const serviceProviders = await prisma.serviceProvider.findMany()
+    * ```
+    */
+  get serviceProvider(): Prisma.ServiceProviderDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.serviceReview`: Exposes CRUD operations for the **ServiceReview** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ServiceReviews
+    * const serviceReviews = await prisma.serviceReview.findMany()
+    * ```
+    */
+  get serviceReview(): Prisma.ServiceReviewDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -965,7 +1010,10 @@ export namespace Prisma {
     Complaint: 'Complaint',
     Payment: 'Payment',
     CommunityFinance: 'CommunityFinance',
-    Message: 'Message'
+    Message: 'Message',
+    Conversation: 'Conversation',
+    ServiceProvider: 'ServiceProvider',
+    ServiceReview: 'ServiceReview'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -984,7 +1032,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "refreshToken" | "pushSubscription" | "notification" | "property" | "announcement" | "announcementLike" | "announcementComment" | "apartmentConfig" | "poll" | "pollOption" | "pollVote" | "facility" | "facilityBooking" | "complaint" | "payment" | "communityFinance" | "message"
+      modelProps: "user" | "refreshToken" | "pushSubscription" | "notification" | "property" | "announcement" | "announcementLike" | "announcementComment" | "apartmentConfig" | "poll" | "pollOption" | "pollVote" | "facility" | "facilityBooking" | "complaint" | "payment" | "communityFinance" | "message" | "conversation" | "serviceProvider" | "serviceReview"
       txIsolationLevel: never
     }
     model: {
@@ -2320,6 +2368,228 @@ export namespace Prisma {
           }
         }
       }
+      Conversation: {
+        payload: Prisma.$ConversationPayload<ExtArgs>
+        fields: Prisma.ConversationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConversationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConversationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          findFirst: {
+            args: Prisma.ConversationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConversationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          findMany: {
+            args: Prisma.ConversationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>[]
+          }
+          create: {
+            args: Prisma.ConversationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          createMany: {
+            args: Prisma.ConversationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ConversationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          update: {
+            args: Prisma.ConversationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConversationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConversationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ConversationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          aggregate: {
+            args: Prisma.ConversationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConversation>
+          }
+          groupBy: {
+            args: Prisma.ConversationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConversationGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ConversationFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ConversationAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ConversationCountArgs<ExtArgs>
+            result: $Utils.Optional<ConversationCountAggregateOutputType> | number
+          }
+        }
+      }
+      ServiceProvider: {
+        payload: Prisma.$ServiceProviderPayload<ExtArgs>
+        fields: Prisma.ServiceProviderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ServiceProviderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ServiceProviderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+          }
+          findFirst: {
+            args: Prisma.ServiceProviderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ServiceProviderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+          }
+          findMany: {
+            args: Prisma.ServiceProviderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>[]
+          }
+          create: {
+            args: Prisma.ServiceProviderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+          }
+          createMany: {
+            args: Prisma.ServiceProviderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ServiceProviderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+          }
+          update: {
+            args: Prisma.ServiceProviderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+          }
+          deleteMany: {
+            args: Prisma.ServiceProviderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ServiceProviderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ServiceProviderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+          }
+          aggregate: {
+            args: Prisma.ServiceProviderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateServiceProvider>
+          }
+          groupBy: {
+            args: Prisma.ServiceProviderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServiceProviderGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ServiceProviderFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ServiceProviderAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ServiceProviderCountArgs<ExtArgs>
+            result: $Utils.Optional<ServiceProviderCountAggregateOutputType> | number
+          }
+        }
+      }
+      ServiceReview: {
+        payload: Prisma.$ServiceReviewPayload<ExtArgs>
+        fields: Prisma.ServiceReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ServiceReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ServiceReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.ServiceReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ServiceReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload>
+          }
+          findMany: {
+            args: Prisma.ServiceReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload>[]
+          }
+          create: {
+            args: Prisma.ServiceReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload>
+          }
+          createMany: {
+            args: Prisma.ServiceReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ServiceReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload>
+          }
+          update: {
+            args: Prisma.ServiceReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.ServiceReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ServiceReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ServiceReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServiceReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.ServiceReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateServiceReview>
+          }
+          groupBy: {
+            args: Prisma.ServiceReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServiceReviewGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ServiceReviewFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ServiceReviewAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ServiceReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<ServiceReviewCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2417,6 +2687,9 @@ export namespace Prisma {
     payment?: PaymentOmit
     communityFinance?: CommunityFinanceOmit
     message?: MessageOmit
+    conversation?: ConversationOmit
+    serviceProvider?: ServiceProviderOmit
+    serviceReview?: ServiceReviewOmit
   }
 
   /* Types for Logging */
@@ -2511,6 +2784,9 @@ export namespace Prisma {
     payments: number
     recordedFinances: number
     messages: number
+    conversations: number
+    addedServices: number
+    serviceReviews: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2528,6 +2804,9 @@ export namespace Prisma {
     payments?: boolean | UserCountOutputTypeCountPaymentsArgs
     recordedFinances?: boolean | UserCountOutputTypeCountRecordedFinancesArgs
     messages?: boolean | UserCountOutputTypeCountMessagesArgs
+    conversations?: boolean | UserCountOutputTypeCountConversationsArgs
+    addedServices?: boolean | UserCountOutputTypeCountAddedServicesArgs
+    serviceReviews?: boolean | UserCountOutputTypeCountServiceReviewsArgs
   }
 
   // Custom InputTypes
@@ -2637,6 +2916,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountConversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAddedServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceProviderWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountServiceReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceReviewWhereInput
   }
 
 
@@ -2783,6 +3083,108 @@ export namespace Prisma {
 
 
   /**
+   * Count Type MessageCountOutputType
+   */
+
+  export type MessageCountOutputType = {
+    replies: number
+  }
+
+  export type MessageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    replies?: boolean | MessageCountOutputTypeCountRepliesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MessageCountOutputType without action
+   */
+  export type MessageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageCountOutputType
+     */
+    select?: MessageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MessageCountOutputType without action
+   */
+  export type MessageCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+
+  /**
+   * Count Type ConversationCountOutputType
+   */
+
+  export type ConversationCountOutputType = {
+    participants: number
+    messages: number
+  }
+
+  export type ConversationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | ConversationCountOutputTypeCountParticipantsArgs
+    messages?: boolean | ConversationCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ConversationCountOutputType without action
+   */
+  export type ConversationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConversationCountOutputType
+     */
+    select?: ConversationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ConversationCountOutputType without action
+   */
+  export type ConversationCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+  /**
+   * ConversationCountOutputType without action
+   */
+  export type ConversationCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+
+  /**
+   * Count Type ServiceProviderCountOutputType
+   */
+
+  export type ServiceProviderCountOutputType = {
+    reviews: number
+  }
+
+  export type ServiceProviderCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | ServiceProviderCountOutputTypeCountReviewsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ServiceProviderCountOutputType without action
+   */
+  export type ServiceProviderCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProviderCountOutputType
+     */
+    select?: ServiceProviderCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ServiceProviderCountOutputType without action
+   */
+  export type ServiceProviderCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceReviewWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2845,6 +3247,7 @@ export namespace Prisma {
     updatedAt: number
     approvedById: number
     notificationsEnabled: number
+    conversationIds: number
     _all: number
   }
 
@@ -2898,6 +3301,7 @@ export namespace Prisma {
     updatedAt?: true
     approvedById?: true
     notificationsEnabled?: true
+    conversationIds?: true
     _all?: true
   }
 
@@ -2988,6 +3392,7 @@ export namespace Prisma {
     updatedAt: Date
     approvedById: string | null
     notificationsEnabled: boolean
+    conversationIds: string[]
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -3022,6 +3427,7 @@ export namespace Prisma {
     updatedAt?: boolean
     approvedById?: boolean
     notificationsEnabled?: boolean
+    conversationIds?: boolean
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     pushSubscriptions?: boolean | User$pushSubscriptionsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
@@ -3038,6 +3444,9 @@ export namespace Prisma {
     payments?: boolean | User$paymentsArgs<ExtArgs>
     recordedFinances?: boolean | User$recordedFinancesArgs<ExtArgs>
     messages?: boolean | User$messagesArgs<ExtArgs>
+    conversations?: boolean | User$conversationsArgs<ExtArgs>
+    addedServices?: boolean | User$addedServicesArgs<ExtArgs>
+    serviceReviews?: boolean | User$serviceReviewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3058,9 +3467,10 @@ export namespace Prisma {
     updatedAt?: boolean
     approvedById?: boolean
     notificationsEnabled?: boolean
+    conversationIds?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "name" | "password" | "role" | "status" | "rejectionReason" | "provider" | "image" | "createdAt" | "updatedAt" | "approvedById" | "notificationsEnabled", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "name" | "password" | "role" | "status" | "rejectionReason" | "provider" | "image" | "createdAt" | "updatedAt" | "approvedById" | "notificationsEnabled" | "conversationIds", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     pushSubscriptions?: boolean | User$pushSubscriptionsArgs<ExtArgs>
@@ -3078,6 +3488,9 @@ export namespace Prisma {
     payments?: boolean | User$paymentsArgs<ExtArgs>
     recordedFinances?: boolean | User$recordedFinancesArgs<ExtArgs>
     messages?: boolean | User$messagesArgs<ExtArgs>
+    conversations?: boolean | User$conversationsArgs<ExtArgs>
+    addedServices?: boolean | User$addedServicesArgs<ExtArgs>
+    serviceReviews?: boolean | User$serviceReviewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3100,6 +3513,9 @@ export namespace Prisma {
       payments: Prisma.$PaymentPayload<ExtArgs>[]
       recordedFinances: Prisma.$CommunityFinancePayload<ExtArgs>[]
       messages: Prisma.$MessagePayload<ExtArgs>[]
+      conversations: Prisma.$ConversationPayload<ExtArgs>[]
+      addedServices: Prisma.$ServiceProviderPayload<ExtArgs>[]
+      serviceReviews: Prisma.$ServiceReviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3116,6 +3532,7 @@ export namespace Prisma {
       updatedAt: Date
       approvedById: string | null
       notificationsEnabled: boolean
+      conversationIds: string[]
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3495,6 +3912,9 @@ export namespace Prisma {
     payments<T extends User$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     recordedFinances<T extends User$recordedFinancesArgs<ExtArgs> = {}>(args?: Subset<T, User$recordedFinancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityFinancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     messages<T extends User$messagesArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conversations<T extends User$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    addedServices<T extends User$addedServicesArgs<ExtArgs> = {}>(args?: Subset<T, User$addedServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    serviceReviews<T extends User$serviceReviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$serviceReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3538,6 +3958,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly approvedById: FieldRef<"User", 'String'>
     readonly notificationsEnabled: FieldRef<"User", 'Boolean'>
+    readonly conversationIds: FieldRef<"User", 'String[]'>
   }
     
 
@@ -4279,6 +4700,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.conversations
+   */
+  export type User$conversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    where?: ConversationWhereInput
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    cursor?: ConversationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * User.addedServices
+   */
+  export type User$addedServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    where?: ServiceProviderWhereInput
+    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    cursor?: ServiceProviderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceProviderScalarFieldEnum | ServiceProviderScalarFieldEnum[]
+  }
+
+  /**
+   * User.serviceReviews
+   */
+  export type User$serviceReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    where?: ServiceReviewWhereInput
+    orderBy?: ServiceReviewOrderByWithRelationInput | ServiceReviewOrderByWithRelationInput[]
+    cursor?: ServiceReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceReviewScalarFieldEnum | ServiceReviewScalarFieldEnum[]
   }
 
   /**
@@ -21001,6 +21494,8 @@ export namespace Prisma {
     id: string | null
     content: string | null
     senderId: string | null
+    conversationId: string | null
+    replyToId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -21009,6 +21504,8 @@ export namespace Prisma {
     id: string | null
     content: string | null
     senderId: string | null
+    conversationId: string | null
+    replyToId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -21017,8 +21514,11 @@ export namespace Prisma {
     id: number
     content: number
     senderId: number
+    conversationId: number
+    replyToId: number
     createdAt: number
     updatedAt: number
+    readBy: number
     _all: number
   }
 
@@ -21027,6 +21527,8 @@ export namespace Prisma {
     id?: true
     content?: true
     senderId?: true
+    conversationId?: true
+    replyToId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -21035,6 +21537,8 @@ export namespace Prisma {
     id?: true
     content?: true
     senderId?: true
+    conversationId?: true
+    replyToId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -21043,8 +21547,11 @@ export namespace Prisma {
     id?: true
     content?: true
     senderId?: true
+    conversationId?: true
+    replyToId?: true
     createdAt?: true
     updatedAt?: true
+    readBy?: true
     _all?: true
   }
 
@@ -21124,8 +21631,11 @@ export namespace Prisma {
     id: string
     content: string
     senderId: string
+    conversationId: string | null
+    replyToId: string | null
     createdAt: Date
     updatedAt: Date
+    readBy: string[]
     _count: MessageCountAggregateOutputType | null
     _min: MessageMinAggregateOutputType | null
     _max: MessageMaxAggregateOutputType | null
@@ -21149,9 +21659,16 @@ export namespace Prisma {
     id?: boolean
     content?: boolean
     senderId?: boolean
+    conversationId?: boolean
+    replyToId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    readBy?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | Message$conversationArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
+    replies?: boolean | Message$repliesArgs<ExtArgs>
+    _count?: boolean | MessageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
 
@@ -21160,26 +21677,39 @@ export namespace Prisma {
     id?: boolean
     content?: boolean
     senderId?: boolean
+    conversationId?: boolean
+    replyToId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    readBy?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "senderId" | "createdAt" | "updatedAt", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "senderId" | "conversationId" | "replyToId" | "createdAt" | "updatedAt" | "readBy", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | Message$conversationArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
+    replies?: boolean | Message$repliesArgs<ExtArgs>
+    _count?: boolean | MessageCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Message"
     objects: {
       sender: Prisma.$UserPayload<ExtArgs>
+      conversation: Prisma.$ConversationPayload<ExtArgs> | null
+      replyTo: Prisma.$MessagePayload<ExtArgs> | null
+      replies: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       content: string
       senderId: string
+      conversationId: string | null
+      replyToId: string | null
       createdAt: Date
       updatedAt: Date
+      readBy: string[]
     }, ExtArgs["result"]["message"]>
     composites: {}
   }
@@ -21544,6 +22074,9 @@ export namespace Prisma {
   export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    conversation<T extends Message$conversationArgs<ExtArgs> = {}>(args?: Subset<T, Message$conversationArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replyTo<T extends Message$replyToArgs<ExtArgs> = {}>(args?: Subset<T, Message$replyToArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends Message$repliesArgs<ExtArgs> = {}>(args?: Subset<T, Message$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21576,8 +22109,11 @@ export namespace Prisma {
     readonly id: FieldRef<"Message", 'String'>
     readonly content: FieldRef<"Message", 'String'>
     readonly senderId: FieldRef<"Message", 'String'>
+    readonly conversationId: FieldRef<"Message", 'String'>
+    readonly replyToId: FieldRef<"Message", 'String'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
     readonly updatedAt: FieldRef<"Message", 'DateTime'>
+    readonly readBy: FieldRef<"Message", 'String[]'>
   }
     
 
@@ -21948,6 +22484,68 @@ export namespace Prisma {
   }
 
   /**
+   * Message.conversation
+   */
+  export type Message$conversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    where?: ConversationWhereInput
+  }
+
+  /**
+   * Message.replyTo
+   */
+  export type Message$replyToArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+  }
+
+  /**
+   * Message.replies
+   */
+  export type Message$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
    * Message without action
    */
   export type MessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21963,6 +22561,3138 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MessageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Conversation
+   */
+
+  export type AggregateConversation = {
+    _count: ConversationCountAggregateOutputType | null
+    _min: ConversationMinAggregateOutputType | null
+    _max: ConversationMaxAggregateOutputType | null
+  }
+
+  export type ConversationMinAggregateOutputType = {
+    id: string | null
+    lastMessageAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConversationMaxAggregateOutputType = {
+    id: string | null
+    lastMessageAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConversationCountAggregateOutputType = {
+    id: number
+    participantIds: number
+    lastMessageAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ConversationMinAggregateInputType = {
+    id?: true
+    lastMessageAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConversationMaxAggregateInputType = {
+    id?: true
+    lastMessageAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConversationCountAggregateInputType = {
+    id?: true
+    participantIds?: true
+    lastMessageAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ConversationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Conversation to aggregate.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Conversations
+    **/
+    _count?: true | ConversationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConversationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConversationMaxAggregateInputType
+  }
+
+  export type GetConversationAggregateType<T extends ConversationAggregateArgs> = {
+        [P in keyof T & keyof AggregateConversation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConversation[P]>
+      : GetScalarType<T[P], AggregateConversation[P]>
+  }
+
+
+
+
+  export type ConversationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationWhereInput
+    orderBy?: ConversationOrderByWithAggregationInput | ConversationOrderByWithAggregationInput[]
+    by: ConversationScalarFieldEnum[] | ConversationScalarFieldEnum
+    having?: ConversationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConversationCountAggregateInputType | true
+    _min?: ConversationMinAggregateInputType
+    _max?: ConversationMaxAggregateInputType
+  }
+
+  export type ConversationGroupByOutputType = {
+    id: string
+    participantIds: string[]
+    lastMessageAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: ConversationCountAggregateOutputType | null
+    _min: ConversationMinAggregateOutputType | null
+    _max: ConversationMaxAggregateOutputType | null
+  }
+
+  type GetConversationGroupByPayload<T extends ConversationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConversationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConversationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConversationGroupByOutputType[P]>
+            : GetScalarType<T[P], ConversationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConversationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    participantIds?: boolean
+    lastMessageAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    participants?: boolean | Conversation$participantsArgs<ExtArgs>
+    messages?: boolean | Conversation$messagesArgs<ExtArgs>
+    _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conversation"]>
+
+
+
+  export type ConversationSelectScalar = {
+    id?: boolean
+    participantIds?: boolean
+    lastMessageAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "participantIds" | "lastMessageAt" | "createdAt" | "updatedAt", ExtArgs["result"]["conversation"]>
+  export type ConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | Conversation$participantsArgs<ExtArgs>
+    messages?: boolean | Conversation$messagesArgs<ExtArgs>
+    _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $ConversationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Conversation"
+    objects: {
+      participants: Prisma.$UserPayload<ExtArgs>[]
+      messages: Prisma.$MessagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      participantIds: string[]
+      lastMessageAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["conversation"]>
+    composites: {}
+  }
+
+  type ConversationGetPayload<S extends boolean | null | undefined | ConversationDefaultArgs> = $Result.GetResult<Prisma.$ConversationPayload, S>
+
+  type ConversationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConversationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConversationCountAggregateInputType | true
+    }
+
+  export interface ConversationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Conversation'], meta: { name: 'Conversation' } }
+    /**
+     * Find zero or one Conversation that matches the filter.
+     * @param {ConversationFindUniqueArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConversationFindUniqueArgs>(args: SelectSubset<T, ConversationFindUniqueArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Conversation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConversationFindUniqueOrThrowArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConversationFindUniqueOrThrowArgs>(args: SelectSubset<T, ConversationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Conversation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationFindFirstArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConversationFindFirstArgs>(args?: SelectSubset<T, ConversationFindFirstArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Conversation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationFindFirstOrThrowArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConversationFindFirstOrThrowArgs>(args?: SelectSubset<T, ConversationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Conversations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Conversations
+     * const conversations = await prisma.conversation.findMany()
+     * 
+     * // Get first 10 Conversations
+     * const conversations = await prisma.conversation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conversationWithIdOnly = await prisma.conversation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConversationFindManyArgs>(args?: SelectSubset<T, ConversationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Conversation.
+     * @param {ConversationCreateArgs} args - Arguments to create a Conversation.
+     * @example
+     * // Create one Conversation
+     * const Conversation = await prisma.conversation.create({
+     *   data: {
+     *     // ... data to create a Conversation
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConversationCreateArgs>(args: SelectSubset<T, ConversationCreateArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Conversations.
+     * @param {ConversationCreateManyArgs} args - Arguments to create many Conversations.
+     * @example
+     * // Create many Conversations
+     * const conversation = await prisma.conversation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConversationCreateManyArgs>(args?: SelectSubset<T, ConversationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Conversation.
+     * @param {ConversationDeleteArgs} args - Arguments to delete one Conversation.
+     * @example
+     * // Delete one Conversation
+     * const Conversation = await prisma.conversation.delete({
+     *   where: {
+     *     // ... filter to delete one Conversation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConversationDeleteArgs>(args: SelectSubset<T, ConversationDeleteArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Conversation.
+     * @param {ConversationUpdateArgs} args - Arguments to update one Conversation.
+     * @example
+     * // Update one Conversation
+     * const conversation = await prisma.conversation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConversationUpdateArgs>(args: SelectSubset<T, ConversationUpdateArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Conversations.
+     * @param {ConversationDeleteManyArgs} args - Arguments to filter Conversations to delete.
+     * @example
+     * // Delete a few Conversations
+     * const { count } = await prisma.conversation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConversationDeleteManyArgs>(args?: SelectSubset<T, ConversationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Conversations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Conversations
+     * const conversation = await prisma.conversation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConversationUpdateManyArgs>(args: SelectSubset<T, ConversationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Conversation.
+     * @param {ConversationUpsertArgs} args - Arguments to update or create a Conversation.
+     * @example
+     * // Update or create a Conversation
+     * const conversation = await prisma.conversation.upsert({
+     *   create: {
+     *     // ... data to create a Conversation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Conversation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConversationUpsertArgs>(args: SelectSubset<T, ConversationUpsertArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Conversations that matches the filter.
+     * @param {ConversationFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const conversation = await prisma.conversation.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ConversationFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Conversation.
+     * @param {ConversationAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const conversation = await prisma.conversation.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ConversationAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Conversations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationCountArgs} args - Arguments to filter Conversations to count.
+     * @example
+     * // Count the number of Conversations
+     * const count = await prisma.conversation.count({
+     *   where: {
+     *     // ... the filter for the Conversations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConversationCountArgs>(
+      args?: Subset<T, ConversationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConversationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Conversation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConversationAggregateArgs>(args: Subset<T, ConversationAggregateArgs>): Prisma.PrismaPromise<GetConversationAggregateType<T>>
+
+    /**
+     * Group by Conversation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConversationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConversationGroupByArgs['orderBy'] }
+        : { orderBy?: ConversationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConversationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConversationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Conversation model
+   */
+  readonly fields: ConversationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Conversation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConversationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    participants<T extends Conversation$participantsArgs<ExtArgs> = {}>(args?: Subset<T, Conversation$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messages<T extends Conversation$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Conversation$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Conversation model
+   */
+  interface ConversationFieldRefs {
+    readonly id: FieldRef<"Conversation", 'String'>
+    readonly participantIds: FieldRef<"Conversation", 'String[]'>
+    readonly lastMessageAt: FieldRef<"Conversation", 'DateTime'>
+    readonly createdAt: FieldRef<"Conversation", 'DateTime'>
+    readonly updatedAt: FieldRef<"Conversation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Conversation findUnique
+   */
+  export type ConversationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation findUniqueOrThrow
+   */
+  export type ConversationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation findFirst
+   */
+  export type ConversationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Conversations.
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Conversations.
+     */
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation findFirstOrThrow
+   */
+  export type ConversationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Conversations.
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Conversations.
+     */
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation findMany
+   */
+  export type ConversationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversations to fetch.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Conversations.
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation create
+   */
+  export type ConversationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Conversation.
+     */
+    data: XOR<ConversationCreateInput, ConversationUncheckedCreateInput>
+  }
+
+  /**
+   * Conversation createMany
+   */
+  export type ConversationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Conversations.
+     */
+    data: ConversationCreateManyInput | ConversationCreateManyInput[]
+  }
+
+  /**
+   * Conversation update
+   */
+  export type ConversationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Conversation.
+     */
+    data: XOR<ConversationUpdateInput, ConversationUncheckedUpdateInput>
+    /**
+     * Choose, which Conversation to update.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation updateMany
+   */
+  export type ConversationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Conversations.
+     */
+    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyInput>
+    /**
+     * Filter which Conversations to update
+     */
+    where?: ConversationWhereInput
+    /**
+     * Limit how many Conversations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Conversation upsert
+   */
+  export type ConversationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Conversation to update in case it exists.
+     */
+    where: ConversationWhereUniqueInput
+    /**
+     * In case the Conversation found by the `where` argument doesn't exist, create a new Conversation with this data.
+     */
+    create: XOR<ConversationCreateInput, ConversationUncheckedCreateInput>
+    /**
+     * In case the Conversation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConversationUpdateInput, ConversationUncheckedUpdateInput>
+  }
+
+  /**
+   * Conversation delete
+   */
+  export type ConversationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter which Conversation to delete.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation deleteMany
+   */
+  export type ConversationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Conversations to delete
+     */
+    where?: ConversationWhereInput
+    /**
+     * Limit how many Conversations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Conversation findRaw
+   */
+  export type ConversationFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Conversation aggregateRaw
+   */
+  export type ConversationAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Conversation.participants
+   */
+  export type Conversation$participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation.messages
+   */
+  export type Conversation$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation without action
+   */
+  export type ConversationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ServiceProvider
+   */
+
+  export type AggregateServiceProvider = {
+    _count: ServiceProviderCountAggregateOutputType | null
+    _min: ServiceProviderMinAggregateOutputType | null
+    _max: ServiceProviderMaxAggregateOutputType | null
+  }
+
+  export type ServiceProviderMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    category: string | null
+    phone: string | null
+    description: string | null
+    price: string | null
+    isActive: boolean | null
+    addedById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ServiceProviderMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    category: string | null
+    phone: string | null
+    description: string | null
+    price: string | null
+    isActive: boolean | null
+    addedById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ServiceProviderCountAggregateOutputType = {
+    id: number
+    name: number
+    category: number
+    phone: number
+    description: number
+    price: number
+    isActive: number
+    addedById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ServiceProviderMinAggregateInputType = {
+    id?: true
+    name?: true
+    category?: true
+    phone?: true
+    description?: true
+    price?: true
+    isActive?: true
+    addedById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ServiceProviderMaxAggregateInputType = {
+    id?: true
+    name?: true
+    category?: true
+    phone?: true
+    description?: true
+    price?: true
+    isActive?: true
+    addedById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ServiceProviderCountAggregateInputType = {
+    id?: true
+    name?: true
+    category?: true
+    phone?: true
+    description?: true
+    price?: true
+    isActive?: true
+    addedById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ServiceProviderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServiceProvider to aggregate.
+     */
+    where?: ServiceProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceProviders to fetch.
+     */
+    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ServiceProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ServiceProviders
+    **/
+    _count?: true | ServiceProviderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServiceProviderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServiceProviderMaxAggregateInputType
+  }
+
+  export type GetServiceProviderAggregateType<T extends ServiceProviderAggregateArgs> = {
+        [P in keyof T & keyof AggregateServiceProvider]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateServiceProvider[P]>
+      : GetScalarType<T[P], AggregateServiceProvider[P]>
+  }
+
+
+
+
+  export type ServiceProviderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceProviderWhereInput
+    orderBy?: ServiceProviderOrderByWithAggregationInput | ServiceProviderOrderByWithAggregationInput[]
+    by: ServiceProviderScalarFieldEnum[] | ServiceProviderScalarFieldEnum
+    having?: ServiceProviderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServiceProviderCountAggregateInputType | true
+    _min?: ServiceProviderMinAggregateInputType
+    _max?: ServiceProviderMaxAggregateInputType
+  }
+
+  export type ServiceProviderGroupByOutputType = {
+    id: string
+    name: string
+    category: string
+    phone: string
+    description: string | null
+    price: string | null
+    isActive: boolean
+    addedById: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ServiceProviderCountAggregateOutputType | null
+    _min: ServiceProviderMinAggregateOutputType | null
+    _max: ServiceProviderMaxAggregateOutputType | null
+  }
+
+  type GetServiceProviderGroupByPayload<T extends ServiceProviderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServiceProviderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServiceProviderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServiceProviderGroupByOutputType[P]>
+            : GetScalarType<T[P], ServiceProviderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ServiceProviderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    category?: boolean
+    phone?: boolean
+    description?: boolean
+    price?: boolean
+    isActive?: boolean
+    addedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    addedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reviews?: boolean | ServiceProvider$reviewsArgs<ExtArgs>
+    _count?: boolean | ServiceProviderCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["serviceProvider"]>
+
+
+
+  export type ServiceProviderSelectScalar = {
+    id?: boolean
+    name?: boolean
+    category?: boolean
+    phone?: boolean
+    description?: boolean
+    price?: boolean
+    isActive?: boolean
+    addedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ServiceProviderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "category" | "phone" | "description" | "price" | "isActive" | "addedById" | "createdAt" | "updatedAt", ExtArgs["result"]["serviceProvider"]>
+  export type ServiceProviderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    addedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reviews?: boolean | ServiceProvider$reviewsArgs<ExtArgs>
+    _count?: boolean | ServiceProviderCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $ServiceProviderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ServiceProvider"
+    objects: {
+      addedBy: Prisma.$UserPayload<ExtArgs>
+      reviews: Prisma.$ServiceReviewPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      category: string
+      phone: string
+      description: string | null
+      price: string | null
+      isActive: boolean
+      addedById: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["serviceProvider"]>
+    composites: {}
+  }
+
+  type ServiceProviderGetPayload<S extends boolean | null | undefined | ServiceProviderDefaultArgs> = $Result.GetResult<Prisma.$ServiceProviderPayload, S>
+
+  type ServiceProviderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ServiceProviderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ServiceProviderCountAggregateInputType | true
+    }
+
+  export interface ServiceProviderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ServiceProvider'], meta: { name: 'ServiceProvider' } }
+    /**
+     * Find zero or one ServiceProvider that matches the filter.
+     * @param {ServiceProviderFindUniqueArgs} args - Arguments to find a ServiceProvider
+     * @example
+     * // Get one ServiceProvider
+     * const serviceProvider = await prisma.serviceProvider.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ServiceProviderFindUniqueArgs>(args: SelectSubset<T, ServiceProviderFindUniqueArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ServiceProvider that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ServiceProviderFindUniqueOrThrowArgs} args - Arguments to find a ServiceProvider
+     * @example
+     * // Get one ServiceProvider
+     * const serviceProvider = await prisma.serviceProvider.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ServiceProviderFindUniqueOrThrowArgs>(args: SelectSubset<T, ServiceProviderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ServiceProvider that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceProviderFindFirstArgs} args - Arguments to find a ServiceProvider
+     * @example
+     * // Get one ServiceProvider
+     * const serviceProvider = await prisma.serviceProvider.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ServiceProviderFindFirstArgs>(args?: SelectSubset<T, ServiceProviderFindFirstArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ServiceProvider that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceProviderFindFirstOrThrowArgs} args - Arguments to find a ServiceProvider
+     * @example
+     * // Get one ServiceProvider
+     * const serviceProvider = await prisma.serviceProvider.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ServiceProviderFindFirstOrThrowArgs>(args?: SelectSubset<T, ServiceProviderFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ServiceProviders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceProviderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ServiceProviders
+     * const serviceProviders = await prisma.serviceProvider.findMany()
+     * 
+     * // Get first 10 ServiceProviders
+     * const serviceProviders = await prisma.serviceProvider.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const serviceProviderWithIdOnly = await prisma.serviceProvider.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ServiceProviderFindManyArgs>(args?: SelectSubset<T, ServiceProviderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ServiceProvider.
+     * @param {ServiceProviderCreateArgs} args - Arguments to create a ServiceProvider.
+     * @example
+     * // Create one ServiceProvider
+     * const ServiceProvider = await prisma.serviceProvider.create({
+     *   data: {
+     *     // ... data to create a ServiceProvider
+     *   }
+     * })
+     * 
+     */
+    create<T extends ServiceProviderCreateArgs>(args: SelectSubset<T, ServiceProviderCreateArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ServiceProviders.
+     * @param {ServiceProviderCreateManyArgs} args - Arguments to create many ServiceProviders.
+     * @example
+     * // Create many ServiceProviders
+     * const serviceProvider = await prisma.serviceProvider.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ServiceProviderCreateManyArgs>(args?: SelectSubset<T, ServiceProviderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ServiceProvider.
+     * @param {ServiceProviderDeleteArgs} args - Arguments to delete one ServiceProvider.
+     * @example
+     * // Delete one ServiceProvider
+     * const ServiceProvider = await prisma.serviceProvider.delete({
+     *   where: {
+     *     // ... filter to delete one ServiceProvider
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ServiceProviderDeleteArgs>(args: SelectSubset<T, ServiceProviderDeleteArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ServiceProvider.
+     * @param {ServiceProviderUpdateArgs} args - Arguments to update one ServiceProvider.
+     * @example
+     * // Update one ServiceProvider
+     * const serviceProvider = await prisma.serviceProvider.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ServiceProviderUpdateArgs>(args: SelectSubset<T, ServiceProviderUpdateArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ServiceProviders.
+     * @param {ServiceProviderDeleteManyArgs} args - Arguments to filter ServiceProviders to delete.
+     * @example
+     * // Delete a few ServiceProviders
+     * const { count } = await prisma.serviceProvider.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ServiceProviderDeleteManyArgs>(args?: SelectSubset<T, ServiceProviderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ServiceProviders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceProviderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ServiceProviders
+     * const serviceProvider = await prisma.serviceProvider.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ServiceProviderUpdateManyArgs>(args: SelectSubset<T, ServiceProviderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ServiceProvider.
+     * @param {ServiceProviderUpsertArgs} args - Arguments to update or create a ServiceProvider.
+     * @example
+     * // Update or create a ServiceProvider
+     * const serviceProvider = await prisma.serviceProvider.upsert({
+     *   create: {
+     *     // ... data to create a ServiceProvider
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ServiceProvider we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ServiceProviderUpsertArgs>(args: SelectSubset<T, ServiceProviderUpsertArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ServiceProviders that matches the filter.
+     * @param {ServiceProviderFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const serviceProvider = await prisma.serviceProvider.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ServiceProviderFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ServiceProvider.
+     * @param {ServiceProviderAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const serviceProvider = await prisma.serviceProvider.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ServiceProviderAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ServiceProviders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceProviderCountArgs} args - Arguments to filter ServiceProviders to count.
+     * @example
+     * // Count the number of ServiceProviders
+     * const count = await prisma.serviceProvider.count({
+     *   where: {
+     *     // ... the filter for the ServiceProviders we want to count
+     *   }
+     * })
+    **/
+    count<T extends ServiceProviderCountArgs>(
+      args?: Subset<T, ServiceProviderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServiceProviderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ServiceProvider.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceProviderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServiceProviderAggregateArgs>(args: Subset<T, ServiceProviderAggregateArgs>): Prisma.PrismaPromise<GetServiceProviderAggregateType<T>>
+
+    /**
+     * Group by ServiceProvider.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceProviderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ServiceProviderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ServiceProviderGroupByArgs['orderBy'] }
+        : { orderBy?: ServiceProviderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ServiceProviderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceProviderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ServiceProvider model
+   */
+  readonly fields: ServiceProviderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ServiceProvider.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ServiceProviderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    addedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviews<T extends ServiceProvider$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, ServiceProvider$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ServiceProvider model
+   */
+  interface ServiceProviderFieldRefs {
+    readonly id: FieldRef<"ServiceProvider", 'String'>
+    readonly name: FieldRef<"ServiceProvider", 'String'>
+    readonly category: FieldRef<"ServiceProvider", 'String'>
+    readonly phone: FieldRef<"ServiceProvider", 'String'>
+    readonly description: FieldRef<"ServiceProvider", 'String'>
+    readonly price: FieldRef<"ServiceProvider", 'String'>
+    readonly isActive: FieldRef<"ServiceProvider", 'Boolean'>
+    readonly addedById: FieldRef<"ServiceProvider", 'String'>
+    readonly createdAt: FieldRef<"ServiceProvider", 'DateTime'>
+    readonly updatedAt: FieldRef<"ServiceProvider", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ServiceProvider findUnique
+   */
+  export type ServiceProviderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceProvider to fetch.
+     */
+    where: ServiceProviderWhereUniqueInput
+  }
+
+  /**
+   * ServiceProvider findUniqueOrThrow
+   */
+  export type ServiceProviderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceProvider to fetch.
+     */
+    where: ServiceProviderWhereUniqueInput
+  }
+
+  /**
+   * ServiceProvider findFirst
+   */
+  export type ServiceProviderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceProvider to fetch.
+     */
+    where?: ServiceProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceProviders to fetch.
+     */
+    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServiceProviders.
+     */
+    cursor?: ServiceProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServiceProviders.
+     */
+    distinct?: ServiceProviderScalarFieldEnum | ServiceProviderScalarFieldEnum[]
+  }
+
+  /**
+   * ServiceProvider findFirstOrThrow
+   */
+  export type ServiceProviderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceProvider to fetch.
+     */
+    where?: ServiceProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceProviders to fetch.
+     */
+    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServiceProviders.
+     */
+    cursor?: ServiceProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServiceProviders.
+     */
+    distinct?: ServiceProviderScalarFieldEnum | ServiceProviderScalarFieldEnum[]
+  }
+
+  /**
+   * ServiceProvider findMany
+   */
+  export type ServiceProviderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceProviders to fetch.
+     */
+    where?: ServiceProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceProviders to fetch.
+     */
+    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ServiceProviders.
+     */
+    cursor?: ServiceProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceProviders.
+     */
+    skip?: number
+    distinct?: ServiceProviderScalarFieldEnum | ServiceProviderScalarFieldEnum[]
+  }
+
+  /**
+   * ServiceProvider create
+   */
+  export type ServiceProviderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ServiceProvider.
+     */
+    data: XOR<ServiceProviderCreateInput, ServiceProviderUncheckedCreateInput>
+  }
+
+  /**
+   * ServiceProvider createMany
+   */
+  export type ServiceProviderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ServiceProviders.
+     */
+    data: ServiceProviderCreateManyInput | ServiceProviderCreateManyInput[]
+  }
+
+  /**
+   * ServiceProvider update
+   */
+  export type ServiceProviderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ServiceProvider.
+     */
+    data: XOR<ServiceProviderUpdateInput, ServiceProviderUncheckedUpdateInput>
+    /**
+     * Choose, which ServiceProvider to update.
+     */
+    where: ServiceProviderWhereUniqueInput
+  }
+
+  /**
+   * ServiceProvider updateMany
+   */
+  export type ServiceProviderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ServiceProviders.
+     */
+    data: XOR<ServiceProviderUpdateManyMutationInput, ServiceProviderUncheckedUpdateManyInput>
+    /**
+     * Filter which ServiceProviders to update
+     */
+    where?: ServiceProviderWhereInput
+    /**
+     * Limit how many ServiceProviders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ServiceProvider upsert
+   */
+  export type ServiceProviderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ServiceProvider to update in case it exists.
+     */
+    where: ServiceProviderWhereUniqueInput
+    /**
+     * In case the ServiceProvider found by the `where` argument doesn't exist, create a new ServiceProvider with this data.
+     */
+    create: XOR<ServiceProviderCreateInput, ServiceProviderUncheckedCreateInput>
+    /**
+     * In case the ServiceProvider was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ServiceProviderUpdateInput, ServiceProviderUncheckedUpdateInput>
+  }
+
+  /**
+   * ServiceProvider delete
+   */
+  export type ServiceProviderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+    /**
+     * Filter which ServiceProvider to delete.
+     */
+    where: ServiceProviderWhereUniqueInput
+  }
+
+  /**
+   * ServiceProvider deleteMany
+   */
+  export type ServiceProviderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServiceProviders to delete
+     */
+    where?: ServiceProviderWhereInput
+    /**
+     * Limit how many ServiceProviders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ServiceProvider findRaw
+   */
+  export type ServiceProviderFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ServiceProvider aggregateRaw
+   */
+  export type ServiceProviderAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ServiceProvider.reviews
+   */
+  export type ServiceProvider$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    where?: ServiceReviewWhereInput
+    orderBy?: ServiceReviewOrderByWithRelationInput | ServiceReviewOrderByWithRelationInput[]
+    cursor?: ServiceReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceReviewScalarFieldEnum | ServiceReviewScalarFieldEnum[]
+  }
+
+  /**
+   * ServiceProvider without action
+   */
+  export type ServiceProviderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceProvider
+     */
+    select?: ServiceProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceProvider
+     */
+    omit?: ServiceProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceProviderInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ServiceReview
+   */
+
+  export type AggregateServiceReview = {
+    _count: ServiceReviewCountAggregateOutputType | null
+    _avg: ServiceReviewAvgAggregateOutputType | null
+    _sum: ServiceReviewSumAggregateOutputType | null
+    _min: ServiceReviewMinAggregateOutputType | null
+    _max: ServiceReviewMaxAggregateOutputType | null
+  }
+
+  export type ServiceReviewAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ServiceReviewSumAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ServiceReviewMinAggregateOutputType = {
+    id: string | null
+    rating: number | null
+    comment: string | null
+    serviceProviderId: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ServiceReviewMaxAggregateOutputType = {
+    id: string | null
+    rating: number | null
+    comment: string | null
+    serviceProviderId: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ServiceReviewCountAggregateOutputType = {
+    id: number
+    rating: number
+    comment: number
+    serviceProviderId: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ServiceReviewAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type ServiceReviewSumAggregateInputType = {
+    rating?: true
+  }
+
+  export type ServiceReviewMinAggregateInputType = {
+    id?: true
+    rating?: true
+    comment?: true
+    serviceProviderId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ServiceReviewMaxAggregateInputType = {
+    id?: true
+    rating?: true
+    comment?: true
+    serviceProviderId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ServiceReviewCountAggregateInputType = {
+    id?: true
+    rating?: true
+    comment?: true
+    serviceProviderId?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ServiceReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServiceReview to aggregate.
+     */
+    where?: ServiceReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceReviews to fetch.
+     */
+    orderBy?: ServiceReviewOrderByWithRelationInput | ServiceReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ServiceReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ServiceReviews
+    **/
+    _count?: true | ServiceReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ServiceReviewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ServiceReviewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServiceReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServiceReviewMaxAggregateInputType
+  }
+
+  export type GetServiceReviewAggregateType<T extends ServiceReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateServiceReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateServiceReview[P]>
+      : GetScalarType<T[P], AggregateServiceReview[P]>
+  }
+
+
+
+
+  export type ServiceReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceReviewWhereInput
+    orderBy?: ServiceReviewOrderByWithAggregationInput | ServiceReviewOrderByWithAggregationInput[]
+    by: ServiceReviewScalarFieldEnum[] | ServiceReviewScalarFieldEnum
+    having?: ServiceReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServiceReviewCountAggregateInputType | true
+    _avg?: ServiceReviewAvgAggregateInputType
+    _sum?: ServiceReviewSumAggregateInputType
+    _min?: ServiceReviewMinAggregateInputType
+    _max?: ServiceReviewMaxAggregateInputType
+  }
+
+  export type ServiceReviewGroupByOutputType = {
+    id: string
+    rating: number
+    comment: string | null
+    serviceProviderId: string
+    userId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ServiceReviewCountAggregateOutputType | null
+    _avg: ServiceReviewAvgAggregateOutputType | null
+    _sum: ServiceReviewSumAggregateOutputType | null
+    _min: ServiceReviewMinAggregateOutputType | null
+    _max: ServiceReviewMaxAggregateOutputType | null
+  }
+
+  type GetServiceReviewGroupByPayload<T extends ServiceReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServiceReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServiceReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServiceReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], ServiceReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ServiceReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rating?: boolean
+    comment?: boolean
+    serviceProviderId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    serviceProvider?: boolean | ServiceProviderDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["serviceReview"]>
+
+
+
+  export type ServiceReviewSelectScalar = {
+    id?: boolean
+    rating?: boolean
+    comment?: boolean
+    serviceProviderId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ServiceReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "comment" | "serviceProviderId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["serviceReview"]>
+  export type ServiceReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    serviceProvider?: boolean | ServiceProviderDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ServiceReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ServiceReview"
+    objects: {
+      serviceProvider: Prisma.$ServiceProviderPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      rating: number
+      comment: string | null
+      serviceProviderId: string
+      userId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["serviceReview"]>
+    composites: {}
+  }
+
+  type ServiceReviewGetPayload<S extends boolean | null | undefined | ServiceReviewDefaultArgs> = $Result.GetResult<Prisma.$ServiceReviewPayload, S>
+
+  type ServiceReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ServiceReviewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ServiceReviewCountAggregateInputType | true
+    }
+
+  export interface ServiceReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ServiceReview'], meta: { name: 'ServiceReview' } }
+    /**
+     * Find zero or one ServiceReview that matches the filter.
+     * @param {ServiceReviewFindUniqueArgs} args - Arguments to find a ServiceReview
+     * @example
+     * // Get one ServiceReview
+     * const serviceReview = await prisma.serviceReview.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ServiceReviewFindUniqueArgs>(args: SelectSubset<T, ServiceReviewFindUniqueArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ServiceReview that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ServiceReviewFindUniqueOrThrowArgs} args - Arguments to find a ServiceReview
+     * @example
+     * // Get one ServiceReview
+     * const serviceReview = await prisma.serviceReview.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ServiceReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, ServiceReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ServiceReview that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceReviewFindFirstArgs} args - Arguments to find a ServiceReview
+     * @example
+     * // Get one ServiceReview
+     * const serviceReview = await prisma.serviceReview.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ServiceReviewFindFirstArgs>(args?: SelectSubset<T, ServiceReviewFindFirstArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ServiceReview that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceReviewFindFirstOrThrowArgs} args - Arguments to find a ServiceReview
+     * @example
+     * // Get one ServiceReview
+     * const serviceReview = await prisma.serviceReview.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ServiceReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, ServiceReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ServiceReviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ServiceReviews
+     * const serviceReviews = await prisma.serviceReview.findMany()
+     * 
+     * // Get first 10 ServiceReviews
+     * const serviceReviews = await prisma.serviceReview.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const serviceReviewWithIdOnly = await prisma.serviceReview.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ServiceReviewFindManyArgs>(args?: SelectSubset<T, ServiceReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ServiceReview.
+     * @param {ServiceReviewCreateArgs} args - Arguments to create a ServiceReview.
+     * @example
+     * // Create one ServiceReview
+     * const ServiceReview = await prisma.serviceReview.create({
+     *   data: {
+     *     // ... data to create a ServiceReview
+     *   }
+     * })
+     * 
+     */
+    create<T extends ServiceReviewCreateArgs>(args: SelectSubset<T, ServiceReviewCreateArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ServiceReviews.
+     * @param {ServiceReviewCreateManyArgs} args - Arguments to create many ServiceReviews.
+     * @example
+     * // Create many ServiceReviews
+     * const serviceReview = await prisma.serviceReview.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ServiceReviewCreateManyArgs>(args?: SelectSubset<T, ServiceReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ServiceReview.
+     * @param {ServiceReviewDeleteArgs} args - Arguments to delete one ServiceReview.
+     * @example
+     * // Delete one ServiceReview
+     * const ServiceReview = await prisma.serviceReview.delete({
+     *   where: {
+     *     // ... filter to delete one ServiceReview
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ServiceReviewDeleteArgs>(args: SelectSubset<T, ServiceReviewDeleteArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ServiceReview.
+     * @param {ServiceReviewUpdateArgs} args - Arguments to update one ServiceReview.
+     * @example
+     * // Update one ServiceReview
+     * const serviceReview = await prisma.serviceReview.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ServiceReviewUpdateArgs>(args: SelectSubset<T, ServiceReviewUpdateArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ServiceReviews.
+     * @param {ServiceReviewDeleteManyArgs} args - Arguments to filter ServiceReviews to delete.
+     * @example
+     * // Delete a few ServiceReviews
+     * const { count } = await prisma.serviceReview.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ServiceReviewDeleteManyArgs>(args?: SelectSubset<T, ServiceReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ServiceReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ServiceReviews
+     * const serviceReview = await prisma.serviceReview.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ServiceReviewUpdateManyArgs>(args: SelectSubset<T, ServiceReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ServiceReview.
+     * @param {ServiceReviewUpsertArgs} args - Arguments to update or create a ServiceReview.
+     * @example
+     * // Update or create a ServiceReview
+     * const serviceReview = await prisma.serviceReview.upsert({
+     *   create: {
+     *     // ... data to create a ServiceReview
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ServiceReview we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ServiceReviewUpsertArgs>(args: SelectSubset<T, ServiceReviewUpsertArgs<ExtArgs>>): Prisma__ServiceReviewClient<$Result.GetResult<Prisma.$ServiceReviewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ServiceReviews that matches the filter.
+     * @param {ServiceReviewFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const serviceReview = await prisma.serviceReview.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ServiceReviewFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ServiceReview.
+     * @param {ServiceReviewAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const serviceReview = await prisma.serviceReview.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ServiceReviewAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ServiceReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceReviewCountArgs} args - Arguments to filter ServiceReviews to count.
+     * @example
+     * // Count the number of ServiceReviews
+     * const count = await prisma.serviceReview.count({
+     *   where: {
+     *     // ... the filter for the ServiceReviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends ServiceReviewCountArgs>(
+      args?: Subset<T, ServiceReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServiceReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ServiceReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServiceReviewAggregateArgs>(args: Subset<T, ServiceReviewAggregateArgs>): Prisma.PrismaPromise<GetServiceReviewAggregateType<T>>
+
+    /**
+     * Group by ServiceReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ServiceReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ServiceReviewGroupByArgs['orderBy'] }
+        : { orderBy?: ServiceReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ServiceReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ServiceReview model
+   */
+  readonly fields: ServiceReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ServiceReview.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ServiceReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    serviceProvider<T extends ServiceProviderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceProviderDefaultArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ServiceReview model
+   */
+  interface ServiceReviewFieldRefs {
+    readonly id: FieldRef<"ServiceReview", 'String'>
+    readonly rating: FieldRef<"ServiceReview", 'Int'>
+    readonly comment: FieldRef<"ServiceReview", 'String'>
+    readonly serviceProviderId: FieldRef<"ServiceReview", 'String'>
+    readonly userId: FieldRef<"ServiceReview", 'String'>
+    readonly createdAt: FieldRef<"ServiceReview", 'DateTime'>
+    readonly updatedAt: FieldRef<"ServiceReview", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ServiceReview findUnique
+   */
+  export type ServiceReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceReview to fetch.
+     */
+    where: ServiceReviewWhereUniqueInput
+  }
+
+  /**
+   * ServiceReview findUniqueOrThrow
+   */
+  export type ServiceReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceReview to fetch.
+     */
+    where: ServiceReviewWhereUniqueInput
+  }
+
+  /**
+   * ServiceReview findFirst
+   */
+  export type ServiceReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceReview to fetch.
+     */
+    where?: ServiceReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceReviews to fetch.
+     */
+    orderBy?: ServiceReviewOrderByWithRelationInput | ServiceReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServiceReviews.
+     */
+    cursor?: ServiceReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServiceReviews.
+     */
+    distinct?: ServiceReviewScalarFieldEnum | ServiceReviewScalarFieldEnum[]
+  }
+
+  /**
+   * ServiceReview findFirstOrThrow
+   */
+  export type ServiceReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceReview to fetch.
+     */
+    where?: ServiceReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceReviews to fetch.
+     */
+    orderBy?: ServiceReviewOrderByWithRelationInput | ServiceReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServiceReviews.
+     */
+    cursor?: ServiceReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServiceReviews.
+     */
+    distinct?: ServiceReviewScalarFieldEnum | ServiceReviewScalarFieldEnum[]
+  }
+
+  /**
+   * ServiceReview findMany
+   */
+  export type ServiceReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceReviews to fetch.
+     */
+    where?: ServiceReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceReviews to fetch.
+     */
+    orderBy?: ServiceReviewOrderByWithRelationInput | ServiceReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ServiceReviews.
+     */
+    cursor?: ServiceReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceReviews.
+     */
+    skip?: number
+    distinct?: ServiceReviewScalarFieldEnum | ServiceReviewScalarFieldEnum[]
+  }
+
+  /**
+   * ServiceReview create
+   */
+  export type ServiceReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ServiceReview.
+     */
+    data: XOR<ServiceReviewCreateInput, ServiceReviewUncheckedCreateInput>
+  }
+
+  /**
+   * ServiceReview createMany
+   */
+  export type ServiceReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ServiceReviews.
+     */
+    data: ServiceReviewCreateManyInput | ServiceReviewCreateManyInput[]
+  }
+
+  /**
+   * ServiceReview update
+   */
+  export type ServiceReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ServiceReview.
+     */
+    data: XOR<ServiceReviewUpdateInput, ServiceReviewUncheckedUpdateInput>
+    /**
+     * Choose, which ServiceReview to update.
+     */
+    where: ServiceReviewWhereUniqueInput
+  }
+
+  /**
+   * ServiceReview updateMany
+   */
+  export type ServiceReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ServiceReviews.
+     */
+    data: XOR<ServiceReviewUpdateManyMutationInput, ServiceReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which ServiceReviews to update
+     */
+    where?: ServiceReviewWhereInput
+    /**
+     * Limit how many ServiceReviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ServiceReview upsert
+   */
+  export type ServiceReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ServiceReview to update in case it exists.
+     */
+    where: ServiceReviewWhereUniqueInput
+    /**
+     * In case the ServiceReview found by the `where` argument doesn't exist, create a new ServiceReview with this data.
+     */
+    create: XOR<ServiceReviewCreateInput, ServiceReviewUncheckedCreateInput>
+    /**
+     * In case the ServiceReview was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ServiceReviewUpdateInput, ServiceReviewUncheckedUpdateInput>
+  }
+
+  /**
+   * ServiceReview delete
+   */
+  export type ServiceReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
+    /**
+     * Filter which ServiceReview to delete.
+     */
+    where: ServiceReviewWhereUniqueInput
+  }
+
+  /**
+   * ServiceReview deleteMany
+   */
+  export type ServiceReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServiceReviews to delete
+     */
+    where?: ServiceReviewWhereInput
+    /**
+     * Limit how many ServiceReviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ServiceReview findRaw
+   */
+  export type ServiceReviewFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ServiceReview aggregateRaw
+   */
+  export type ServiceReviewAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ServiceReview without action
+   */
+  export type ServiceReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceReview
+     */
+    select?: ServiceReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceReview
+     */
+    omit?: ServiceReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceReviewInclude<ExtArgs> | null
   }
 
 
@@ -21984,7 +25714,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     approvedById: 'approvedById',
-    notificationsEnabled: 'notificationsEnabled'
+    notificationsEnabled: 'notificationsEnabled',
+    conversationIds: 'conversationIds'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -22225,11 +25956,54 @@ export namespace Prisma {
     id: 'id',
     content: 'content',
     senderId: 'senderId',
+    conversationId: 'conversationId',
+    replyToId: 'replyToId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    readBy: 'readBy'
+  };
+
+  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+  export const ConversationScalarFieldEnum: {
+    id: 'id',
+    participantIds: 'participantIds',
+    lastMessageAt: 'lastMessageAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+  export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+  export const ServiceProviderScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    category: 'category',
+    phone: 'phone',
+    description: 'description',
+    price: 'price',
+    isActive: 'isActive',
+    addedById: 'addedById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ServiceProviderScalarFieldEnum = (typeof ServiceProviderScalarFieldEnum)[keyof typeof ServiceProviderScalarFieldEnum]
+
+
+  export const ServiceReviewScalarFieldEnum: {
+    id: 'id',
+    rating: 'rating',
+    comment: 'comment',
+    serviceProviderId: 'serviceProviderId',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ServiceReviewScalarFieldEnum = (typeof ServiceReviewScalarFieldEnum)[keyof typeof ServiceReviewScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -22477,6 +26251,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     approvedById?: StringNullableFilter<"User"> | string | null
     notificationsEnabled?: BoolFilter<"User"> | boolean
+    conversationIds?: StringNullableListFilter<"User">
     refreshTokens?: RefreshTokenListRelationFilter
     pushSubscriptions?: PushSubscriptionListRelationFilter
     notifications?: NotificationListRelationFilter
@@ -22493,6 +26268,9 @@ export namespace Prisma {
     payments?: PaymentListRelationFilter
     recordedFinances?: CommunityFinanceListRelationFilter
     messages?: MessageListRelationFilter
+    conversations?: ConversationListRelationFilter
+    addedServices?: ServiceProviderListRelationFilter
+    serviceReviews?: ServiceReviewListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -22510,6 +26288,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     approvedById?: SortOrder
     notificationsEnabled?: SortOrder
+    conversationIds?: SortOrder
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
     pushSubscriptions?: PushSubscriptionOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
@@ -22526,6 +26305,9 @@ export namespace Prisma {
     payments?: PaymentOrderByRelationAggregateInput
     recordedFinances?: CommunityFinanceOrderByRelationAggregateInput
     messages?: MessageOrderByRelationAggregateInput
+    conversations?: ConversationOrderByRelationAggregateInput
+    addedServices?: ServiceProviderOrderByRelationAggregateInput
+    serviceReviews?: ServiceReviewOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -22546,6 +26328,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     approvedById?: StringNullableFilter<"User"> | string | null
     notificationsEnabled?: BoolFilter<"User"> | boolean
+    conversationIds?: StringNullableListFilter<"User">
     refreshTokens?: RefreshTokenListRelationFilter
     pushSubscriptions?: PushSubscriptionListRelationFilter
     notifications?: NotificationListRelationFilter
@@ -22562,6 +26345,9 @@ export namespace Prisma {
     payments?: PaymentListRelationFilter
     recordedFinances?: CommunityFinanceListRelationFilter
     messages?: MessageListRelationFilter
+    conversations?: ConversationListRelationFilter
+    addedServices?: ServiceProviderListRelationFilter
+    serviceReviews?: ServiceReviewListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -22579,6 +26365,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     approvedById?: SortOrder
     notificationsEnabled?: SortOrder
+    conversationIds?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -22602,6 +26389,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     approvedById?: StringNullableWithAggregatesFilter<"User"> | string | null
     notificationsEnabled?: BoolWithAggregatesFilter<"User"> | boolean
+    conversationIds?: StringNullableListFilter<"User">
   }
 
   export type RefreshTokenWhereInput = {
@@ -23813,18 +27601,30 @@ export namespace Prisma {
     id?: StringFilter<"Message"> | string
     content?: StringFilter<"Message"> | string
     senderId?: StringFilter<"Message"> | string
+    conversationId?: StringNullableFilter<"Message"> | string | null
+    replyToId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
+    readBy?: StringNullableListFilter<"Message">
     sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    conversation?: XOR<ConversationNullableScalarRelationFilter, ConversationWhereInput> | null
+    replyTo?: XOR<MessageNullableScalarRelationFilter, MessageWhereInput> | null
+    replies?: MessageListRelationFilter
   }
 
   export type MessageOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
     senderId?: SortOrder
+    conversationId?: SortOrder
+    replyToId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    readBy?: SortOrder
     sender?: UserOrderByWithRelationInput
+    conversation?: ConversationOrderByWithRelationInput
+    replyTo?: MessageOrderByWithRelationInput
+    replies?: MessageOrderByRelationAggregateInput
   }
 
   export type MessageWhereUniqueInput = Prisma.AtLeast<{
@@ -23834,17 +27634,26 @@ export namespace Prisma {
     NOT?: MessageWhereInput | MessageWhereInput[]
     content?: StringFilter<"Message"> | string
     senderId?: StringFilter<"Message"> | string
+    conversationId?: StringNullableFilter<"Message"> | string | null
+    replyToId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
+    readBy?: StringNullableListFilter<"Message">
     sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    conversation?: XOR<ConversationNullableScalarRelationFilter, ConversationWhereInput> | null
+    replyTo?: XOR<MessageNullableScalarRelationFilter, MessageWhereInput> | null
+    replies?: MessageListRelationFilter
   }, "id">
 
   export type MessageOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
     senderId?: SortOrder
+    conversationId?: SortOrder
+    replyToId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    readBy?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
     _min?: MessageMinOrderByAggregateInput
@@ -23857,8 +27666,223 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Message"> | string
     content?: StringWithAggregatesFilter<"Message"> | string
     senderId?: StringWithAggregatesFilter<"Message"> | string
+    conversationId?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    replyToId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
+    readBy?: StringNullableListFilter<"Message">
+  }
+
+  export type ConversationWhereInput = {
+    AND?: ConversationWhereInput | ConversationWhereInput[]
+    OR?: ConversationWhereInput[]
+    NOT?: ConversationWhereInput | ConversationWhereInput[]
+    id?: StringFilter<"Conversation"> | string
+    participantIds?: StringNullableListFilter<"Conversation">
+    lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeFilter<"Conversation"> | Date | string
+    participants?: UserListRelationFilter
+    messages?: MessageListRelationFilter
+  }
+
+  export type ConversationOrderByWithRelationInput = {
+    id?: SortOrder
+    participantIds?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    participants?: UserOrderByRelationAggregateInput
+    messages?: MessageOrderByRelationAggregateInput
+  }
+
+  export type ConversationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ConversationWhereInput | ConversationWhereInput[]
+    OR?: ConversationWhereInput[]
+    NOT?: ConversationWhereInput | ConversationWhereInput[]
+    participantIds?: StringNullableListFilter<"Conversation">
+    lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeFilter<"Conversation"> | Date | string
+    participants?: UserListRelationFilter
+    messages?: MessageListRelationFilter
+  }, "id">
+
+  export type ConversationOrderByWithAggregationInput = {
+    id?: SortOrder
+    participantIds?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ConversationCountOrderByAggregateInput
+    _max?: ConversationMaxOrderByAggregateInput
+    _min?: ConversationMinOrderByAggregateInput
+  }
+
+  export type ConversationScalarWhereWithAggregatesInput = {
+    AND?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
+    OR?: ConversationScalarWhereWithAggregatesInput[]
+    NOT?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Conversation"> | string
+    participantIds?: StringNullableListFilter<"Conversation">
+    lastMessageAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
+  }
+
+  export type ServiceProviderWhereInput = {
+    AND?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
+    OR?: ServiceProviderWhereInput[]
+    NOT?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
+    id?: StringFilter<"ServiceProvider"> | string
+    name?: StringFilter<"ServiceProvider"> | string
+    category?: StringFilter<"ServiceProvider"> | string
+    phone?: StringFilter<"ServiceProvider"> | string
+    description?: StringNullableFilter<"ServiceProvider"> | string | null
+    price?: StringNullableFilter<"ServiceProvider"> | string | null
+    isActive?: BoolFilter<"ServiceProvider"> | boolean
+    addedById?: StringFilter<"ServiceProvider"> | string
+    createdAt?: DateTimeFilter<"ServiceProvider"> | Date | string
+    updatedAt?: DateTimeFilter<"ServiceProvider"> | Date | string
+    addedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviews?: ServiceReviewListRelationFilter
+  }
+
+  export type ServiceProviderOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    phone?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    isActive?: SortOrder
+    addedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    addedBy?: UserOrderByWithRelationInput
+    reviews?: ServiceReviewOrderByRelationAggregateInput
+  }
+
+  export type ServiceProviderWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
+    OR?: ServiceProviderWhereInput[]
+    NOT?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
+    name?: StringFilter<"ServiceProvider"> | string
+    category?: StringFilter<"ServiceProvider"> | string
+    phone?: StringFilter<"ServiceProvider"> | string
+    description?: StringNullableFilter<"ServiceProvider"> | string | null
+    price?: StringNullableFilter<"ServiceProvider"> | string | null
+    isActive?: BoolFilter<"ServiceProvider"> | boolean
+    addedById?: StringFilter<"ServiceProvider"> | string
+    createdAt?: DateTimeFilter<"ServiceProvider"> | Date | string
+    updatedAt?: DateTimeFilter<"ServiceProvider"> | Date | string
+    addedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviews?: ServiceReviewListRelationFilter
+  }, "id">
+
+  export type ServiceProviderOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    phone?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    isActive?: SortOrder
+    addedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ServiceProviderCountOrderByAggregateInput
+    _max?: ServiceProviderMaxOrderByAggregateInput
+    _min?: ServiceProviderMinOrderByAggregateInput
+  }
+
+  export type ServiceProviderScalarWhereWithAggregatesInput = {
+    AND?: ServiceProviderScalarWhereWithAggregatesInput | ServiceProviderScalarWhereWithAggregatesInput[]
+    OR?: ServiceProviderScalarWhereWithAggregatesInput[]
+    NOT?: ServiceProviderScalarWhereWithAggregatesInput | ServiceProviderScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ServiceProvider"> | string
+    name?: StringWithAggregatesFilter<"ServiceProvider"> | string
+    category?: StringWithAggregatesFilter<"ServiceProvider"> | string
+    phone?: StringWithAggregatesFilter<"ServiceProvider"> | string
+    description?: StringNullableWithAggregatesFilter<"ServiceProvider"> | string | null
+    price?: StringNullableWithAggregatesFilter<"ServiceProvider"> | string | null
+    isActive?: BoolWithAggregatesFilter<"ServiceProvider"> | boolean
+    addedById?: StringWithAggregatesFilter<"ServiceProvider"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ServiceProvider"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ServiceProvider"> | Date | string
+  }
+
+  export type ServiceReviewWhereInput = {
+    AND?: ServiceReviewWhereInput | ServiceReviewWhereInput[]
+    OR?: ServiceReviewWhereInput[]
+    NOT?: ServiceReviewWhereInput | ServiceReviewWhereInput[]
+    id?: StringFilter<"ServiceReview"> | string
+    rating?: IntFilter<"ServiceReview"> | number
+    comment?: StringNullableFilter<"ServiceReview"> | string | null
+    serviceProviderId?: StringFilter<"ServiceReview"> | string
+    userId?: StringFilter<"ServiceReview"> | string
+    createdAt?: DateTimeFilter<"ServiceReview"> | Date | string
+    updatedAt?: DateTimeFilter<"ServiceReview"> | Date | string
+    serviceProvider?: XOR<ServiceProviderScalarRelationFilter, ServiceProviderWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ServiceReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    serviceProviderId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    serviceProvider?: ServiceProviderOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ServiceReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    serviceProviderId_userId?: ServiceReviewServiceProviderIdUserIdCompoundUniqueInput
+    AND?: ServiceReviewWhereInput | ServiceReviewWhereInput[]
+    OR?: ServiceReviewWhereInput[]
+    NOT?: ServiceReviewWhereInput | ServiceReviewWhereInput[]
+    rating?: IntFilter<"ServiceReview"> | number
+    comment?: StringNullableFilter<"ServiceReview"> | string | null
+    serviceProviderId?: StringFilter<"ServiceReview"> | string
+    userId?: StringFilter<"ServiceReview"> | string
+    createdAt?: DateTimeFilter<"ServiceReview"> | Date | string
+    updatedAt?: DateTimeFilter<"ServiceReview"> | Date | string
+    serviceProvider?: XOR<ServiceProviderScalarRelationFilter, ServiceProviderWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "serviceProviderId_userId">
+
+  export type ServiceReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    serviceProviderId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ServiceReviewCountOrderByAggregateInput
+    _avg?: ServiceReviewAvgOrderByAggregateInput
+    _max?: ServiceReviewMaxOrderByAggregateInput
+    _min?: ServiceReviewMinOrderByAggregateInput
+    _sum?: ServiceReviewSumOrderByAggregateInput
+  }
+
+  export type ServiceReviewScalarWhereWithAggregatesInput = {
+    AND?: ServiceReviewScalarWhereWithAggregatesInput | ServiceReviewScalarWhereWithAggregatesInput[]
+    OR?: ServiceReviewScalarWhereWithAggregatesInput[]
+    NOT?: ServiceReviewScalarWhereWithAggregatesInput | ServiceReviewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ServiceReview"> | string
+    rating?: IntWithAggregatesFilter<"ServiceReview"> | number
+    comment?: StringNullableWithAggregatesFilter<"ServiceReview"> | string | null
+    serviceProviderId?: StringWithAggregatesFilter<"ServiceReview"> | string
+    userId?: StringWithAggregatesFilter<"ServiceReview"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ServiceReview"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ServiceReview"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -23891,6 +27915,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -23908,6 +27935,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -23923,6 +27951,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -23954,6 +27985,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -23970,6 +28004,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -23985,6 +28020,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -24002,6 +28040,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
   }
 
   export type UserUpdateManyMutationInput = {
@@ -24033,6 +28072,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
   }
 
   export type RefreshTokenCreateInput = {
@@ -25265,48 +29305,282 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
     sender: UserCreateNestedOneWithoutMessagesInput
+    conversation?: ConversationCreateNestedOneWithoutMessagesInput
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageUncheckedCreateInput = {
     id?: string
     content: string
     senderId: string
+    conversationId?: string | null
+    replyToId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageUpdateInput = {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
     sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    conversation?: ConversationUpdateOneWithoutMessagesNestedInput
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageUncheckedUpdateInput = {
     content?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageCreateManyInput = {
     id?: string
     content: string
     senderId: string
+    conversationId?: string | null
+    replyToId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
   }
 
   export type MessageUpdateManyMutationInput = {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
   }
 
   export type MessageUncheckedUpdateManyInput = {
     content?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+  }
+
+  export type ConversationCreateInput = {
+    id?: string
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserCreateNestedManyWithoutConversationsInput
+    messages?: MessageCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateInput = {
+    id?: string
+    participantIds?: ConversationCreateparticipantIdsInput | string[]
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserUncheckedCreateNestedManyWithoutConversationsInput
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUpdateInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserUpdateManyWithoutConversationsNestedInput
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateInput = {
+    participantIds?: ConversationUpdateparticipantIdsInput | string[]
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserUncheckedUpdateManyWithoutConversationsNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationCreateManyInput = {
+    id?: string
+    participantIds?: ConversationCreateparticipantIdsInput | string[]
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConversationUpdateManyMutationInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConversationUncheckedUpdateManyInput = {
+    participantIds?: ConversationUpdateparticipantIdsInput | string[]
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceProviderCreateInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    addedBy: UserCreateNestedOneWithoutAddedServicesInput
+    reviews?: ServiceReviewCreateNestedManyWithoutServiceProviderInput
+  }
+
+  export type ServiceProviderUncheckedCreateInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    addedById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ServiceReviewUncheckedCreateNestedManyWithoutServiceProviderInput
+  }
+
+  export type ServiceProviderUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    addedBy?: UserUpdateOneRequiredWithoutAddedServicesNestedInput
+    reviews?: ServiceReviewUpdateManyWithoutServiceProviderNestedInput
+  }
+
+  export type ServiceProviderUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ServiceReviewUncheckedUpdateManyWithoutServiceProviderNestedInput
+  }
+
+  export type ServiceProviderCreateManyInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    addedById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceProviderUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceProviderUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceReviewCreateInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    serviceProvider: ServiceProviderCreateNestedOneWithoutReviewsInput
+    user: UserCreateNestedOneWithoutServiceReviewsInput
+  }
+
+  export type ServiceReviewUncheckedCreateInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    serviceProviderId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceReviewUpdateInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceProvider?: ServiceProviderUpdateOneRequiredWithoutReviewsNestedInput
+    user?: UserUpdateOneRequiredWithoutServiceReviewsNestedInput
+  }
+
+  export type ServiceReviewUncheckedUpdateInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProviderId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceReviewCreateManyInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    serviceProviderId: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceReviewUpdateManyMutationInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceReviewUncheckedUpdateManyInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProviderId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25377,6 +29651,14 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type RefreshTokenListRelationFilter = {
@@ -25473,6 +29755,24 @@ export namespace Prisma {
     none?: MessageWhereInput
   }
 
+  export type ConversationListRelationFilter = {
+    every?: ConversationWhereInput
+    some?: ConversationWhereInput
+    none?: ConversationWhereInput
+  }
+
+  export type ServiceProviderListRelationFilter = {
+    every?: ServiceProviderWhereInput
+    some?: ServiceProviderWhereInput
+    none?: ServiceProviderWhereInput
+  }
+
+  export type ServiceReviewListRelationFilter = {
+    every?: ServiceReviewWhereInput
+    some?: ServiceReviewWhereInput
+    none?: ServiceReviewWhereInput
+  }
+
   export type RefreshTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -25529,6 +29829,18 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ConversationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ServiceProviderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ServiceReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -25544,6 +29856,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     approvedById?: SortOrder
     notificationsEnabled?: SortOrder
+    conversationIds?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -26155,14 +30468,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type FacilityCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -26591,18 +30896,33 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type ConversationNullableScalarRelationFilter = {
+    is?: ConversationWhereInput | null
+    isNot?: ConversationWhereInput | null
+  }
+
+  export type MessageNullableScalarRelationFilter = {
+    is?: MessageWhereInput | null
+    isNot?: MessageWhereInput | null
+  }
+
   export type MessageCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
     senderId?: SortOrder
+    conversationId?: SortOrder
+    replyToId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    readBy?: SortOrder
   }
 
   export type MessageMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
     senderId?: SortOrder
+    conversationId?: SortOrder
+    replyToId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -26611,8 +30931,119 @@ export namespace Prisma {
     id?: SortOrder
     content?: SortOrder
     senderId?: SortOrder
+    conversationId?: SortOrder
+    replyToId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ConversationCountOrderByAggregateInput = {
+    id?: SortOrder
+    participantIds?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConversationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConversationMinOrderByAggregateInput = {
+    id?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceProviderCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    phone?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    isActive?: SortOrder
+    addedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceProviderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    phone?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    isActive?: SortOrder
+    addedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceProviderMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    phone?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    isActive?: SortOrder
+    addedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceProviderScalarRelationFilter = {
+    is?: ServiceProviderWhereInput
+    isNot?: ServiceProviderWhereInput
+  }
+
+  export type ServiceReviewServiceProviderIdUserIdCompoundUniqueInput = {
+    serviceProviderId: string
+    userId: string
+  }
+
+  export type ServiceReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    serviceProviderId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceReviewAvgOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type ServiceReviewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    serviceProviderId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceReviewMinOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    comment?: SortOrder
+    serviceProviderId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceReviewSumOrderByAggregateInput = {
+    rating?: SortOrder
   }
 
   export type RefreshTokenCreateNestedManyWithoutUserInput = {
@@ -26725,6 +31156,30 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
+  export type ConversationCreateNestedManyWithoutParticipantsInput = {
+    create?: XOR<ConversationCreateWithoutParticipantsInput, ConversationUncheckedCreateWithoutParticipantsInput> | ConversationCreateWithoutParticipantsInput[] | ConversationUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutParticipantsInput | ConversationCreateOrConnectWithoutParticipantsInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type ServiceProviderCreateNestedManyWithoutAddedByInput = {
+    create?: XOR<ServiceProviderCreateWithoutAddedByInput, ServiceProviderUncheckedCreateWithoutAddedByInput> | ServiceProviderCreateWithoutAddedByInput[] | ServiceProviderUncheckedCreateWithoutAddedByInput[]
+    connectOrCreate?: ServiceProviderCreateOrConnectWithoutAddedByInput | ServiceProviderCreateOrConnectWithoutAddedByInput[]
+    createMany?: ServiceProviderCreateManyAddedByInputEnvelope
+    connect?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+  }
+
+  export type ServiceReviewCreateNestedManyWithoutUserInput = {
+    create?: XOR<ServiceReviewCreateWithoutUserInput, ServiceReviewUncheckedCreateWithoutUserInput> | ServiceReviewCreateWithoutUserInput[] | ServiceReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutUserInput | ServiceReviewCreateOrConnectWithoutUserInput[]
+    createMany?: ServiceReviewCreateManyUserInputEnvelope
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+  }
+
+  export type UserCreateconversationIdsInput = {
+    set: string[]
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -26827,6 +31282,26 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
     createMany?: MessageCreateManySenderInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type ConversationUncheckedCreateNestedManyWithoutParticipantsInput = {
+    create?: XOR<ConversationCreateWithoutParticipantsInput, ConversationUncheckedCreateWithoutParticipantsInput> | ConversationCreateWithoutParticipantsInput[] | ConversationUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutParticipantsInput | ConversationCreateOrConnectWithoutParticipantsInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput = {
+    create?: XOR<ServiceProviderCreateWithoutAddedByInput, ServiceProviderUncheckedCreateWithoutAddedByInput> | ServiceProviderCreateWithoutAddedByInput[] | ServiceProviderUncheckedCreateWithoutAddedByInput[]
+    connectOrCreate?: ServiceProviderCreateOrConnectWithoutAddedByInput | ServiceProviderCreateOrConnectWithoutAddedByInput[]
+    createMany?: ServiceProviderCreateManyAddedByInputEnvelope
+    connect?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+  }
+
+  export type ServiceReviewUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ServiceReviewCreateWithoutUserInput, ServiceReviewUncheckedCreateWithoutUserInput> | ServiceReviewCreateWithoutUserInput[] | ServiceReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutUserInput | ServiceReviewCreateOrConnectWithoutUserInput[]
+    createMany?: ServiceReviewCreateManyUserInputEnvelope
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -27074,6 +31549,52 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type ConversationUpdateManyWithoutParticipantsNestedInput = {
+    create?: XOR<ConversationCreateWithoutParticipantsInput, ConversationUncheckedCreateWithoutParticipantsInput> | ConversationCreateWithoutParticipantsInput[] | ConversationUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutParticipantsInput | ConversationCreateOrConnectWithoutParticipantsInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutParticipantsInput | ConversationUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutParticipantsInput | ConversationUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutParticipantsInput | ConversationUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type ServiceProviderUpdateManyWithoutAddedByNestedInput = {
+    create?: XOR<ServiceProviderCreateWithoutAddedByInput, ServiceProviderUncheckedCreateWithoutAddedByInput> | ServiceProviderCreateWithoutAddedByInput[] | ServiceProviderUncheckedCreateWithoutAddedByInput[]
+    connectOrCreate?: ServiceProviderCreateOrConnectWithoutAddedByInput | ServiceProviderCreateOrConnectWithoutAddedByInput[]
+    upsert?: ServiceProviderUpsertWithWhereUniqueWithoutAddedByInput | ServiceProviderUpsertWithWhereUniqueWithoutAddedByInput[]
+    createMany?: ServiceProviderCreateManyAddedByInputEnvelope
+    set?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    disconnect?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    delete?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    connect?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    update?: ServiceProviderUpdateWithWhereUniqueWithoutAddedByInput | ServiceProviderUpdateWithWhereUniqueWithoutAddedByInput[]
+    updateMany?: ServiceProviderUpdateManyWithWhereWithoutAddedByInput | ServiceProviderUpdateManyWithWhereWithoutAddedByInput[]
+    deleteMany?: ServiceProviderScalarWhereInput | ServiceProviderScalarWhereInput[]
+  }
+
+  export type ServiceReviewUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ServiceReviewCreateWithoutUserInput, ServiceReviewUncheckedCreateWithoutUserInput> | ServiceReviewCreateWithoutUserInput[] | ServiceReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutUserInput | ServiceReviewCreateOrConnectWithoutUserInput[]
+    upsert?: ServiceReviewUpsertWithWhereUniqueWithoutUserInput | ServiceReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ServiceReviewCreateManyUserInputEnvelope
+    set?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    disconnect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    delete?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    update?: ServiceReviewUpdateWithWhereUniqueWithoutUserInput | ServiceReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ServiceReviewUpdateManyWithWhereWithoutUserInput | ServiceReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ServiceReviewScalarWhereInput | ServiceReviewScalarWhereInput[]
+  }
+
+  export type UserUpdateconversationIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -27278,6 +31799,47 @@ export namespace Prisma {
     update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
     updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutParticipantsNestedInput = {
+    create?: XOR<ConversationCreateWithoutParticipantsInput, ConversationUncheckedCreateWithoutParticipantsInput> | ConversationCreateWithoutParticipantsInput[] | ConversationUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutParticipantsInput | ConversationCreateOrConnectWithoutParticipantsInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutParticipantsInput | ConversationUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutParticipantsInput | ConversationUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutParticipantsInput | ConversationUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput = {
+    create?: XOR<ServiceProviderCreateWithoutAddedByInput, ServiceProviderUncheckedCreateWithoutAddedByInput> | ServiceProviderCreateWithoutAddedByInput[] | ServiceProviderUncheckedCreateWithoutAddedByInput[]
+    connectOrCreate?: ServiceProviderCreateOrConnectWithoutAddedByInput | ServiceProviderCreateOrConnectWithoutAddedByInput[]
+    upsert?: ServiceProviderUpsertWithWhereUniqueWithoutAddedByInput | ServiceProviderUpsertWithWhereUniqueWithoutAddedByInput[]
+    createMany?: ServiceProviderCreateManyAddedByInputEnvelope
+    set?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    disconnect?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    delete?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    connect?: ServiceProviderWhereUniqueInput | ServiceProviderWhereUniqueInput[]
+    update?: ServiceProviderUpdateWithWhereUniqueWithoutAddedByInput | ServiceProviderUpdateWithWhereUniqueWithoutAddedByInput[]
+    updateMany?: ServiceProviderUpdateManyWithWhereWithoutAddedByInput | ServiceProviderUpdateManyWithWhereWithoutAddedByInput[]
+    deleteMany?: ServiceProviderScalarWhereInput | ServiceProviderScalarWhereInput[]
+  }
+
+  export type ServiceReviewUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ServiceReviewCreateWithoutUserInput, ServiceReviewUncheckedCreateWithoutUserInput> | ServiceReviewCreateWithoutUserInput[] | ServiceReviewUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutUserInput | ServiceReviewCreateOrConnectWithoutUserInput[]
+    upsert?: ServiceReviewUpsertWithWhereUniqueWithoutUserInput | ServiceReviewUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ServiceReviewCreateManyUserInputEnvelope
+    set?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    disconnect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    delete?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    update?: ServiceReviewUpdateWithWhereUniqueWithoutUserInput | ServiceReviewUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ServiceReviewUpdateManyWithWhereWithoutUserInput | ServiceReviewUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ServiceReviewScalarWhereInput | ServiceReviewScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutRefreshTokensInput = {
@@ -27943,10 +32505,45 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecordedFinancesInput, UserUpdateWithoutRecordedFinancesInput>, UserUncheckedUpdateWithoutRecordedFinancesInput>
   }
 
+  export type MessageCreatereadByInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutMessagesInput = {
     create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
     connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type ConversationCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutMessagesInput
+    connect?: ConversationWhereUniqueInput
+  }
+
+  export type MessageCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutRepliesInput
+    connect?: MessageWhereUniqueInput
+  }
+
+  export type MessageCreateNestedManyWithoutReplyToInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutReplyToInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageUpdatereadByInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
@@ -27955,6 +32552,227 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutMessagesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesInput, UserUpdateWithoutMessagesInput>, UserUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type ConversationUpdateOneWithoutMessagesNestedInput = {
+    create?: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutMessagesInput
+    upsert?: ConversationUpsertWithoutMessagesInput
+    disconnect?: boolean
+    delete?: ConversationWhereInput | boolean
+    connect?: ConversationWhereUniqueInput
+    update?: XOR<XOR<ConversationUpdateToOneWithWhereWithoutMessagesInput, ConversationUpdateWithoutMessagesInput>, ConversationUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type MessageUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutRepliesInput
+    upsert?: MessageUpsertWithoutRepliesInput
+    disconnect?: boolean
+    delete?: MessageWhereInput | boolean
+    connect?: MessageWhereUniqueInput
+    update?: XOR<XOR<MessageUpdateToOneWithWhereWithoutRepliesInput, MessageUpdateWithoutRepliesInput>, MessageUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type MessageUpdateManyWithoutReplyToNestedInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReplyToInput | MessageUpsertWithWhereUniqueWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReplyToInput | MessageUpdateWithWhereUniqueWithoutReplyToInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReplyToInput | MessageUpdateManyWithWhereWithoutReplyToInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReplyToNestedInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReplyToInput | MessageUpsertWithWhereUniqueWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReplyToInput | MessageUpdateWithWhereUniqueWithoutReplyToInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReplyToInput | MessageUpdateManyWithWhereWithoutReplyToInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type UserCreateNestedManyWithoutConversationsInput = {
+    create?: XOR<UserCreateWithoutConversationsInput, UserUncheckedCreateWithoutConversationsInput> | UserCreateWithoutConversationsInput[] | UserUncheckedCreateWithoutConversationsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsInput | UserCreateOrConnectWithoutConversationsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutConversationInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type ConversationCreateparticipantIdsInput = {
+    set: string[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutConversationsInput = {
+    create?: XOR<UserCreateWithoutConversationsInput, UserUncheckedCreateWithoutConversationsInput> | UserCreateWithoutConversationsInput[] | UserUncheckedCreateWithoutConversationsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsInput | UserCreateOrConnectWithoutConversationsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutConversationInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type UserUpdateManyWithoutConversationsNestedInput = {
+    create?: XOR<UserCreateWithoutConversationsInput, UserUncheckedCreateWithoutConversationsInput> | UserCreateWithoutConversationsInput[] | UserUncheckedCreateWithoutConversationsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsInput | UserCreateOrConnectWithoutConversationsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutConversationsInput | UserUpsertWithWhereUniqueWithoutConversationsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutConversationsInput | UserUpdateWithWhereUniqueWithoutConversationsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutConversationsInput | UserUpdateManyWithWhereWithoutConversationsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutConversationInput | MessageUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutConversationInput | MessageUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutConversationInput | MessageUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type ConversationUpdateparticipantIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutConversationsNestedInput = {
+    create?: XOR<UserCreateWithoutConversationsInput, UserUncheckedCreateWithoutConversationsInput> | UserCreateWithoutConversationsInput[] | UserUncheckedCreateWithoutConversationsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsInput | UserCreateOrConnectWithoutConversationsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutConversationsInput | UserUpsertWithWhereUniqueWithoutConversationsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutConversationsInput | UserUpdateWithWhereUniqueWithoutConversationsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutConversationsInput | UserUpdateManyWithWhereWithoutConversationsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutConversationInput | MessageUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutConversationInput | MessageUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutConversationInput | MessageUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAddedServicesInput = {
+    create?: XOR<UserCreateWithoutAddedServicesInput, UserUncheckedCreateWithoutAddedServicesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddedServicesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ServiceReviewCreateNestedManyWithoutServiceProviderInput = {
+    create?: XOR<ServiceReviewCreateWithoutServiceProviderInput, ServiceReviewUncheckedCreateWithoutServiceProviderInput> | ServiceReviewCreateWithoutServiceProviderInput[] | ServiceReviewUncheckedCreateWithoutServiceProviderInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutServiceProviderInput | ServiceReviewCreateOrConnectWithoutServiceProviderInput[]
+    createMany?: ServiceReviewCreateManyServiceProviderInputEnvelope
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+  }
+
+  export type ServiceReviewUncheckedCreateNestedManyWithoutServiceProviderInput = {
+    create?: XOR<ServiceReviewCreateWithoutServiceProviderInput, ServiceReviewUncheckedCreateWithoutServiceProviderInput> | ServiceReviewCreateWithoutServiceProviderInput[] | ServiceReviewUncheckedCreateWithoutServiceProviderInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutServiceProviderInput | ServiceReviewCreateOrConnectWithoutServiceProviderInput[]
+    createMany?: ServiceReviewCreateManyServiceProviderInputEnvelope
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutAddedServicesNestedInput = {
+    create?: XOR<UserCreateWithoutAddedServicesInput, UserUncheckedCreateWithoutAddedServicesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddedServicesInput
+    upsert?: UserUpsertWithoutAddedServicesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAddedServicesInput, UserUpdateWithoutAddedServicesInput>, UserUncheckedUpdateWithoutAddedServicesInput>
+  }
+
+  export type ServiceReviewUpdateManyWithoutServiceProviderNestedInput = {
+    create?: XOR<ServiceReviewCreateWithoutServiceProviderInput, ServiceReviewUncheckedCreateWithoutServiceProviderInput> | ServiceReviewCreateWithoutServiceProviderInput[] | ServiceReviewUncheckedCreateWithoutServiceProviderInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutServiceProviderInput | ServiceReviewCreateOrConnectWithoutServiceProviderInput[]
+    upsert?: ServiceReviewUpsertWithWhereUniqueWithoutServiceProviderInput | ServiceReviewUpsertWithWhereUniqueWithoutServiceProviderInput[]
+    createMany?: ServiceReviewCreateManyServiceProviderInputEnvelope
+    set?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    disconnect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    delete?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    update?: ServiceReviewUpdateWithWhereUniqueWithoutServiceProviderInput | ServiceReviewUpdateWithWhereUniqueWithoutServiceProviderInput[]
+    updateMany?: ServiceReviewUpdateManyWithWhereWithoutServiceProviderInput | ServiceReviewUpdateManyWithWhereWithoutServiceProviderInput[]
+    deleteMany?: ServiceReviewScalarWhereInput | ServiceReviewScalarWhereInput[]
+  }
+
+  export type ServiceReviewUncheckedUpdateManyWithoutServiceProviderNestedInput = {
+    create?: XOR<ServiceReviewCreateWithoutServiceProviderInput, ServiceReviewUncheckedCreateWithoutServiceProviderInput> | ServiceReviewCreateWithoutServiceProviderInput[] | ServiceReviewUncheckedCreateWithoutServiceProviderInput[]
+    connectOrCreate?: ServiceReviewCreateOrConnectWithoutServiceProviderInput | ServiceReviewCreateOrConnectWithoutServiceProviderInput[]
+    upsert?: ServiceReviewUpsertWithWhereUniqueWithoutServiceProviderInput | ServiceReviewUpsertWithWhereUniqueWithoutServiceProviderInput[]
+    createMany?: ServiceReviewCreateManyServiceProviderInputEnvelope
+    set?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    disconnect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    delete?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    connect?: ServiceReviewWhereUniqueInput | ServiceReviewWhereUniqueInput[]
+    update?: ServiceReviewUpdateWithWhereUniqueWithoutServiceProviderInput | ServiceReviewUpdateWithWhereUniqueWithoutServiceProviderInput[]
+    updateMany?: ServiceReviewUpdateManyWithWhereWithoutServiceProviderInput | ServiceReviewUpdateManyWithWhereWithoutServiceProviderInput[]
+    deleteMany?: ServiceReviewScalarWhereInput | ServiceReviewScalarWhereInput[]
+  }
+
+  export type ServiceProviderCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<ServiceProviderCreateWithoutReviewsInput, ServiceProviderUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ServiceProviderCreateOrConnectWithoutReviewsInput
+    connect?: ServiceProviderWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutServiceReviewsInput = {
+    create?: XOR<UserCreateWithoutServiceReviewsInput, UserUncheckedCreateWithoutServiceReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutServiceReviewsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ServiceProviderUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<ServiceProviderCreateWithoutReviewsInput, ServiceProviderUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ServiceProviderCreateOrConnectWithoutReviewsInput
+    upsert?: ServiceProviderUpsertWithoutReviewsInput
+    connect?: ServiceProviderWhereUniqueInput
+    update?: XOR<XOR<ServiceProviderUpdateToOneWithWhereWithoutReviewsInput, ServiceProviderUpdateWithoutReviewsInput>, ServiceProviderUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutServiceReviewsNestedInput = {
+    create?: XOR<UserCreateWithoutServiceReviewsInput, UserUncheckedCreateWithoutServiceReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutServiceReviewsInput
+    upsert?: UserUpsertWithoutServiceReviewsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutServiceReviewsInput, UserUpdateWithoutServiceReviewsInput>, UserUncheckedUpdateWithoutServiceReviewsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -28505,6 +33323,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovalsInput = {
@@ -28522,6 +33343,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -28536,6 +33358,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovalsInput = {
@@ -28572,6 +33397,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedByInput = {
@@ -28588,6 +33416,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -28603,6 +33432,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedByInput = {
@@ -28916,13 +33748,21 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    conversation?: ConversationCreateNestedOneWithoutMessagesInput
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageUncheckedCreateWithoutSenderInput = {
     id?: string
     content: string
+    conversationId?: string | null
+    replyToId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageCreateOrConnectWithoutSenderInput = {
@@ -28932,6 +33772,90 @@ export namespace Prisma {
 
   export type MessageCreateManySenderInputEnvelope = {
     data: MessageCreateManySenderInput | MessageCreateManySenderInput[]
+  }
+
+  export type ConversationCreateWithoutParticipantsInput = {
+    id?: string
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateWithoutParticipantsInput = {
+    id?: string
+    participantIds?: ConversationCreateparticipantIdsInput | string[]
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationCreateOrConnectWithoutParticipantsInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutParticipantsInput, ConversationUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type ServiceProviderCreateWithoutAddedByInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ServiceReviewCreateNestedManyWithoutServiceProviderInput
+  }
+
+  export type ServiceProviderUncheckedCreateWithoutAddedByInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ServiceReviewUncheckedCreateNestedManyWithoutServiceProviderInput
+  }
+
+  export type ServiceProviderCreateOrConnectWithoutAddedByInput = {
+    where: ServiceProviderWhereUniqueInput
+    create: XOR<ServiceProviderCreateWithoutAddedByInput, ServiceProviderUncheckedCreateWithoutAddedByInput>
+  }
+
+  export type ServiceProviderCreateManyAddedByInputEnvelope = {
+    data: ServiceProviderCreateManyAddedByInput | ServiceProviderCreateManyAddedByInput[]
+  }
+
+  export type ServiceReviewCreateWithoutUserInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    serviceProvider: ServiceProviderCreateNestedOneWithoutReviewsInput
+  }
+
+  export type ServiceReviewUncheckedCreateWithoutUserInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    serviceProviderId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceReviewCreateOrConnectWithoutUserInput = {
+    where: ServiceReviewWhereUniqueInput
+    create: XOR<ServiceReviewCreateWithoutUserInput, ServiceReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type ServiceReviewCreateManyUserInputEnvelope = {
+    data: ServiceReviewCreateManyUserInput | ServiceReviewCreateManyUserInput[]
   }
 
   export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -29088,6 +34012,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovalsInput = {
@@ -29104,6 +34031,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -29118,6 +34046,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutApprovedByInput = {
@@ -29154,6 +34085,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     approvedById?: StringNullableFilter<"User"> | string | null
     notificationsEnabled?: BoolFilter<"User"> | boolean
+    conversationIds?: StringNullableListFilter<"User">
   }
 
   export type AnnouncementUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -29462,8 +34394,99 @@ export namespace Prisma {
     id?: StringFilter<"Message"> | string
     content?: StringFilter<"Message"> | string
     senderId?: StringFilter<"Message"> | string
+    conversationId?: StringNullableFilter<"Message"> | string | null
+    replyToId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
+    readBy?: StringNullableListFilter<"Message">
+  }
+
+  export type ConversationUpsertWithWhereUniqueWithoutParticipantsInput = {
+    where: ConversationWhereUniqueInput
+    update: XOR<ConversationUpdateWithoutParticipantsInput, ConversationUncheckedUpdateWithoutParticipantsInput>
+    create: XOR<ConversationCreateWithoutParticipantsInput, ConversationUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type ConversationUpdateWithWhereUniqueWithoutParticipantsInput = {
+    where: ConversationWhereUniqueInput
+    data: XOR<ConversationUpdateWithoutParticipantsInput, ConversationUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type ConversationUpdateManyWithWhereWithoutParticipantsInput = {
+    where: ConversationScalarWhereInput
+    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutParticipantsInput>
+  }
+
+  export type ConversationScalarWhereInput = {
+    AND?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+    OR?: ConversationScalarWhereInput[]
+    NOT?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+    id?: StringFilter<"Conversation"> | string
+    participantIds?: StringNullableListFilter<"Conversation">
+    lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeFilter<"Conversation"> | Date | string
+  }
+
+  export type ServiceProviderUpsertWithWhereUniqueWithoutAddedByInput = {
+    where: ServiceProviderWhereUniqueInput
+    update: XOR<ServiceProviderUpdateWithoutAddedByInput, ServiceProviderUncheckedUpdateWithoutAddedByInput>
+    create: XOR<ServiceProviderCreateWithoutAddedByInput, ServiceProviderUncheckedCreateWithoutAddedByInput>
+  }
+
+  export type ServiceProviderUpdateWithWhereUniqueWithoutAddedByInput = {
+    where: ServiceProviderWhereUniqueInput
+    data: XOR<ServiceProviderUpdateWithoutAddedByInput, ServiceProviderUncheckedUpdateWithoutAddedByInput>
+  }
+
+  export type ServiceProviderUpdateManyWithWhereWithoutAddedByInput = {
+    where: ServiceProviderScalarWhereInput
+    data: XOR<ServiceProviderUpdateManyMutationInput, ServiceProviderUncheckedUpdateManyWithoutAddedByInput>
+  }
+
+  export type ServiceProviderScalarWhereInput = {
+    AND?: ServiceProviderScalarWhereInput | ServiceProviderScalarWhereInput[]
+    OR?: ServiceProviderScalarWhereInput[]
+    NOT?: ServiceProviderScalarWhereInput | ServiceProviderScalarWhereInput[]
+    id?: StringFilter<"ServiceProvider"> | string
+    name?: StringFilter<"ServiceProvider"> | string
+    category?: StringFilter<"ServiceProvider"> | string
+    phone?: StringFilter<"ServiceProvider"> | string
+    description?: StringNullableFilter<"ServiceProvider"> | string | null
+    price?: StringNullableFilter<"ServiceProvider"> | string | null
+    isActive?: BoolFilter<"ServiceProvider"> | boolean
+    addedById?: StringFilter<"ServiceProvider"> | string
+    createdAt?: DateTimeFilter<"ServiceProvider"> | Date | string
+    updatedAt?: DateTimeFilter<"ServiceProvider"> | Date | string
+  }
+
+  export type ServiceReviewUpsertWithWhereUniqueWithoutUserInput = {
+    where: ServiceReviewWhereUniqueInput
+    update: XOR<ServiceReviewUpdateWithoutUserInput, ServiceReviewUncheckedUpdateWithoutUserInput>
+    create: XOR<ServiceReviewCreateWithoutUserInput, ServiceReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type ServiceReviewUpdateWithWhereUniqueWithoutUserInput = {
+    where: ServiceReviewWhereUniqueInput
+    data: XOR<ServiceReviewUpdateWithoutUserInput, ServiceReviewUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ServiceReviewUpdateManyWithWhereWithoutUserInput = {
+    where: ServiceReviewScalarWhereInput
+    data: XOR<ServiceReviewUpdateManyMutationInput, ServiceReviewUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ServiceReviewScalarWhereInput = {
+    AND?: ServiceReviewScalarWhereInput | ServiceReviewScalarWhereInput[]
+    OR?: ServiceReviewScalarWhereInput[]
+    NOT?: ServiceReviewScalarWhereInput | ServiceReviewScalarWhereInput[]
+    id?: StringFilter<"ServiceReview"> | string
+    rating?: IntFilter<"ServiceReview"> | number
+    comment?: StringNullableFilter<"ServiceReview"> | string | null
+    serviceProviderId?: StringFilter<"ServiceReview"> | string
+    userId?: StringFilter<"ServiceReview"> | string
+    createdAt?: DateTimeFilter<"ServiceReview"> | Date | string
+    updatedAt?: DateTimeFilter<"ServiceReview"> | Date | string
   }
 
   export type UserCreateWithoutRefreshTokensInput = {
@@ -29495,6 +34518,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -29512,6 +34538,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     property?: PropertyUncheckedCreateNestedOneWithoutUserInput
@@ -29526,6 +34553,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -29572,6 +34602,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -29588,6 +34621,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     property?: PropertyUncheckedUpdateOneWithoutUserNestedInput
@@ -29602,6 +34636,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPushSubscriptionsInput = {
@@ -29633,6 +34670,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -29650,6 +34690,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     property?: PropertyUncheckedCreateNestedOneWithoutUserInput
@@ -29664,6 +34705,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -29710,6 +34754,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -29726,6 +34773,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     property?: PropertyUncheckedUpdateOneWithoutUserNestedInput
@@ -29740,6 +34788,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -29771,6 +34822,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -29788,6 +34842,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     property?: PropertyUncheckedCreateNestedOneWithoutUserInput
@@ -29802,6 +34857,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -29848,6 +34906,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -29864,6 +34925,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     property?: PropertyUncheckedUpdateOneWithoutUserNestedInput
@@ -29878,6 +34940,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPropertyInput = {
@@ -29909,6 +34974,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPropertyInput = {
@@ -29926,6 +34994,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -29940,6 +35009,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPropertyInput = {
@@ -29986,6 +35058,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPropertyInput = {
@@ -30002,6 +35077,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -30016,6 +35092,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAnnouncementsInput = {
@@ -30047,6 +35126,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAnnouncementsInput = {
@@ -30064,6 +35146,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -30078,6 +35161,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAnnouncementsInput = {
@@ -30205,6 +35291,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnnouncementsInput = {
@@ -30221,6 +35310,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -30235,6 +35325,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AnnouncementLikeUpsertWithWhereUniqueWithoutAnnouncementInput = {
@@ -30374,6 +35467,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAnnouncementLikesInput = {
@@ -30391,6 +35487,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -30405,6 +35502,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAnnouncementLikesInput = {
@@ -30492,6 +35592,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnnouncementLikesInput = {
@@ -30508,6 +35611,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -30522,6 +35626,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AnnouncementCreateWithoutCommentsInput = {
@@ -30590,6 +35697,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAnnouncementCommentsInput = {
@@ -30607,6 +35717,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -30621,6 +35732,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAnnouncementCommentsInput = {
@@ -30708,6 +35822,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnnouncementCommentsInput = {
@@ -30724,6 +35841,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -30738,6 +35856,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCreatedPollsInput = {
@@ -30769,6 +35890,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPollsInput = {
@@ -30786,6 +35910,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -30800,6 +35925,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPollsInput = {
@@ -30927,6 +36055,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPollsInput = {
@@ -30943,6 +36074,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -30957,6 +36089,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PollOptionUpsertWithWhereUniqueWithoutPollInput = {
@@ -31235,6 +36370,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPollVotesInput = {
@@ -31252,6 +36390,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -31266,6 +36405,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPollVotesInput = {
@@ -31372,6 +36514,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPollVotesInput = {
@@ -31388,6 +36533,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -31402,6 +36548,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FacilityBookingCreateWithoutFacilityInput = {
@@ -31484,6 +36633,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFacilityBookingsInput = {
@@ -31501,6 +36653,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -31515,6 +36668,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFacilityBookingsInput = {
@@ -31594,6 +36750,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFacilityBookingsInput = {
@@ -31610,6 +36769,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -31624,6 +36784,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FacilityUpsertWithoutBookingsInput = {
@@ -31692,6 +36855,9 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutComplaintsInput = {
@@ -31709,6 +36875,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -31723,6 +36890,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutComplaintsInput = {
@@ -31769,6 +36939,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutComplaintsInput = {
@@ -31785,6 +36958,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -31799,6 +36973,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPaymentsInput = {
@@ -31830,6 +37007,9 @@ export namespace Prisma {
     complaints?: ComplaintCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -31847,6 +37027,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -31861,6 +37042,9 @@ export namespace Prisma {
     complaints?: ComplaintUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -31907,6 +37091,9 @@ export namespace Prisma {
     complaints?: ComplaintUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -31923,6 +37110,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -31937,6 +37125,9 @@ export namespace Prisma {
     complaints?: ComplaintUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRecordedFinancesInput = {
@@ -31968,6 +37159,9 @@ export namespace Prisma {
     complaints?: ComplaintCreateNestedManyWithoutUserInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRecordedFinancesInput = {
@@ -31985,6 +37179,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -31999,6 +37194,9 @@ export namespace Prisma {
     complaints?: ComplaintUncheckedCreateNestedManyWithoutUserInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRecordedFinancesInput = {
@@ -32045,6 +37243,9 @@ export namespace Prisma {
     complaints?: ComplaintUpdateManyWithoutUserNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRecordedFinancesInput = {
@@ -32061,6 +37262,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -32075,6 +37277,9 @@ export namespace Prisma {
     complaints?: ComplaintUncheckedUpdateManyWithoutUserNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMessagesInput = {
@@ -32106,6 +37311,9 @@ export namespace Prisma {
     complaints?: ComplaintCreateNestedManyWithoutUserInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesInput = {
@@ -32123,6 +37331,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     approvedById?: string | null
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -32137,11 +37346,94 @@ export namespace Prisma {
     complaints?: ComplaintUncheckedCreateNestedManyWithoutUserInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type ConversationCreateWithoutMessagesInput = {
+    id?: string
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserCreateNestedManyWithoutConversationsInput
+  }
+
+  export type ConversationUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    participantIds?: ConversationCreateparticipantIdsInput | string[]
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserUncheckedCreateNestedManyWithoutConversationsInput
+  }
+
+  export type ConversationCreateOrConnectWithoutMessagesInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type MessageCreateWithoutRepliesInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    sender: UserCreateNestedOneWithoutMessagesInput
+    conversation?: ConversationCreateNestedOneWithoutMessagesInput
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
+  }
+
+  export type MessageUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    content: string
+    senderId: string
+    conversationId?: string | null
+    replyToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+  }
+
+  export type MessageCreateOrConnectWithoutRepliesInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type MessageCreateWithoutReplyToInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    sender: UserCreateNestedOneWithoutMessagesInput
+    conversation?: ConversationCreateNestedOneWithoutMessagesInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
+  }
+
+  export type MessageUncheckedCreateWithoutReplyToInput = {
+    id?: string
+    content: string
+    senderId: string
+    conversationId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
+  }
+
+  export type MessageCreateOrConnectWithoutReplyToInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput>
+  }
+
+  export type MessageCreateManyReplyToInputEnvelope = {
+    data: MessageCreateManyReplyToInput | MessageCreateManyReplyToInput[]
   }
 
   export type UserUpsertWithoutMessagesInput = {
@@ -32183,6 +37475,9 @@ export namespace Prisma {
     complaints?: ComplaintUpdateManyWithoutUserNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -32199,6 +37494,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     approvedById?: NullableStringFieldUpdateOperationsInput | string | null
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -32213,6 +37509,632 @@ export namespace Prisma {
     complaints?: ComplaintUncheckedUpdateManyWithoutUserNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ConversationUpsertWithoutMessagesInput = {
+    update: XOR<ConversationUpdateWithoutMessagesInput, ConversationUncheckedUpdateWithoutMessagesInput>
+    create: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+    where?: ConversationWhereInput
+  }
+
+  export type ConversationUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: ConversationWhereInput
+    data: XOR<ConversationUpdateWithoutMessagesInput, ConversationUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type ConversationUpdateWithoutMessagesInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserUpdateManyWithoutConversationsNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutMessagesInput = {
+    participantIds?: ConversationUpdateparticipantIdsInput | string[]
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserUncheckedUpdateManyWithoutConversationsNestedInput
+  }
+
+  export type MessageUpsertWithoutRepliesInput = {
+    update: XOR<MessageUpdateWithoutRepliesInput, MessageUncheckedUpdateWithoutRepliesInput>
+    create: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+    where?: MessageWhereInput
+  }
+
+  export type MessageUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: MessageWhereInput
+    data: XOR<MessageUpdateWithoutRepliesInput, MessageUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type MessageUpdateWithoutRepliesInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    conversation?: ConversationUpdateOneWithoutMessagesNestedInput
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutRepliesInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutReplyToInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutReplyToInput, MessageUncheckedUpdateWithoutReplyToInput>
+    create: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutReplyToInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutReplyToInput, MessageUncheckedUpdateWithoutReplyToInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutReplyToInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutReplyToInput>
+  }
+
+  export type UserCreateWithoutConversationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    name: string
+    password?: string | null
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    rejectionReason?: string | null
+    provider?: $Enums.AuthProvider
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notificationsEnabled?: boolean
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    property?: PropertyCreateNestedOneWithoutUserInput
+    approvedBy?: UserCreateNestedOneWithoutApprovalsInput
+    approvals?: UserCreateNestedManyWithoutApprovedByInput
+    announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
+    announcementLikes?: AnnouncementLikeCreateNestedManyWithoutUserInput
+    announcementComments?: AnnouncementCommentCreateNestedManyWithoutUserInput
+    createdPolls?: PollCreateNestedManyWithoutCreatedByInput
+    pollVotes?: PollVoteCreateNestedManyWithoutUserInput
+    facilityBookings?: FacilityBookingCreateNestedManyWithoutUserInput
+    complaints?: ComplaintCreateNestedManyWithoutUserInput
+    payments?: PaymentCreateNestedManyWithoutUserInput
+    recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutConversationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    name: string
+    password?: string | null
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    rejectionReason?: string | null
+    provider?: $Enums.AuthProvider
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    approvedById?: string | null
+    notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    property?: PropertyUncheckedCreateNestedOneWithoutUserInput
+    approvals?: UserUncheckedCreateNestedManyWithoutApprovedByInput
+    announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
+    announcementLikes?: AnnouncementLikeUncheckedCreateNestedManyWithoutUserInput
+    announcementComments?: AnnouncementCommentUncheckedCreateNestedManyWithoutUserInput
+    createdPolls?: PollUncheckedCreateNestedManyWithoutCreatedByInput
+    pollVotes?: PollVoteUncheckedCreateNestedManyWithoutUserInput
+    facilityBookings?: FacilityBookingUncheckedCreateNestedManyWithoutUserInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutUserInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutConversationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutConversationsInput, UserUncheckedCreateWithoutConversationsInput>
+  }
+
+  export type MessageCreateWithoutConversationInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    sender: UserCreateNestedOneWithoutMessagesInput
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
+  }
+
+  export type MessageUncheckedCreateWithoutConversationInput = {
+    id?: string
+    content: string
+    senderId: string
+    replyToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
+  }
+
+  export type MessageCreateOrConnectWithoutConversationInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput>
+  }
+
+  export type MessageCreateManyConversationInputEnvelope = {
+    data: MessageCreateManyConversationInput | MessageCreateManyConversationInput[]
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutConversationsInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutConversationsInput, UserUncheckedUpdateWithoutConversationsInput>
+    create: XOR<UserCreateWithoutConversationsInput, UserUncheckedCreateWithoutConversationsInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutConversationsInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutConversationsInput, UserUncheckedUpdateWithoutConversationsInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutConversationsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutConversationsInput>
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutConversationInput, MessageUncheckedUpdateWithoutConversationInput>
+    create: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutConversationInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutConversationInput, MessageUncheckedUpdateWithoutConversationInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutConversationInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutConversationInput>
+  }
+
+  export type UserCreateWithoutAddedServicesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    name: string
+    password?: string | null
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    rejectionReason?: string | null
+    provider?: $Enums.AuthProvider
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notificationsEnabled?: boolean
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    property?: PropertyCreateNestedOneWithoutUserInput
+    approvedBy?: UserCreateNestedOneWithoutApprovalsInput
+    approvals?: UserCreateNestedManyWithoutApprovedByInput
+    announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
+    announcementLikes?: AnnouncementLikeCreateNestedManyWithoutUserInput
+    announcementComments?: AnnouncementCommentCreateNestedManyWithoutUserInput
+    createdPolls?: PollCreateNestedManyWithoutCreatedByInput
+    pollVotes?: PollVoteCreateNestedManyWithoutUserInput
+    facilityBookings?: FacilityBookingCreateNestedManyWithoutUserInput
+    complaints?: ComplaintCreateNestedManyWithoutUserInput
+    payments?: PaymentCreateNestedManyWithoutUserInput
+    recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    serviceReviews?: ServiceReviewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAddedServicesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    name: string
+    password?: string | null
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    rejectionReason?: string | null
+    provider?: $Enums.AuthProvider
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    approvedById?: string | null
+    notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    property?: PropertyUncheckedCreateNestedOneWithoutUserInput
+    approvals?: UserUncheckedCreateNestedManyWithoutApprovedByInput
+    announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
+    announcementLikes?: AnnouncementLikeUncheckedCreateNestedManyWithoutUserInput
+    announcementComments?: AnnouncementCommentUncheckedCreateNestedManyWithoutUserInput
+    createdPolls?: PollUncheckedCreateNestedManyWithoutCreatedByInput
+    pollVotes?: PollVoteUncheckedCreateNestedManyWithoutUserInput
+    facilityBookings?: FacilityBookingUncheckedCreateNestedManyWithoutUserInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutUserInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    serviceReviews?: ServiceReviewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAddedServicesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAddedServicesInput, UserUncheckedCreateWithoutAddedServicesInput>
+  }
+
+  export type ServiceReviewCreateWithoutServiceProviderInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutServiceReviewsInput
+  }
+
+  export type ServiceReviewUncheckedCreateWithoutServiceProviderInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceReviewCreateOrConnectWithoutServiceProviderInput = {
+    where: ServiceReviewWhereUniqueInput
+    create: XOR<ServiceReviewCreateWithoutServiceProviderInput, ServiceReviewUncheckedCreateWithoutServiceProviderInput>
+  }
+
+  export type ServiceReviewCreateManyServiceProviderInputEnvelope = {
+    data: ServiceReviewCreateManyServiceProviderInput | ServiceReviewCreateManyServiceProviderInput[]
+  }
+
+  export type UserUpsertWithoutAddedServicesInput = {
+    update: XOR<UserUpdateWithoutAddedServicesInput, UserUncheckedUpdateWithoutAddedServicesInput>
+    create: XOR<UserCreateWithoutAddedServicesInput, UserUncheckedCreateWithoutAddedServicesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAddedServicesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAddedServicesInput, UserUncheckedUpdateWithoutAddedServicesInput>
+  }
+
+  export type UserUpdateWithoutAddedServicesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    property?: PropertyUpdateOneWithoutUserNestedInput
+    approvedBy?: UserUpdateOneWithoutApprovalsNestedInput
+    approvals?: UserUpdateManyWithoutApprovedByNestedInput
+    announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
+    announcementLikes?: AnnouncementLikeUpdateManyWithoutUserNestedInput
+    announcementComments?: AnnouncementCommentUpdateManyWithoutUserNestedInput
+    createdPolls?: PollUpdateManyWithoutCreatedByNestedInput
+    pollVotes?: PollVoteUpdateManyWithoutUserNestedInput
+    facilityBookings?: FacilityBookingUpdateManyWithoutUserNestedInput
+    complaints?: ComplaintUpdateManyWithoutUserNestedInput
+    payments?: PaymentUpdateManyWithoutUserNestedInput
+    recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAddedServicesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    property?: PropertyUncheckedUpdateOneWithoutUserNestedInput
+    approvals?: UserUncheckedUpdateManyWithoutApprovedByNestedInput
+    announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
+    announcementLikes?: AnnouncementLikeUncheckedUpdateManyWithoutUserNestedInput
+    announcementComments?: AnnouncementCommentUncheckedUpdateManyWithoutUserNestedInput
+    createdPolls?: PollUncheckedUpdateManyWithoutCreatedByNestedInput
+    pollVotes?: PollVoteUncheckedUpdateManyWithoutUserNestedInput
+    facilityBookings?: FacilityBookingUncheckedUpdateManyWithoutUserNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutUserNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ServiceReviewUpsertWithWhereUniqueWithoutServiceProviderInput = {
+    where: ServiceReviewWhereUniqueInput
+    update: XOR<ServiceReviewUpdateWithoutServiceProviderInput, ServiceReviewUncheckedUpdateWithoutServiceProviderInput>
+    create: XOR<ServiceReviewCreateWithoutServiceProviderInput, ServiceReviewUncheckedCreateWithoutServiceProviderInput>
+  }
+
+  export type ServiceReviewUpdateWithWhereUniqueWithoutServiceProviderInput = {
+    where: ServiceReviewWhereUniqueInput
+    data: XOR<ServiceReviewUpdateWithoutServiceProviderInput, ServiceReviewUncheckedUpdateWithoutServiceProviderInput>
+  }
+
+  export type ServiceReviewUpdateManyWithWhereWithoutServiceProviderInput = {
+    where: ServiceReviewScalarWhereInput
+    data: XOR<ServiceReviewUpdateManyMutationInput, ServiceReviewUncheckedUpdateManyWithoutServiceProviderInput>
+  }
+
+  export type ServiceProviderCreateWithoutReviewsInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    addedBy: UserCreateNestedOneWithoutAddedServicesInput
+  }
+
+  export type ServiceProviderUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    addedById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceProviderCreateOrConnectWithoutReviewsInput = {
+    where: ServiceProviderWhereUniqueInput
+    create: XOR<ServiceProviderCreateWithoutReviewsInput, ServiceProviderUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type UserCreateWithoutServiceReviewsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    name: string
+    password?: string | null
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    rejectionReason?: string | null
+    provider?: $Enums.AuthProvider
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notificationsEnabled?: boolean
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    property?: PropertyCreateNestedOneWithoutUserInput
+    approvedBy?: UserCreateNestedOneWithoutApprovalsInput
+    approvals?: UserCreateNestedManyWithoutApprovedByInput
+    announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
+    announcementLikes?: AnnouncementLikeCreateNestedManyWithoutUserInput
+    announcementComments?: AnnouncementCommentCreateNestedManyWithoutUserInput
+    createdPolls?: PollCreateNestedManyWithoutCreatedByInput
+    pollVotes?: PollVoteCreateNestedManyWithoutUserInput
+    facilityBookings?: FacilityBookingCreateNestedManyWithoutUserInput
+    complaints?: ComplaintCreateNestedManyWithoutUserInput
+    payments?: PaymentCreateNestedManyWithoutUserInput
+    recordedFinances?: CommunityFinanceCreateNestedManyWithoutRecordedByInput
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    conversations?: ConversationCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderCreateNestedManyWithoutAddedByInput
+  }
+
+  export type UserUncheckedCreateWithoutServiceReviewsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    name: string
+    password?: string | null
+    role?: $Enums.UserRole
+    status?: $Enums.UserStatus
+    rejectionReason?: string | null
+    provider?: $Enums.AuthProvider
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    approvedById?: string | null
+    notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    pushSubscriptions?: PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    property?: PropertyUncheckedCreateNestedOneWithoutUserInput
+    approvals?: UserUncheckedCreateNestedManyWithoutApprovedByInput
+    announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
+    announcementLikes?: AnnouncementLikeUncheckedCreateNestedManyWithoutUserInput
+    announcementComments?: AnnouncementCommentUncheckedCreateNestedManyWithoutUserInput
+    createdPolls?: PollUncheckedCreateNestedManyWithoutCreatedByInput
+    pollVotes?: PollVoteUncheckedCreateNestedManyWithoutUserInput
+    facilityBookings?: FacilityBookingUncheckedCreateNestedManyWithoutUserInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutUserInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    recordedFinances?: CommunityFinanceUncheckedCreateNestedManyWithoutRecordedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutParticipantsInput
+    addedServices?: ServiceProviderUncheckedCreateNestedManyWithoutAddedByInput
+  }
+
+  export type UserCreateOrConnectWithoutServiceReviewsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutServiceReviewsInput, UserUncheckedCreateWithoutServiceReviewsInput>
+  }
+
+  export type ServiceProviderUpsertWithoutReviewsInput = {
+    update: XOR<ServiceProviderUpdateWithoutReviewsInput, ServiceProviderUncheckedUpdateWithoutReviewsInput>
+    create: XOR<ServiceProviderCreateWithoutReviewsInput, ServiceProviderUncheckedCreateWithoutReviewsInput>
+    where?: ServiceProviderWhereInput
+  }
+
+  export type ServiceProviderUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: ServiceProviderWhereInput
+    data: XOR<ServiceProviderUpdateWithoutReviewsInput, ServiceProviderUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type ServiceProviderUpdateWithoutReviewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    addedBy?: UserUpdateOneRequiredWithoutAddedServicesNestedInput
+  }
+
+  export type ServiceProviderUncheckedUpdateWithoutReviewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    addedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutServiceReviewsInput = {
+    update: XOR<UserUpdateWithoutServiceReviewsInput, UserUncheckedUpdateWithoutServiceReviewsInput>
+    create: XOR<UserCreateWithoutServiceReviewsInput, UserUncheckedCreateWithoutServiceReviewsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutServiceReviewsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutServiceReviewsInput, UserUncheckedUpdateWithoutServiceReviewsInput>
+  }
+
+  export type UserUpdateWithoutServiceReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    property?: PropertyUpdateOneWithoutUserNestedInput
+    approvedBy?: UserUpdateOneWithoutApprovalsNestedInput
+    approvals?: UserUpdateManyWithoutApprovedByNestedInput
+    announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
+    announcementLikes?: AnnouncementLikeUpdateManyWithoutUserNestedInput
+    announcementComments?: AnnouncementCommentUpdateManyWithoutUserNestedInput
+    createdPolls?: PollUpdateManyWithoutCreatedByNestedInput
+    pollVotes?: PollVoteUpdateManyWithoutUserNestedInput
+    facilityBookings?: FacilityBookingUpdateManyWithoutUserNestedInput
+    complaints?: ComplaintUpdateManyWithoutUserNestedInput
+    payments?: PaymentUpdateManyWithoutUserNestedInput
+    recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutServiceReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    property?: PropertyUncheckedUpdateOneWithoutUserNestedInput
+    approvals?: UserUncheckedUpdateManyWithoutApprovedByNestedInput
+    announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
+    announcementLikes?: AnnouncementLikeUncheckedUpdateManyWithoutUserNestedInput
+    announcementComments?: AnnouncementCommentUncheckedUpdateManyWithoutUserNestedInput
+    createdPolls?: PollUncheckedUpdateManyWithoutCreatedByNestedInput
+    pollVotes?: PollVoteUncheckedUpdateManyWithoutUserNestedInput
+    facilityBookings?: FacilityBookingUncheckedUpdateManyWithoutUserNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutUserNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
   }
 
   export type RefreshTokenCreateManyUserInput = {
@@ -32257,6 +38179,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     notificationsEnabled?: boolean
+    conversationIds?: UserCreateconversationIdsInput | string[]
   }
 
   export type AnnouncementCreateManyAuthorInput = {
@@ -32365,6 +38288,30 @@ export namespace Prisma {
   export type MessageCreateManySenderInput = {
     id?: string
     content: string
+    conversationId?: string | null
+    replyToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+  }
+
+  export type ServiceProviderCreateManyAddedByInput = {
+    id?: string
+    name: string
+    category: string
+    phone: string
+    description?: string | null
+    price?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceReviewCreateManyUserInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    serviceProviderId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -32472,6 +38419,9 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedByInput = {
@@ -32487,6 +38437,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -32502,6 +38453,9 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutParticipantsNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutApprovedByInput = {
@@ -32517,6 +38471,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
   }
 
   export type AnnouncementUpdateWithoutAuthorInput = {
@@ -32815,16 +38770,108 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    conversation?: ConversationUpdateOneWithoutMessagesNestedInput
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutSenderInput = {
     content?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageUncheckedUpdateManyWithoutSenderInput = {
     content?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+  }
+
+  export type ConversationUpdateWithoutParticipantsInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutParticipantsInput = {
+    participantIds?: ConversationUpdateparticipantIdsInput | string[]
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutParticipantsInput = {
+    participantIds?: ConversationUpdateparticipantIdsInput | string[]
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceProviderUpdateWithoutAddedByInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ServiceReviewUpdateManyWithoutServiceProviderNestedInput
+  }
+
+  export type ServiceProviderUncheckedUpdateWithoutAddedByInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ServiceReviewUncheckedUpdateManyWithoutServiceProviderNestedInput
+  }
+
+  export type ServiceProviderUncheckedUpdateManyWithoutAddedByInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceReviewUpdateWithoutUserInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceProvider?: ServiceProviderUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type ServiceReviewUncheckedUpdateWithoutUserInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProviderId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceReviewUncheckedUpdateManyWithoutUserInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceProviderId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32993,6 +39040,201 @@ export namespace Prisma {
     status?: EnumFacilityBookingStatusFieldUpdateOperationsInput | $Enums.FacilityBookingStatus
     totalCost?: NullableFloatFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyReplyToInput = {
+    id?: string
+    content: string
+    senderId: string
+    conversationId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+  }
+
+  export type MessageUpdateWithoutReplyToInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    conversation?: ConversationUpdateOneWithoutMessagesNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutReplyToInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReplyToInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+  }
+
+  export type MessageCreateManyConversationInput = {
+    id?: string
+    content: string
+    senderId: string
+    replyToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    readBy?: MessageCreatereadByInput | string[]
+  }
+
+  export type UserUpdateWithoutConversationsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    property?: PropertyUpdateOneWithoutUserNestedInput
+    approvedBy?: UserUpdateOneWithoutApprovalsNestedInput
+    approvals?: UserUpdateManyWithoutApprovedByNestedInput
+    announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
+    announcementLikes?: AnnouncementLikeUpdateManyWithoutUserNestedInput
+    announcementComments?: AnnouncementCommentUpdateManyWithoutUserNestedInput
+    createdPolls?: PollUpdateManyWithoutCreatedByNestedInput
+    pollVotes?: PollVoteUpdateManyWithoutUserNestedInput
+    facilityBookings?: FacilityBookingUpdateManyWithoutUserNestedInput
+    complaints?: ComplaintUpdateManyWithoutUserNestedInput
+    payments?: PaymentUpdateManyWithoutUserNestedInput
+    recordedFinances?: CommunityFinanceUpdateManyWithoutRecordedByNestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    addedServices?: ServiceProviderUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutConversationsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    pushSubscriptions?: PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    property?: PropertyUncheckedUpdateOneWithoutUserNestedInput
+    approvals?: UserUncheckedUpdateManyWithoutApprovedByNestedInput
+    announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
+    announcementLikes?: AnnouncementLikeUncheckedUpdateManyWithoutUserNestedInput
+    announcementComments?: AnnouncementCommentUncheckedUpdateManyWithoutUserNestedInput
+    createdPolls?: PollUncheckedUpdateManyWithoutCreatedByNestedInput
+    pollVotes?: PollVoteUncheckedUpdateManyWithoutUserNestedInput
+    facilityBookings?: FacilityBookingUncheckedUpdateManyWithoutUserNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutUserNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    recordedFinances?: CommunityFinanceUncheckedUpdateManyWithoutRecordedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    addedServices?: ServiceProviderUncheckedUpdateManyWithoutAddedByNestedInput
+    serviceReviews?: ServiceReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutConversationsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    conversationIds?: UserUpdateconversationIdsInput | string[]
+  }
+
+  export type MessageUpdateWithoutConversationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutConversationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
+  }
+
+  export type MessageUncheckedUpdateManyWithoutConversationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    readBy?: MessageUpdatereadByInput | string[]
+  }
+
+  export type ServiceReviewCreateManyServiceProviderInput = {
+    id?: string
+    rating: number
+    comment?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceReviewUpdateWithoutServiceProviderInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutServiceReviewsNestedInput
+  }
+
+  export type ServiceReviewUncheckedUpdateWithoutServiceProviderInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceReviewUncheckedUpdateManyWithoutServiceProviderInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

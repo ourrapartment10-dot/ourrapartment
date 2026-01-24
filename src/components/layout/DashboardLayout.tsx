@@ -30,6 +30,7 @@ import {
   CheckCircle2,
   Download,
   LucideIcon,
+  Briefcase,
 } from 'lucide-react';
 import { UserRole } from '@/generated/client';
 import { Button } from '@/components/ui/button';
@@ -45,35 +46,13 @@ interface NavItem {
 const navigation: Partial<Record<UserRole, NavItem[]>> = {
   [UserRole.ADMIN]: [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
+    // Community & People
     { name: 'Residents', href: '/dashboard/admin/residents', icon: Users },
     { name: 'Properties', href: '/dashboard/admin/properties', icon: Building },
-    { name: 'Facilities', href: '/dashboard/facilities', icon: Calendar },
-    { name: 'Complaints', href: '/dashboard/complaints', icon: Wrench },
     {
       name: 'Announcements',
       href: '/dashboard/announcements',
       icon: MessageSquare,
-    },
-    // Financial Management Section
-    { name: 'Payments', href: '/dashboard/payments', icon: CreditCard },
-    {
-      name: 'Community Finances',
-      href: '/dashboard/finances',
-      icon: PieChart,
-      description: 'Manage community income and expenses',
-    },
-    {
-      name: 'FAQs',
-      href: '/dashboard/faqs',
-      icon: HelpCircle,
-      description: 'Frequently asked questions',
-    },
-    { name: 'Settings', href: '/dashboard/settings', icon: Settings },
-    {
-      name: 'Subscriptions',
-      href: '/dashboard/subscription',
-      icon: Wallet,
-      description: 'Manage community subscriptions',
     },
     {
       name: 'Connect Space',
@@ -81,21 +60,49 @@ const navigation: Partial<Record<UserRole, NavItem[]>> = {
       icon: MessageSquare,
       description: 'Community Chat',
     },
-  ],
-  [UserRole.RESIDENT]: [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'Book Facilities', href: '/dashboard/facilities', icon: Calendar },
+    // Operations
+    { name: 'Facilities', href: '/dashboard/facilities', icon: Calendar },
+    { name: 'Services', href: '/dashboard/services', icon: Briefcase },
     { name: 'Complaints', href: '/dashboard/complaints', icon: Wrench },
-    { name: 'Announcements', href: '/dashboard/announcements', icon: Bell },
-    // Personal Finance Section
-    { name: 'My Payments', href: '/dashboard/payments', icon: CreditCard },
-    { name: 'Community Finances', href: '/dashboard/finances', icon: PieChart },
-    { name: 'Connect Space', href: '/dashboard/connect', icon: MessageSquare },
+    // Finances
+    { name: 'Payments', href: '/dashboard/payments', icon: CreditCard },
+    {
+      name: 'Finances',
+      href: '/dashboard/finances',
+      icon: PieChart,
+      description: 'Income & Expenses',
+    },
+    {
+      name: 'Subscriptions',
+      href: '/dashboard/subscription',
+      icon: Wallet,
+    },
+    // Config
     {
       name: 'FAQs',
       href: '/dashboard/faqs',
       icon: HelpCircle,
-      description: 'Frequently asked questions',
+    },
+    { name: 'Settings', href: '/dashboard/settings', icon: Settings },
+  ],
+  [UserRole.RESIDENT]: [
+    { name: 'Dashboard', href: '/dashboard', icon: Home },
+    // Social
+    { name: 'Announcements', href: '/dashboard/announcements', icon: Bell },
+    { name: 'Connect Space', href: '/dashboard/connect', icon: MessageSquare },
+    // Amenities
+    { name: 'Book Facilities', href: '/dashboard/facilities', icon: Calendar },
+    { name: 'Services', href: '/dashboard/services', icon: Briefcase },
+    // Support
+    { name: 'Complaints', href: '/dashboard/complaints', icon: Wrench },
+    // Finance
+    { name: 'My Payments', href: '/dashboard/payments', icon: CreditCard },
+    { name: 'Community Funds', href: '/dashboard/finances', icon: PieChart },
+    // Info
+    {
+      name: 'FAQs',
+      href: '/dashboard/faqs',
+      icon: HelpCircle,
     },
     { name: 'Profile', href: '/dashboard/profile', icon: Settings },
   ],
@@ -227,25 +234,33 @@ export default function DashboardLayout({
           />
 
           {/* Mobile Sidebar - 80% Width */}
-          <div className="fixed inset-y-0 left-0 flex w-[80%] transform flex-col bg-white shadow-2xl transition-transform duration-300">
-            <div className="flex h-16 items-center justify-between border-b border-gray-100 px-6">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md">
+          <div className="fixed inset-y-0 left-0 flex w-[85%] transform flex-col bg-white shadow-2xl transition-transform duration-300 sm:w-[320px]">
+            <div className="flex h-24 items-center justify-between border-b border-gray-100 px-6">
+              <div className="flex items-center gap-3.5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white shadow-lg shadow-slate-200">
                   <Building className="h-5 w-5" />
                 </div>
-                <span className="text-lg font-bold text-gray-900">
-                  OurApartment
-                </span>
+                <div>
+                  <span className="block text-lg font-black tracking-tight text-slate-900">
+                    OurApartment
+                  </span>
+                  <span className="block text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+                    Premium Living
+                  </span>
+                </div>
               </div>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="p-2 text-gray-400 hover:text-gray-600"
+                className="rounded-xl p-2 text-slate-400 hover:bg-slate-50 hover:text-slate-900"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
 
-            <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-6">
+            <nav className="custom-scrollbar flex-1 space-y-1 overflow-y-auto px-6 py-6">
+              <p className="mb-4 px-2 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
+                Menu
+              </p>
               {userNavigation.map((item: NavItem) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -254,23 +269,25 @@ export default function DashboardLayout({
                     key={item.name}
                     href={item.href}
                     onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium transition-colors ${
-                      isActive
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-600 hover:bg-gray-50'
-                    }`}
+                    className={`group relative flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300 ${isActive
+                      ? 'bg-slate-900 text-white shadow-xl shadow-slate-200'
+                      : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                      }`}
                   >
                     <Icon
-                      className={`h-5 w-5 ${isActive ? 'text-blue-600' : 'text-gray-400'}`}
+                      className={`h-5 w-5 transition-transform duration-300 ${isActive ? 'scale-110 text-white' : 'group-hover:scale-110'}`}
                     />
-                    <span className="flex-1">{item.name}</span>
+                    <span className="flex-1 tracking-wide">{item.name}</span>
+                    {isActive && (
+                      <div className="absolute right-3 h-1.5 w-1.5 rounded-full bg-white/30" />
+                    )}
                   </Link>
                 );
               })}
             </nav>
 
             {/* Mobile: User & Logout in one box */}
-            <div className="space-y-3 border-t border-gray-100 bg-gray-50 p-4">
+            <div className="space-y-4 border-t border-gray-100 bg-white p-6 pb-8">
               {showInstallButton && (
                 <Button
                   onClick={() => {
@@ -278,15 +295,15 @@ export default function DashboardLayout({
                     setSidebarOpen(false);
                   }}
                   variant="outline"
-                  className="w-full gap-2 border-blue-600 text-blue-600 transition-all hover:bg-blue-600 hover:text-white"
+                  className="w-full gap-2 rounded-2xl border-slate-900 bg-slate-900 text-white transition-all hover:bg-black hover:text-white hover:shadow-lg"
                 >
                   <Download className="h-5 w-5" />
                   Install App
                 </Button>
               )}
-              <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-blue-100 text-sm font-bold text-blue-600">
+              <div className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-1 shadow-xl shadow-gray-100 transition-all hover:border-gray-200">
+                <div className="flex items-center gap-3 p-3">
+                  <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-2xl bg-slate-50">
                     {user.image ? (
                       <img
                         src={user.image}
@@ -295,46 +312,55 @@ export default function DashboardLayout({
                         referrerPolicy="no-referrer"
                       />
                     ) : (
-                      user.name?.[0]?.toUpperCase()
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-tr from-slate-200 to-slate-100 text-xs font-black text-slate-500">
+                        {user.name?.[0]?.toUpperCase()}
+                      </div>
                     )}
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm leading-none font-bold text-gray-900">
+                  <div className="min-w-0 flex-1">
+                    <span className="block truncate text-xs font-black text-slate-900">
                       {user.name}
                     </span>
-                    <span className="mt-1 text-[10px] font-medium text-gray-500 uppercase">
+                    <span className="mt-0.5 block truncate text-[9px] font-bold tracking-wide text-slate-400 uppercase">
                       {user.role}
                     </span>
                   </div>
+                  <button
+                    onClick={logout}
+                    className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-all hover:bg-rose-50 hover:text-rose-500"
+                  >
+                    <LogOut className="h-4 w-4" />
+                  </button>
                 </div>
-                <button
-                  onClick={logout}
-                  className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-600"
-                >
-                  <LogOut className="h-5 w-5" />
-                </button>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Desktop Sidebar - Fixed Width, Feature Selection Only */}
-      <div className="fixed inset-y-0 z-30 hidden flex-col border-r border-gray-200 bg-white lg:flex lg:w-64">
-        <div className="flex h-16 items-center border-b border-gray-100 px-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white">
-              <Building className="h-4 w-4" />
+      {/* Desktop Sidebar - Premium Style */}
+      <div className="fixed inset-y-0 z-30 hidden flex-col border-r border-gray-100 bg-white/80 backdrop-blur-xl lg:flex lg:w-72">
+        {/* Brand Section */}
+        <div className="flex h-24 items-center px-8">
+          <div className="flex items-center gap-3.5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white shadow-lg shadow-slate-200 transition-transform hover:scale-105">
+              <Building className="h-5 w-5" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-gray-900">
-              OurApartment
-            </span>
+            <div>
+              <span className="block text-lg font-black tracking-tight text-slate-900">
+                OurApartment
+              </span>
+              <span className="block text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+                Premium Living
+              </span>
+            </div>
           </div>
         </div>
 
-        <nav className="custom-scrollbar flex-1 space-y-0.5 overflow-y-auto px-3 py-6">
-          <p className="mb-3 px-3 text-xs font-semibold tracking-wider text-gray-400 uppercase">
-            Menu
+        {/* Navigation Section */}
+        <nav className="custom-scrollbar flex-1 space-y-1 overflow-y-auto px-6 py-4">
+          <p className="mb-4 px-2 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
+            Main Navigation
           </p>
           {userNavigation.map((item: NavItem) => {
             const Icon = item.icon;
@@ -343,64 +369,153 @@ export default function DashboardLayout({
               <Link
                 key={item.name}
                 href={item.href}
-                className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
-                }`}
+                className={`group relative flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300 ${isActive
+                  ? 'bg-slate-900 text-white shadow-xl shadow-slate-200'
+                  : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                  }`}
               >
                 <Icon
-                  className={`h-5 w-5 transition-colors ${isActive ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-500'}`}
+                  className={`h-5 w-5 transition-transform duration-300 ${isActive ? 'scale-110 text-white' : 'group-hover:scale-110'}`}
                 />
-                <span className="flex-1">{item.name}</span>
+                <span className="flex-1 tracking-wide">{item.name}</span>
+                {isActive && (
+                  <div className="absolute right-3 h-1.5 w-1.5 rounded-full bg-white/30" />
+                )}
               </Link>
             );
           })}
         </nav>
+
+        {/* Footer/Logout Profile Section */}
+        <div className="p-6">
+          <div className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-1 shadow-2xl shadow-gray-100 transition-all hover:border-gray-200 hover:shadow-xl">
+            <div className="flex items-center gap-3 p-3">
+              <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-2xl bg-slate-50">
+                {user.image ? (
+                  <img
+                    referrerPolicy="no-referrer"
+                    src={user.image}
+                    alt={user.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-tr from-slate-200 to-slate-100 text-xs font-black text-slate-500">
+                    {user.name?.[0]?.toUpperCase()}
+                  </div>
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-xs font-black text-slate-900">
+                  {user.name}
+                </p>
+                <p className="truncate text-[9px] font-bold tracking-wide text-slate-400 uppercase">
+                  {user.role}
+                </p>
+              </div>
+              <button
+                onClick={logout}
+                className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-all hover:bg-rose-50 hover:text-rose-500"
+                title="Sign Out"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Main Layout Area */}
       <div className="flex min-h-screen w-full flex-1 flex-col overflow-x-hidden lg:pl-64">
-        {/* Top Navigation Bar - Sticky */}
-        <header className="sticky top-0 z-20 flex h-16 w-full max-w-full items-center justify-between gap-2 overflow-hidden border-b border-gray-200 bg-white/80 px-4 backdrop-blur-md sm:gap-4 sm:px-6">
-          {/* Mobile Menu Trigger + Title */}
-          <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden sm:gap-3 lg:hidden">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="-ml-2 flex-shrink-0 rounded-lg p-2 text-gray-500 hover:bg-gray-100"
-            >
-              <Menu className="h-6 w-6" />
-            </button>
-            <span className="truncate text-sm font-bold text-gray-900 sm:text-base">
-              {pageTitle}
-            </span>
-          </div>
+        {/* Top Navigation Bar - Floating & Premium */}
+        <header className="sticky top-0 z-20 mx-auto w-full max-w-7xl pt-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 w-full items-center justify-between gap-4 rounded-2xl border border-white/40 bg-white/70 px-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl sm:px-6">
 
-          {/* Desktop Left Title */}
-          <div className="hidden min-w-0 flex-1 overflow-hidden lg:block">
-            <h1 className="truncate text-xl font-bold text-gray-900">
-              {pageTitle}
-            </h1>
-          </div>
-
-          {/* Right Side: Bell, Install - No Logout */}
-          <div className="flex flex-shrink-0 items-center gap-2 sm:gap-3">
-            <NotificationBell />
-
-            {showInstallButton && (
-              <Button
-                onClick={handleInstallClick}
-                variant="outline"
-                size="sm"
-                className="gap-1 border-blue-600 p-2 text-blue-600 transition-all hover:bg-blue-600 hover:text-white sm:gap-2"
-                title="Install App"
+            {/* Mobile Menu Trigger + Title */}
+            <div className="flex items-center gap-3 lg:hidden">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm transition-transform active:scale-95"
               >
-                <Download className="h-4 w-4 flex-shrink-0" />
-                <span className="hidden whitespace-nowrap lg:inline">
-                  Install App
-                </span>
-              </Button>
-            )}
+                <Menu className="h-5 w-5 text-gray-700" />
+              </button>
+              <span className="text-sm font-black text-gray-900">
+                {pageTitle}
+              </span>
+            </div>
+
+            {/* Desktop Left: Breadcrumb/Context (Optional, keeps generic for now) */}
+            <div className="hidden lg:block">
+              {/* Intentionally left blank for cleaner specific-page headers */}
+            </div>
+
+            {/* Right Side Actions */}
+            <div className="flex flex-1 items-center justify-end gap-3 sm:gap-4">
+              {/* Install Button (PWA) */}
+              {showInstallButton && (
+                <Button
+                  onClick={handleInstallClick}
+                  variant="outline"
+                  size="sm"
+                  className="hidden h-9 gap-2 rounded-xl border-blue-100 bg-blue-50/50 px-4 font-bold text-blue-600 hover:bg-blue-100/50 sm:flex"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>Get App</span>
+                </Button>
+              )}
+
+              {/* Notification Bell */}
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm transition-transform hover:scale-105">
+                <NotificationBell />
+              </div>
+
+              {/* Profile Pill */}
+              <Link
+                href="/dashboard/profile"
+                className="hidden items-center gap-3 rounded-xl bg-white py-1.5 pl-4 pr-1.5 shadow-sm transition-transform hover:scale-[1.02] active:scale-[0.98] sm:flex"
+              >
+                <div className="flex flex-col items-end">
+                  <span className="text-xs font-black text-gray-900">
+                    {user.name}
+                  </span>
+                  <span className="text-[9px] font-bold tracking-wider text-gray-400 uppercase">
+                    {user.role}
+                  </span>
+                </div>
+                <div className="relative h-8 w-8 overflow-hidden rounded-lg bg-gray-100 shadow-inner">
+                  {user.image ? (
+                    <img
+                      src={user.image}
+                      alt={user.name}
+                      className="h-full w-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 text-[10px] font-black text-white">
+                      {user.name?.[0]?.toUpperCase()}
+                    </div>
+                  )}
+                </div>
+              </Link>
+
+              {/* Mobile Profile Icon Only */}
+              <Link
+                href="/dashboard/profile"
+                className="relative block h-10 w-10 overflow-hidden rounded-xl bg-gray-100 shadow-sm sm:hidden"
+              >
+                {user.image ? (
+                  <img
+                    src={user.image}
+                    alt={user.name}
+                    className="h-full w-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 text-xs font-black text-white">
+                    {user.name?.[0]?.toUpperCase()}
+                  </div>
+                )}
+              </Link>
+            </div>
           </div>
         </header>
 
