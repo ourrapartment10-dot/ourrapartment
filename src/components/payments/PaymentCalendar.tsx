@@ -92,7 +92,10 @@ export default function PaymentCalendar({
       // Check paidDate (from API likely) or paidAt (from interface definition)
       const paidDateStr = payment.paidDate || payment.paidAt;
 
-      const targetDateStr = isPaid ? paidDateStr : payment.dueDate;
+      // For paid payments, use paid date. For pending/overdue, use dueDate or fallback to createdAt
+      const targetDateStr = isPaid
+        ? paidDateStr
+        : (payment.dueDate || payment.createdAt);
 
       if (!targetDateStr) return;
 

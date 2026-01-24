@@ -209,14 +209,18 @@ export async function GET(req: NextRequest) {
         } else {
             // --- RESIDENT STATS ---
             const [
-                myPendingPayments,
+                myPendingPaymentsSum,
                 myOpenComplaints,
                 myUpcomingBookingsCount,
                 myProperties,
                 activePolls,
                 latestEvent,
             ] = await Promise.all([
-                prisma.payment.count({ where: { userId, status: 'PENDING' } }),
+                // Get actual sum of pending payment amounts, not just count
+                prisma.payment.aggregate({
+                    where: { userId, status: 'PENDING' },
+                    _sum: { amount: true },
+                }),
                 prisma.complaint.count({ where: { userId, status: 'OPEN' } }),
                 prisma.facilityBooking.count({
                     where: {
@@ -299,7 +303,7 @@ export async function GET(req: NextRequest) {
             responseData = {
                 role: userRole,
                 stats: {
-                    pendingPayments: myPendingPayments,
+                    pendingPayments: myPendingPaymentsSum._sum.amount || 0,
                     openComplaints: myOpenComplaints,
                     upcomingBookings: myUpcomingBookingsCount,
                     property: myProperties[0] || null,

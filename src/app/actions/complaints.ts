@@ -5,6 +5,7 @@ import { verifyAccessToken } from '@/lib/auth/token';
 import { cookies } from 'next/headers';
 import { UserRole, ComplaintType, ComplaintStatus } from '@/generated/client';
 import { sendPushNotification } from '@/lib/push';
+import { unstable_cache, revalidateTag } from 'next/cache';
 
 async function getAuthenticatedUser() {
   const cookieStore = await cookies();
@@ -20,49 +21,76 @@ async function getAuthenticatedUser() {
   });
 }
 
+// Cache the stats calculation for 60 seconds
+const getCachedComplaintStats = unstable_cache(
+  async () => {
+    // Use Prisma aggregation for efficient calculation
+    const [ratingStats, totalResolved, resolvedWithTimes] = await Promise.all([
+      // Get average rating using database aggregation
+      prisma.complaint.aggregate({
+        where: {
+          status: ComplaintStatus.RESOLVED,
+          rating: { not: null },
+        },
+        _avg: { rating: true },
+        _count: true,
+      }),
+
+      // Get total resolved count
+      prisma.complaint.count({
+        where: { status: ComplaintStatus.RESOLVED },
+      }),
+
+      // Get only the timestamps for resolution time calculation
+      prisma.complaint.findMany({
+        where: {
+          status: ComplaintStatus.RESOLVED,
+          resolvedAt: { not: null },
+        },
+        select: {
+          createdAt: true,
+          resolvedAt: true,
+        },
+        // Limit to recent 100 for performance (representative sample)
+        take: 100,
+        orderBy: { resolvedAt: 'desc' },
+      }),
+    ]);
+
+    // Calculate average resolution time from sample
+    let totalHours = 0;
+    resolvedWithTimes.forEach((c) => {
+      if (c.resolvedAt) {
+        const diff = c.resolvedAt.getTime() - c.createdAt.getTime();
+        totalHours += diff / (1000 * 60 * 60);
+      }
+    });
+
+    const avgResolutionHours =
+      resolvedWithTimes.length > 0
+        ? totalHours / resolvedWithTimes.length
+        : 0;
+
+    return {
+      avgRating: ratingStats._avg.rating
+        ? parseFloat(ratingStats._avg.rating.toFixed(1))
+        : 0,
+      avgResolutionHours: Math.round(avgResolutionHours),
+      totalResolved,
+    };
+  },
+  ['complaint-stats'],
+  {
+    revalidate: 60, // Cache for 60 seconds
+    tags: ['complaint-stats'],
+  }
+);
+
 export async function getComplaintStats() {
   const user = await getAuthenticatedUser();
   if (!user) return { avgRating: 0, avgResolutionHours: 0, totalResolved: 0 };
 
-  // Fetch all resolved complaints that have a rating
-  const ratedComplaints = await prisma.complaint.findMany({
-    where: {
-      status: ComplaintStatus.RESOLVED,
-      rating: { not: null },
-    },
-    select: { rating: true },
-  });
-
-  const totalRated = ratedComplaints.length;
-  const avgRating =
-    totalRated > 0
-      ? ratedComplaints.reduce((acc, curr) => acc + (curr.rating || 0), 0) /
-        totalRated
-      : 0;
-
-  // Fetch resolution times (for all resolved, regardless of rating)
-  const resolvedComplaints = await prisma.complaint.findMany({
-    where: { status: ComplaintStatus.RESOLVED },
-    select: { createdAt: true, resolvedAt: true },
-  });
-
-  const totalResolved = resolvedComplaints.length;
-  let totalHours = 0;
-
-  resolvedComplaints.forEach((c) => {
-    if (c.resolvedAt) {
-      const diff = c.resolvedAt.getTime() - c.createdAt.getTime();
-      totalHours += diff / (1000 * 60 * 60);
-    }
-  });
-
-  const avgResolutionHours = totalResolved > 0 ? totalHours / totalResolved : 0;
-
-  return {
-    avgRating: parseFloat(avgRating.toFixed(1)),
-    avgResolutionHours: Math.round(avgResolutionHours),
-    totalResolved,
-  };
+  return getCachedComplaintStats();
 }
 
 export async function createComplaint(data: {
@@ -200,6 +228,9 @@ export async function resolveComplaint(id: string) {
     console.error
   );
 
+  // Invalidate stats cache since we have a new resolved complaint
+  (revalidateTag as any)('complaint-stats');
+
   return complaint;
 }
 
@@ -251,11 +282,16 @@ export async function submitComplaintFeedback(
 
   if (complaint.userId !== user.id) throw new Error('Permission denied');
 
-  return prisma.complaint.update({
+  const updatedComplaint = await prisma.complaint.update({
     where: { id },
     data: {
       rating,
       feedback,
     },
   });
+
+  // Invalidate stats cache since rating affects average
+  (revalidateTag as any)('complaint-stats');
+
+  return updatedComplaint;
 }

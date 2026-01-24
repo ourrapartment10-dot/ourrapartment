@@ -23,22 +23,37 @@ import {
   Search,
   Filter,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense, lazy, memo, useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from 'recharts';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+// Lazy load Recharts to reduce initial bundle size
+const AreaChart = dynamic(() => import('recharts').then(mod => ({ default: mod.AreaChart })), {
+  ssr: false,
+  loading: () => <ChartSkeleton />,
+});
+const Area = dynamic(() => import('recharts').then(mod => ({ default: mod.Area })), { ssr: false });
+const XAxis = dynamic(() => import('recharts').then(mod => ({ default: mod.XAxis })), { ssr: false });
+const YAxis = dynamic(() => import('recharts').then(mod => ({ default: mod.YAxis })), { ssr: false });
+const CartesianGrid = dynamic(() => import('recharts').then(mod => ({ default: mod.CartesianGrid })), { ssr: false });
+const Tooltip = dynamic(() => import('recharts').then(mod => ({ default: mod.Tooltip })), { ssr: false });
+const ResponsiveContainer = dynamic(() => import('recharts').then(mod => ({ default: mod.ResponsiveContainer })), { ssr: false });
+const PieChart = dynamic(() => import('recharts').then(mod => ({ default: mod.PieChart })), { ssr: false });
+const Pie = dynamic(() => import('recharts').then(mod => ({ default: mod.Pie })), { ssr: false });
+const Cell = dynamic(() => import('recharts').then(mod => ({ default: mod.Cell })), { ssr: false });
+
+// Chart loading skeleton
+function ChartSkeleton() {
+  return (
+    <div className="h-full w-full animate-pulse rounded-xl bg-slate-100">
+      <div className="flex h-full items-center justify-center">
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600" />
+      </div>
+    </div>
+  );
+}
 
 // --- Types ---
 interface DashboardData {
@@ -98,6 +113,12 @@ export default function DashboardPage() {
     }
   }, [user]);
 
+  // Memoize expensive calculations (must be before conditional returns)
+  const isAdmin = useMemo(
+    () => data?.role === 'ADMIN' || data?.role === 'SUPER_ADMIN',
+    [data?.role]
+  );
+
   if (loading) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
@@ -109,11 +130,10 @@ export default function DashboardPage() {
 
   if (!data) return null;
 
-  const isAdmin = data.role === 'ADMIN' || data.role === 'SUPER_ADMIN';
-
   // --- Components ---
 
-  const StatTile = ({ label, value, icon: Icon, color, trend }: any) => (
+  // Memoized components to prevent unnecessary re-renders
+  const StatTile = memo(({ label, value, icon: Icon, color, trend }: any) => (
     <motion.div
       whileHover={{ y: -2 }}
       className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 transition-all hover:shadow-md"
@@ -135,9 +155,10 @@ export default function DashboardPage() {
         </div>
       )}
     </motion.div>
-  );
+  ));
+  StatTile.displayName = 'StatTile';
 
-  const ActionButton = ({ label, icon: Icon, href, colorClass }: any) => (
+  const ActionButton = memo(({ label, icon: Icon, href, colorClass }: any) => (
     <Link
       href={href}
       className={`group flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-4 transition-all hover:border-solid hover:bg-white hover:shadow-md ${colorClass} hover:border-current`}
@@ -147,7 +168,8 @@ export default function DashboardPage() {
       </div>
       <span className="text-xs font-black tracking-wide uppercase">{label}</span>
     </Link>
-  );
+  ));
+  ActionButton.displayName = 'ActionButton';
 
   return (
     <div className="space-y-8 pb-10">
@@ -239,7 +261,7 @@ export default function DashboardPage() {
           <>
             <StatTile
               label="My Due Amount"
-              value={`₹${(data.stats.pendingPayments * 2500).toLocaleString()}`}
+              value={`₹${(data.stats.pendingPayments || 0).toLocaleString()}`}
               icon={Wallet}
               color="bg-rose-500 text-rose-600"
             />
