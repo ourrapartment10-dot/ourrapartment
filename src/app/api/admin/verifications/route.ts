@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireRole } from '@/lib/auth/middleware-helpers';
 import { UserRole } from '@/generated/client';
 import { handleApiError, ApiError } from '@/lib/api-error';
 
@@ -14,26 +13,7 @@ const UserStatus = {
 
 export async function GET(req: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
-
-    const requester = await prisma.user.findUnique({
-      where: { id: payload.userId as string },
-      select: { role: true },
-    });
-
-    if (
-      !requester ||
-      (requester.role !== UserRole.ADMIN &&
-        requester.role !== UserRole.SUPER_ADMIN)
-    ) {
-      throw new ApiError(403, 'Forbidden');
-    }
+    await requireRole(['ADMIN', 'SUPER_ADMIN']);
 
     const { searchParams } = new URL(req.url);
     const status = searchParams.get('status') || 'PENDING';
@@ -62,26 +42,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
-
-    const requester = await prisma.user.findUnique({
-      where: { id: payload.userId as string },
-      select: { id: true, role: true },
-    });
-
-    if (
-      !requester ||
-      (requester.role !== UserRole.ADMIN &&
-        requester.role !== UserRole.SUPER_ADMIN)
-    ) {
-      throw new ApiError(403, 'Forbidden');
-    }
+    const requester = await requireRole(['ADMIN', 'SUPER_ADMIN']);
 
     const body = await req.json();
     const { userId, action, rejectionReason } = body;
@@ -96,7 +57,7 @@ export async function POST(req: NextRequest) {
       updateData = {
         status: UserStatus.APPROVED,
         role: UserRole.RESIDENT, // Auto-promote to resident on approval
-        approvedById: requester.id,
+        approvedById: requester.userId,
       };
     } else if (action === 'REJECT') {
       updateData = {

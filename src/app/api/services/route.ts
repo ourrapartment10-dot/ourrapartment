@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
 import { handleApiError, ApiError } from '@/lib/api-error';
 
 export async function GET(req: NextRequest) {
     try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get('accessToken')?.value;
-
-        if (!token) throw new ApiError(401, 'Unauthorized');
-
-        const payload = await verifyAccessToken(token);
-        if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
+        await requireAuth();
 
         const { searchParams } = new URL(req.url);
         const category = searchParams.get('category');
@@ -58,13 +51,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get('accessToken')?.value;
-
-        if (!token) throw new ApiError(401, 'Unauthorized');
-
-        const payload = await verifyAccessToken(token);
-        if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
+        const { userId } = await requireAuth();
 
         const body = await req.json();
         const { name, category, phone, description, price } = body;
@@ -80,7 +67,7 @@ export async function POST(req: NextRequest) {
                 phone,
                 description,
                 price,
-                addedById: payload.userId as string,
+                addedById: userId,
             },
         });
 

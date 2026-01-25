@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth, requireRole } from '@/lib/auth/middleware-helpers';
 import { handleApiError, ApiError } from '@/lib/api-error';
 import { UserRole } from '@/generated/client';
 import { pusherServer } from '@/lib/pusher';
@@ -10,15 +9,7 @@ import { sendPushNotification } from '@/lib/push';
 // GET: Fetch feed - OPTIMIZED
 export async function GET(req: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
-
-    const userId = payload.userId as string;
+    const { userId } = await requireAuth();
 
     const url = new URL(req.url);
     const page = parseInt(url.searchParams.get('page') || '1');
@@ -109,25 +100,7 @@ export async function GET(req: NextRequest) {
 // POST: Create announcement
 export async function POST(req: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
-
-    // Verify Admin
-    const user = await prisma.user.findUnique({
-      where: { id: payload.userId as string },
-      select: { role: true, name: true },
-    });
-
-    if (
-      !user ||
-      (user.role !== UserRole.ADMIN && user.role !== UserRole.SUPER_ADMIN)
-    ) {
-      throw new ApiError(403, 'Only admins can post announcements');
-    }
+    const { userId } = await requireRole(['ADMIN', 'SUPER_ADMIN']);
 
     const body = await req.json();
     const {
@@ -150,7 +123,7 @@ export async function POST(req: NextRequest) {
         imageUrl,
         commentsEnabled: commentsEnabled ?? true,
         expiresAt: expiresAt ? new Date(expiresAt) : null,
-        authorId: payload.userId as string,
+        authorId: userId,
         poll: pollData
           ? {
             create: {
@@ -158,7 +131,7 @@ export async function POST(req: NextRequest) {
               description: pollData.description,
               isAnonymous: pollData.isAnonymous ?? false,
               endsAt: pollData.endsAt ? new Date(pollData.endsAt) : null,
-              createdById: payload.userId as string,
+              createdById: userId,
               options: {
                 create: pollData.options.map((opt: string) => ({
                   text: opt,
@@ -216,7 +189,7 @@ export async function POST(req: NextRequest) {
     // Actually sendPushNotification takes a userId.
     // We should just loop. For large scale, use a queue.
     recipients.forEach((recipient) => {
-      if (recipient.id !== payload.userId) {
+      if (recipient.id !== userId) {
         // Don't notify self? Optional.
         sendPushNotification(
           recipient.id,

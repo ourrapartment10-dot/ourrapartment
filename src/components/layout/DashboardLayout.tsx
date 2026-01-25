@@ -120,7 +120,7 @@ const navigation: Partial<Record<UserRole, NavItem[]>> = {
     },
     {
       name: 'Subscriptions',
-      href: '/dashboard/super-admin/subscriptions',
+      href: '/dashboard/subscription',
       icon: Wallet,
     },
   ],
@@ -137,6 +137,36 @@ export default function DashboardLayout({
   const router = useRouter();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallButton, setShowInstallButton] = useState(false);
+
+  // --- Subscription Check ---
+  const [subscriptionActive, setSubscriptionActive] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    // Super Admin is always exempt from subscription checks
+    if (user.role === UserRole.SUPER_ADMIN) {
+      setSubscriptionActive(true);
+      return;
+    }
+
+    const checkSubscription = async () => {
+      try {
+        const res = await fetch('/api/admin/subscription/status');
+        if (res.ok) {
+          const data = await res.json();
+          setSubscriptionActive(data.active);
+        } else {
+          setSubscriptionActive(true);
+        }
+      } catch (e) {
+        console.error(e);
+        setSubscriptionActive(true);
+      }
+    };
+
+    checkSubscription();
+  }, [user]);
 
   // PWA Install Prompt Handler
   useEffect(() => {
@@ -179,6 +209,13 @@ export default function DashboardLayout({
     }
   };
 
+  // Redirect effect for Admins with inactive subscription
+  useEffect(() => {
+    if (subscriptionActive === false && user?.role === UserRole.ADMIN && pathname !== '/dashboard/subscription') {
+      router.replace('/dashboard/subscription');
+    }
+  }, [subscriptionActive, user, pathname, router]);
+
   // Redirect if not authenticated
   useEffect(() => {
     if (!isLoading && !user) {
@@ -204,6 +241,50 @@ export default function DashboardLayout({
 
   if (user.status === ('REJECTED' as any)) {
     return <AccountRejected />;
+  }
+
+
+
+
+
+  // Handle Inactive Subscription
+  if (subscriptionActive === false) {
+    // 1. Admin: Redirect to subscription page
+    if (user.role === UserRole.ADMIN) {
+      if (pathname !== '/dashboard/subscription') {
+        // Return a loader while redirecting
+        return (
+          <div className="flex min-h-screen items-center justify-center bg-gray-50">
+            <div className="h-12 w-12 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
+          </div>
+        );
+      }
+      // If on subscription page, allow render (proceed to rest of component)
+    }
+    // 2. Residents/Others: Block Access
+    else if (user.role !== UserRole.SUPER_ADMIN) {
+      return (
+        <div className="flex min-h-screen flex-col items-center justify-center bg-slate-900 p-4 text-center text-white">
+          <div className="mb-6 rounded-3xl bg-rose-500/10 p-6">
+            <Shield className="h-16 w-16 text-rose-500" />
+          </div>
+          <h1 className="mb-2 text-3xl font-[900] tracking-tight">Subscription Expired</h1>
+          <p className="max-w-md text-lg text-slate-400">
+            Access to the community dashboard is currently restricted.
+          </p>
+          <div className="mt-8 rounded-2xl bg-slate-800 p-6">
+            <p className="text-sm font-bold text-slate-300">Please contact your Community Admin</p>
+            <p className="mt-1 text-xs text-slate-500">They need to renew the subscription to restore access.</p>
+          </div>
+          <button
+            onClick={logout}
+            className="mt-12 flex items-center gap-2 rounded-xl bg-slate-800 px-6 py-3 text-sm font-bold text-slate-300 hover:bg-slate-700 hover:text-white"
+          >
+            <LogOut className="h-4 w-4" /> Sign Out
+          </button>
+        </div>
+      );
+    }
   }
 
   // Get navigation based on role, fallback to resident if user role not found

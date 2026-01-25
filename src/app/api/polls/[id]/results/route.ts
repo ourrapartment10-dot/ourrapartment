@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
 import { handleApiError, ApiError } from '@/lib/api-error';
 
 // GET: Poll Results (Voters)
@@ -13,12 +12,7 @@ export async function GET(
   const pollId = params.id;
 
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
+    await requireAuth();
 
     const poll = await prisma.poll.findUnique({
       where: { id: pollId },

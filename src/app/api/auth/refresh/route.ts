@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       data: {
         token: newTokenHash,
         userId: user.id,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
       },
     });
 
@@ -97,11 +97,15 @@ export async function POST(req: NextRequest) {
       httpOnly: true,
       path: '/',
       secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 15, // 15 minutes
     });
     response.cookies.set('refreshToken', newRefreshToken, {
       httpOnly: true,
       path: '/',
       secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 30, // 30 days
     });
 
     return response;

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
 import { handleApiError, ApiError } from '@/lib/api-error';
 import { UserRole } from '@/generated/client';
 
@@ -12,19 +11,7 @@ export async function PATCH(
 ) {
   const params = await props.params;
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
-
-    const user = await prisma.user.findUnique({
-      where: { id: payload.userId as string },
-      select: { role: true, id: true },
-    });
-
-    if (!user) throw new ApiError(401, 'User not found');
+    const { userId, role } = await requireAuth();
 
     const body = await req.json();
     const { status } = body; // APPROVED, REJECTED, CANCELLED
@@ -43,9 +30,9 @@ export async function PATCH(
 
     let isAuthorized = false;
 
-    if (user.role === UserRole.ADMIN || user.role === UserRole.SUPER_ADMIN) {
+    if (role === UserRole.ADMIN || role === UserRole.SUPER_ADMIN) {
       isAuthorized = true;
-    } else if (booking.userId === user.id && status === 'CANCELLED') {
+    } else if (booking.userId === userId && status === 'CANCELLED') {
       isAuthorized = true;
     }
 
@@ -59,7 +46,7 @@ export async function PATCH(
     });
 
     // Trigger Notification to User if Admin changed status
-    if (user.role === UserRole.ADMIN || user.role === UserRole.SUPER_ADMIN) {
+    if (role === UserRole.ADMIN || role === UserRole.SUPER_ADMIN) {
       // TODO: Send notification
     }
 

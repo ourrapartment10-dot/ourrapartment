@@ -118,6 +118,11 @@ export type ServiceProvider = $Result.DefaultSelection<Prisma.$ServiceProviderPa
  * 
  */
 export type ServiceReview = $Result.DefaultSelection<Prisma.$ServiceReviewPayload>
+/**
+ * Model CommunitySubscription
+ * 
+ */
+export type CommunitySubscription = $Result.DefaultSelection<Prisma.$CommunitySubscriptionPayload>
 
 /**
  * Enums
@@ -168,7 +173,8 @@ export const PaymentType: {
   MAINTENANCE: 'MAINTENANCE',
   FACILITY: 'FACILITY',
   EVENT: 'EVENT',
-  OTHER: 'OTHER'
+  OTHER: 'OTHER',
+  SUBSCRIPTION: 'SUBSCRIPTION'
 };
 
 export type PaymentType = (typeof PaymentType)[keyof typeof PaymentType]
@@ -552,6 +558,16 @@ export class PrismaClient<
     * ```
     */
   get serviceReview(): Prisma.ServiceReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communitySubscription`: Exposes CRUD operations for the **CommunitySubscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunitySubscriptions
+    * const communitySubscriptions = await prisma.communitySubscription.findMany()
+    * ```
+    */
+  get communitySubscription(): Prisma.CommunitySubscriptionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1013,7 +1029,8 @@ export namespace Prisma {
     Message: 'Message',
     Conversation: 'Conversation',
     ServiceProvider: 'ServiceProvider',
-    ServiceReview: 'ServiceReview'
+    ServiceReview: 'ServiceReview',
+    CommunitySubscription: 'CommunitySubscription'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1032,7 +1049,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "refreshToken" | "pushSubscription" | "notification" | "property" | "announcement" | "announcementLike" | "announcementComment" | "apartmentConfig" | "poll" | "pollOption" | "pollVote" | "facility" | "facilityBooking" | "complaint" | "payment" | "communityFinance" | "message" | "conversation" | "serviceProvider" | "serviceReview"
+      modelProps: "user" | "refreshToken" | "pushSubscription" | "notification" | "property" | "announcement" | "announcementLike" | "announcementComment" | "apartmentConfig" | "poll" | "pollOption" | "pollVote" | "facility" | "facilityBooking" | "complaint" | "payment" | "communityFinance" | "message" | "conversation" | "serviceProvider" | "serviceReview" | "communitySubscription"
       txIsolationLevel: never
     }
     model: {
@@ -2590,6 +2607,80 @@ export namespace Prisma {
           }
         }
       }
+      CommunitySubscription: {
+        payload: Prisma.$CommunitySubscriptionPayload<ExtArgs>
+        fields: Prisma.CommunitySubscriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunitySubscriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunitySubscriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunitySubscriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunitySubscriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload>
+          }
+          findMany: {
+            args: Prisma.CommunitySubscriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload>[]
+          }
+          create: {
+            args: Prisma.CommunitySubscriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload>
+          }
+          createMany: {
+            args: Prisma.CommunitySubscriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CommunitySubscriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload>
+          }
+          update: {
+            args: Prisma.CommunitySubscriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunitySubscriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunitySubscriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CommunitySubscriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunitySubscriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunitySubscriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunitySubscription>
+          }
+          groupBy: {
+            args: Prisma.CommunitySubscriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunitySubscriptionGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.CommunitySubscriptionFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.CommunitySubscriptionAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.CommunitySubscriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunitySubscriptionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2690,6 +2781,7 @@ export namespace Prisma {
     conversation?: ConversationOmit
     serviceProvider?: ServiceProviderOmit
     serviceReview?: ServiceReviewOmit
+    communitySubscription?: CommunitySubscriptionOmit
   }
 
   /* Types for Logging */
@@ -25697,6 +25789,1053 @@ export namespace Prisma {
 
 
   /**
+   * Model CommunitySubscription
+   */
+
+  export type AggregateCommunitySubscription = {
+    _count: CommunitySubscriptionCountAggregateOutputType | null
+    _avg: CommunitySubscriptionAvgAggregateOutputType | null
+    _sum: CommunitySubscriptionSumAggregateOutputType | null
+    _min: CommunitySubscriptionMinAggregateOutputType | null
+    _max: CommunitySubscriptionMaxAggregateOutputType | null
+  }
+
+  export type CommunitySubscriptionAvgAggregateOutputType = {
+    durationInDays: number | null
+    amount: number | null
+  }
+
+  export type CommunitySubscriptionSumAggregateOutputType = {
+    durationInDays: number | null
+    amount: number | null
+  }
+
+  export type CommunitySubscriptionMinAggregateOutputType = {
+    id: string | null
+    planName: string | null
+    durationInDays: number | null
+    amount: number | null
+    startDate: Date | null
+    endDate: Date | null
+    status: string | null
+    razorpayPaymentId: string | null
+    isLifetime: boolean | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunitySubscriptionMaxAggregateOutputType = {
+    id: string | null
+    planName: string | null
+    durationInDays: number | null
+    amount: number | null
+    startDate: Date | null
+    endDate: Date | null
+    status: string | null
+    razorpayPaymentId: string | null
+    isLifetime: boolean | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunitySubscriptionCountAggregateOutputType = {
+    id: number
+    planName: number
+    durationInDays: number
+    amount: number
+    startDate: number
+    endDate: number
+    status: number
+    razorpayPaymentId: number
+    isLifetime: number
+    createdById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CommunitySubscriptionAvgAggregateInputType = {
+    durationInDays?: true
+    amount?: true
+  }
+
+  export type CommunitySubscriptionSumAggregateInputType = {
+    durationInDays?: true
+    amount?: true
+  }
+
+  export type CommunitySubscriptionMinAggregateInputType = {
+    id?: true
+    planName?: true
+    durationInDays?: true
+    amount?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    razorpayPaymentId?: true
+    isLifetime?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunitySubscriptionMaxAggregateInputType = {
+    id?: true
+    planName?: true
+    durationInDays?: true
+    amount?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    razorpayPaymentId?: true
+    isLifetime?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunitySubscriptionCountAggregateInputType = {
+    id?: true
+    planName?: true
+    durationInDays?: true
+    amount?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    razorpayPaymentId?: true
+    isLifetime?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CommunitySubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunitySubscription to aggregate.
+     */
+    where?: CommunitySubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunitySubscriptions to fetch.
+     */
+    orderBy?: CommunitySubscriptionOrderByWithRelationInput | CommunitySubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunitySubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunitySubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunitySubscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunitySubscriptions
+    **/
+    _count?: true | CommunitySubscriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommunitySubscriptionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommunitySubscriptionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunitySubscriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunitySubscriptionMaxAggregateInputType
+  }
+
+  export type GetCommunitySubscriptionAggregateType<T extends CommunitySubscriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunitySubscription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunitySubscription[P]>
+      : GetScalarType<T[P], AggregateCommunitySubscription[P]>
+  }
+
+
+
+
+  export type CommunitySubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunitySubscriptionWhereInput
+    orderBy?: CommunitySubscriptionOrderByWithAggregationInput | CommunitySubscriptionOrderByWithAggregationInput[]
+    by: CommunitySubscriptionScalarFieldEnum[] | CommunitySubscriptionScalarFieldEnum
+    having?: CommunitySubscriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunitySubscriptionCountAggregateInputType | true
+    _avg?: CommunitySubscriptionAvgAggregateInputType
+    _sum?: CommunitySubscriptionSumAggregateInputType
+    _min?: CommunitySubscriptionMinAggregateInputType
+    _max?: CommunitySubscriptionMaxAggregateInputType
+  }
+
+  export type CommunitySubscriptionGroupByOutputType = {
+    id: string
+    planName: string
+    durationInDays: number
+    amount: number
+    startDate: Date
+    endDate: Date
+    status: string
+    razorpayPaymentId: string | null
+    isLifetime: boolean
+    createdById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CommunitySubscriptionCountAggregateOutputType | null
+    _avg: CommunitySubscriptionAvgAggregateOutputType | null
+    _sum: CommunitySubscriptionSumAggregateOutputType | null
+    _min: CommunitySubscriptionMinAggregateOutputType | null
+    _max: CommunitySubscriptionMaxAggregateOutputType | null
+  }
+
+  type GetCommunitySubscriptionGroupByPayload<T extends CommunitySubscriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunitySubscriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunitySubscriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunitySubscriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunitySubscriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunitySubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planName?: boolean
+    durationInDays?: boolean
+    amount?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    razorpayPaymentId?: boolean
+    isLifetime?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["communitySubscription"]>
+
+
+
+  export type CommunitySubscriptionSelectScalar = {
+    id?: boolean
+    planName?: boolean
+    durationInDays?: boolean
+    amount?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    razorpayPaymentId?: boolean
+    isLifetime?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CommunitySubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "planName" | "durationInDays" | "amount" | "startDate" | "endDate" | "status" | "razorpayPaymentId" | "isLifetime" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["communitySubscription"]>
+
+  export type $CommunitySubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunitySubscription"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      planName: string
+      durationInDays: number
+      amount: number
+      startDate: Date
+      endDate: Date
+      status: string
+      razorpayPaymentId: string | null
+      isLifetime: boolean
+      createdById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["communitySubscription"]>
+    composites: {}
+  }
+
+  type CommunitySubscriptionGetPayload<S extends boolean | null | undefined | CommunitySubscriptionDefaultArgs> = $Result.GetResult<Prisma.$CommunitySubscriptionPayload, S>
+
+  type CommunitySubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunitySubscriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunitySubscriptionCountAggregateInputType | true
+    }
+
+  export interface CommunitySubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunitySubscription'], meta: { name: 'CommunitySubscription' } }
+    /**
+     * Find zero or one CommunitySubscription that matches the filter.
+     * @param {CommunitySubscriptionFindUniqueArgs} args - Arguments to find a CommunitySubscription
+     * @example
+     * // Get one CommunitySubscription
+     * const communitySubscription = await prisma.communitySubscription.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunitySubscriptionFindUniqueArgs>(args: SelectSubset<T, CommunitySubscriptionFindUniqueArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunitySubscription that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunitySubscriptionFindUniqueOrThrowArgs} args - Arguments to find a CommunitySubscription
+     * @example
+     * // Get one CommunitySubscription
+     * const communitySubscription = await prisma.communitySubscription.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunitySubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunitySubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunitySubscription that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunitySubscriptionFindFirstArgs} args - Arguments to find a CommunitySubscription
+     * @example
+     * // Get one CommunitySubscription
+     * const communitySubscription = await prisma.communitySubscription.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunitySubscriptionFindFirstArgs>(args?: SelectSubset<T, CommunitySubscriptionFindFirstArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunitySubscription that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunitySubscriptionFindFirstOrThrowArgs} args - Arguments to find a CommunitySubscription
+     * @example
+     * // Get one CommunitySubscription
+     * const communitySubscription = await prisma.communitySubscription.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunitySubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunitySubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunitySubscriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunitySubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunitySubscriptions
+     * const communitySubscriptions = await prisma.communitySubscription.findMany()
+     * 
+     * // Get first 10 CommunitySubscriptions
+     * const communitySubscriptions = await prisma.communitySubscription.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communitySubscriptionWithIdOnly = await prisma.communitySubscription.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunitySubscriptionFindManyArgs>(args?: SelectSubset<T, CommunitySubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunitySubscription.
+     * @param {CommunitySubscriptionCreateArgs} args - Arguments to create a CommunitySubscription.
+     * @example
+     * // Create one CommunitySubscription
+     * const CommunitySubscription = await prisma.communitySubscription.create({
+     *   data: {
+     *     // ... data to create a CommunitySubscription
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunitySubscriptionCreateArgs>(args: SelectSubset<T, CommunitySubscriptionCreateArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunitySubscriptions.
+     * @param {CommunitySubscriptionCreateManyArgs} args - Arguments to create many CommunitySubscriptions.
+     * @example
+     * // Create many CommunitySubscriptions
+     * const communitySubscription = await prisma.communitySubscription.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunitySubscriptionCreateManyArgs>(args?: SelectSubset<T, CommunitySubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CommunitySubscription.
+     * @param {CommunitySubscriptionDeleteArgs} args - Arguments to delete one CommunitySubscription.
+     * @example
+     * // Delete one CommunitySubscription
+     * const CommunitySubscription = await prisma.communitySubscription.delete({
+     *   where: {
+     *     // ... filter to delete one CommunitySubscription
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunitySubscriptionDeleteArgs>(args: SelectSubset<T, CommunitySubscriptionDeleteArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunitySubscription.
+     * @param {CommunitySubscriptionUpdateArgs} args - Arguments to update one CommunitySubscription.
+     * @example
+     * // Update one CommunitySubscription
+     * const communitySubscription = await prisma.communitySubscription.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunitySubscriptionUpdateArgs>(args: SelectSubset<T, CommunitySubscriptionUpdateArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunitySubscriptions.
+     * @param {CommunitySubscriptionDeleteManyArgs} args - Arguments to filter CommunitySubscriptions to delete.
+     * @example
+     * // Delete a few CommunitySubscriptions
+     * const { count } = await prisma.communitySubscription.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunitySubscriptionDeleteManyArgs>(args?: SelectSubset<T, CommunitySubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunitySubscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunitySubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunitySubscriptions
+     * const communitySubscription = await prisma.communitySubscription.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunitySubscriptionUpdateManyArgs>(args: SelectSubset<T, CommunitySubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CommunitySubscription.
+     * @param {CommunitySubscriptionUpsertArgs} args - Arguments to update or create a CommunitySubscription.
+     * @example
+     * // Update or create a CommunitySubscription
+     * const communitySubscription = await prisma.communitySubscription.upsert({
+     *   create: {
+     *     // ... data to create a CommunitySubscription
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunitySubscription we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunitySubscriptionUpsertArgs>(args: SelectSubset<T, CommunitySubscriptionUpsertArgs<ExtArgs>>): Prisma__CommunitySubscriptionClient<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunitySubscriptions that matches the filter.
+     * @param {CommunitySubscriptionFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const communitySubscription = await prisma.communitySubscription.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: CommunitySubscriptionFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a CommunitySubscription.
+     * @param {CommunitySubscriptionAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const communitySubscription = await prisma.communitySubscription.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: CommunitySubscriptionAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of CommunitySubscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunitySubscriptionCountArgs} args - Arguments to filter CommunitySubscriptions to count.
+     * @example
+     * // Count the number of CommunitySubscriptions
+     * const count = await prisma.communitySubscription.count({
+     *   where: {
+     *     // ... the filter for the CommunitySubscriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunitySubscriptionCountArgs>(
+      args?: Subset<T, CommunitySubscriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunitySubscriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunitySubscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunitySubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunitySubscriptionAggregateArgs>(args: Subset<T, CommunitySubscriptionAggregateArgs>): Prisma.PrismaPromise<GetCommunitySubscriptionAggregateType<T>>
+
+    /**
+     * Group by CommunitySubscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunitySubscriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunitySubscriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunitySubscriptionGroupByArgs['orderBy'] }
+        : { orderBy?: CommunitySubscriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunitySubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunitySubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunitySubscription model
+   */
+  readonly fields: CommunitySubscriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunitySubscription.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunitySubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunitySubscription model
+   */
+  interface CommunitySubscriptionFieldRefs {
+    readonly id: FieldRef<"CommunitySubscription", 'String'>
+    readonly planName: FieldRef<"CommunitySubscription", 'String'>
+    readonly durationInDays: FieldRef<"CommunitySubscription", 'Int'>
+    readonly amount: FieldRef<"CommunitySubscription", 'Float'>
+    readonly startDate: FieldRef<"CommunitySubscription", 'DateTime'>
+    readonly endDate: FieldRef<"CommunitySubscription", 'DateTime'>
+    readonly status: FieldRef<"CommunitySubscription", 'String'>
+    readonly razorpayPaymentId: FieldRef<"CommunitySubscription", 'String'>
+    readonly isLifetime: FieldRef<"CommunitySubscription", 'Boolean'>
+    readonly createdById: FieldRef<"CommunitySubscription", 'String'>
+    readonly createdAt: FieldRef<"CommunitySubscription", 'DateTime'>
+    readonly updatedAt: FieldRef<"CommunitySubscription", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunitySubscription findUnique
+   */
+  export type CommunitySubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * Filter, which CommunitySubscription to fetch.
+     */
+    where: CommunitySubscriptionWhereUniqueInput
+  }
+
+  /**
+   * CommunitySubscription findUniqueOrThrow
+   */
+  export type CommunitySubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * Filter, which CommunitySubscription to fetch.
+     */
+    where: CommunitySubscriptionWhereUniqueInput
+  }
+
+  /**
+   * CommunitySubscription findFirst
+   */
+  export type CommunitySubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * Filter, which CommunitySubscription to fetch.
+     */
+    where?: CommunitySubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunitySubscriptions to fetch.
+     */
+    orderBy?: CommunitySubscriptionOrderByWithRelationInput | CommunitySubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunitySubscriptions.
+     */
+    cursor?: CommunitySubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunitySubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunitySubscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunitySubscriptions.
+     */
+    distinct?: CommunitySubscriptionScalarFieldEnum | CommunitySubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * CommunitySubscription findFirstOrThrow
+   */
+  export type CommunitySubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * Filter, which CommunitySubscription to fetch.
+     */
+    where?: CommunitySubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunitySubscriptions to fetch.
+     */
+    orderBy?: CommunitySubscriptionOrderByWithRelationInput | CommunitySubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunitySubscriptions.
+     */
+    cursor?: CommunitySubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunitySubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunitySubscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunitySubscriptions.
+     */
+    distinct?: CommunitySubscriptionScalarFieldEnum | CommunitySubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * CommunitySubscription findMany
+   */
+  export type CommunitySubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * Filter, which CommunitySubscriptions to fetch.
+     */
+    where?: CommunitySubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunitySubscriptions to fetch.
+     */
+    orderBy?: CommunitySubscriptionOrderByWithRelationInput | CommunitySubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunitySubscriptions.
+     */
+    cursor?: CommunitySubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunitySubscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunitySubscriptions.
+     */
+    skip?: number
+    distinct?: CommunitySubscriptionScalarFieldEnum | CommunitySubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * CommunitySubscription create
+   */
+  export type CommunitySubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * The data needed to create a CommunitySubscription.
+     */
+    data: XOR<CommunitySubscriptionCreateInput, CommunitySubscriptionUncheckedCreateInput>
+  }
+
+  /**
+   * CommunitySubscription createMany
+   */
+  export type CommunitySubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunitySubscriptions.
+     */
+    data: CommunitySubscriptionCreateManyInput | CommunitySubscriptionCreateManyInput[]
+  }
+
+  /**
+   * CommunitySubscription update
+   */
+  export type CommunitySubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * The data needed to update a CommunitySubscription.
+     */
+    data: XOR<CommunitySubscriptionUpdateInput, CommunitySubscriptionUncheckedUpdateInput>
+    /**
+     * Choose, which CommunitySubscription to update.
+     */
+    where: CommunitySubscriptionWhereUniqueInput
+  }
+
+  /**
+   * CommunitySubscription updateMany
+   */
+  export type CommunitySubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunitySubscriptions.
+     */
+    data: XOR<CommunitySubscriptionUpdateManyMutationInput, CommunitySubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunitySubscriptions to update
+     */
+    where?: CommunitySubscriptionWhereInput
+    /**
+     * Limit how many CommunitySubscriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunitySubscription upsert
+   */
+  export type CommunitySubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * The filter to search for the CommunitySubscription to update in case it exists.
+     */
+    where: CommunitySubscriptionWhereUniqueInput
+    /**
+     * In case the CommunitySubscription found by the `where` argument doesn't exist, create a new CommunitySubscription with this data.
+     */
+    create: XOR<CommunitySubscriptionCreateInput, CommunitySubscriptionUncheckedCreateInput>
+    /**
+     * In case the CommunitySubscription was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunitySubscriptionUpdateInput, CommunitySubscriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunitySubscription delete
+   */
+  export type CommunitySubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+    /**
+     * Filter which CommunitySubscription to delete.
+     */
+    where: CommunitySubscriptionWhereUniqueInput
+  }
+
+  /**
+   * CommunitySubscription deleteMany
+   */
+  export type CommunitySubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunitySubscriptions to delete
+     */
+    where?: CommunitySubscriptionWhereInput
+    /**
+     * Limit how many CommunitySubscriptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunitySubscription findRaw
+   */
+  export type CommunitySubscriptionFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * CommunitySubscription aggregateRaw
+   */
+  export type CommunitySubscriptionAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * CommunitySubscription without action
+   */
+  export type CommunitySubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunitySubscription
+     */
+    select?: CommunitySubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunitySubscription
+     */
+    omit?: CommunitySubscriptionOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -26004,6 +27143,24 @@ export namespace Prisma {
   };
 
   export type ServiceReviewScalarFieldEnum = (typeof ServiceReviewScalarFieldEnum)[keyof typeof ServiceReviewScalarFieldEnum]
+
+
+  export const CommunitySubscriptionScalarFieldEnum: {
+    id: 'id',
+    planName: 'planName',
+    durationInDays: 'durationInDays',
+    amount: 'amount',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    status: 'status',
+    razorpayPaymentId: 'razorpayPaymentId',
+    isLifetime: 'isLifetime',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CommunitySubscriptionScalarFieldEnum = (typeof CommunitySubscriptionScalarFieldEnum)[keyof typeof CommunitySubscriptionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -27885,6 +29042,95 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ServiceReview"> | Date | string
   }
 
+  export type CommunitySubscriptionWhereInput = {
+    AND?: CommunitySubscriptionWhereInput | CommunitySubscriptionWhereInput[]
+    OR?: CommunitySubscriptionWhereInput[]
+    NOT?: CommunitySubscriptionWhereInput | CommunitySubscriptionWhereInput[]
+    id?: StringFilter<"CommunitySubscription"> | string
+    planName?: StringFilter<"CommunitySubscription"> | string
+    durationInDays?: IntFilter<"CommunitySubscription"> | number
+    amount?: FloatFilter<"CommunitySubscription"> | number
+    startDate?: DateTimeFilter<"CommunitySubscription"> | Date | string
+    endDate?: DateTimeFilter<"CommunitySubscription"> | Date | string
+    status?: StringFilter<"CommunitySubscription"> | string
+    razorpayPaymentId?: StringNullableFilter<"CommunitySubscription"> | string | null
+    isLifetime?: BoolFilter<"CommunitySubscription"> | boolean
+    createdById?: StringNullableFilter<"CommunitySubscription"> | string | null
+    createdAt?: DateTimeFilter<"CommunitySubscription"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunitySubscription"> | Date | string
+  }
+
+  export type CommunitySubscriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    planName?: SortOrder
+    durationInDays?: SortOrder
+    amount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    razorpayPaymentId?: SortOrder
+    isLifetime?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunitySubscriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommunitySubscriptionWhereInput | CommunitySubscriptionWhereInput[]
+    OR?: CommunitySubscriptionWhereInput[]
+    NOT?: CommunitySubscriptionWhereInput | CommunitySubscriptionWhereInput[]
+    planName?: StringFilter<"CommunitySubscription"> | string
+    durationInDays?: IntFilter<"CommunitySubscription"> | number
+    amount?: FloatFilter<"CommunitySubscription"> | number
+    startDate?: DateTimeFilter<"CommunitySubscription"> | Date | string
+    endDate?: DateTimeFilter<"CommunitySubscription"> | Date | string
+    status?: StringFilter<"CommunitySubscription"> | string
+    razorpayPaymentId?: StringNullableFilter<"CommunitySubscription"> | string | null
+    isLifetime?: BoolFilter<"CommunitySubscription"> | boolean
+    createdById?: StringNullableFilter<"CommunitySubscription"> | string | null
+    createdAt?: DateTimeFilter<"CommunitySubscription"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunitySubscription"> | Date | string
+  }, "id">
+
+  export type CommunitySubscriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    planName?: SortOrder
+    durationInDays?: SortOrder
+    amount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    razorpayPaymentId?: SortOrder
+    isLifetime?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CommunitySubscriptionCountOrderByAggregateInput
+    _avg?: CommunitySubscriptionAvgOrderByAggregateInput
+    _max?: CommunitySubscriptionMaxOrderByAggregateInput
+    _min?: CommunitySubscriptionMinOrderByAggregateInput
+    _sum?: CommunitySubscriptionSumOrderByAggregateInput
+  }
+
+  export type CommunitySubscriptionScalarWhereWithAggregatesInput = {
+    AND?: CommunitySubscriptionScalarWhereWithAggregatesInput | CommunitySubscriptionScalarWhereWithAggregatesInput[]
+    OR?: CommunitySubscriptionScalarWhereWithAggregatesInput[]
+    NOT?: CommunitySubscriptionScalarWhereWithAggregatesInput | CommunitySubscriptionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CommunitySubscription"> | string
+    planName?: StringWithAggregatesFilter<"CommunitySubscription"> | string
+    durationInDays?: IntWithAggregatesFilter<"CommunitySubscription"> | number
+    amount?: FloatWithAggregatesFilter<"CommunitySubscription"> | number
+    startDate?: DateTimeWithAggregatesFilter<"CommunitySubscription"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"CommunitySubscription"> | Date | string
+    status?: StringWithAggregatesFilter<"CommunitySubscription"> | string
+    razorpayPaymentId?: StringNullableWithAggregatesFilter<"CommunitySubscription"> | string | null
+    isLifetime?: BoolWithAggregatesFilter<"CommunitySubscription"> | boolean
+    createdById?: StringNullableWithAggregatesFilter<"CommunitySubscription"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CommunitySubscription"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CommunitySubscription"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -29585,6 +30831,107 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CommunitySubscriptionCreateInput = {
+    id?: string
+    planName: string
+    durationInDays: number
+    amount: number
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    razorpayPaymentId?: string | null
+    isLifetime?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunitySubscriptionUncheckedCreateInput = {
+    id?: string
+    planName: string
+    durationInDays: number
+    amount: number
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    razorpayPaymentId?: string | null
+    isLifetime?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunitySubscriptionUpdateInput = {
+    planName?: StringFieldUpdateOperationsInput | string
+    durationInDays?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    razorpayPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    isLifetime?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunitySubscriptionUncheckedUpdateInput = {
+    planName?: StringFieldUpdateOperationsInput | string
+    durationInDays?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    razorpayPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    isLifetime?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunitySubscriptionCreateManyInput = {
+    id?: string
+    planName: string
+    durationInDays: number
+    amount: number
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    razorpayPaymentId?: string | null
+    isLifetime?: boolean
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunitySubscriptionUpdateManyMutationInput = {
+    planName?: StringFieldUpdateOperationsInput | string
+    durationInDays?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    razorpayPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    isLifetime?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunitySubscriptionUncheckedUpdateManyInput = {
+    planName?: StringFieldUpdateOperationsInput | string
+    durationInDays?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    razorpayPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    isLifetime?: BoolFieldUpdateOperationsInput | boolean
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31044,6 +32391,61 @@ export namespace Prisma {
 
   export type ServiceReviewSumOrderByAggregateInput = {
     rating?: SortOrder
+  }
+
+  export type CommunitySubscriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    planName?: SortOrder
+    durationInDays?: SortOrder
+    amount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    razorpayPaymentId?: SortOrder
+    isLifetime?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunitySubscriptionAvgOrderByAggregateInput = {
+    durationInDays?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type CommunitySubscriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    planName?: SortOrder
+    durationInDays?: SortOrder
+    amount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    razorpayPaymentId?: SortOrder
+    isLifetime?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunitySubscriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    planName?: SortOrder
+    durationInDays?: SortOrder
+    amount?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    razorpayPaymentId?: SortOrder
+    isLifetime?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunitySubscriptionSumOrderByAggregateInput = {
+    durationInDays?: SortOrder
+    amount?: SortOrder
   }
 
   export type RefreshTokenCreateNestedManyWithoutUserInput = {

@@ -357,6 +357,21 @@ exports.Prisma.ServiceReviewScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CommunitySubscriptionScalarFieldEnum = {
+  id: 'id',
+  planName: 'planName',
+  durationInDays: 'durationInDays',
+  amount: 'amount',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  razorpayPaymentId: 'razorpayPaymentId',
+  isLifetime: 'isLifetime',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -411,7 +426,8 @@ exports.PaymentType = exports.$Enums.PaymentType = {
   MAINTENANCE: 'MAINTENANCE',
   FACILITY: 'FACILITY',
   EVENT: 'EVENT',
-  OTHER: 'OTHER'
+  OTHER: 'OTHER',
+  SUBSCRIPTION: 'SUBSCRIPTION'
 };
 
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
@@ -451,7 +467,8 @@ exports.Prisma.ModelName = {
   Message: 'Message',
   Conversation: 'Conversation',
   ServiceProvider: 'ServiceProvider',
-  ServiceReview: 'ServiceReview'
+  ServiceReview: 'ServiceReview',
+  CommunitySubscription: 'CommunitySubscription'
 };
 
 /**

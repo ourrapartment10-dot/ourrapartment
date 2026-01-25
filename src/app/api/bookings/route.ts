@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
 import { handleApiError, ApiError } from '@/lib/api-error';
 import { UserRole } from '@/generated/client';
 import { sendPushNotification } from '@/lib/push';
@@ -9,19 +8,7 @@ import { sendPushNotification } from '@/lib/push';
 // GET: Fetch bookings
 export async function GET(req: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
-
-    const user = await prisma.user.findUnique({
-      where: { id: payload.userId as string },
-      select: { role: true, id: true },
-    });
-
-    if (!user) throw new ApiError(401, 'User not found');
+    const { userId, role } = await requireAuth();
 
     const url = new URL(req.url);
     const facilityId = url.searchParams.get('facilityId');
@@ -33,8 +20,8 @@ export async function GET(req: NextRequest) {
     // But the requirement says "Residents can see them and book them".
     // Usually, residents can see *that* a slot is booked, but maybe not by *whom*.
     // For My Bookings tab:
-    if (user.role === UserRole.USER || user.role === UserRole.RESIDENT) {
-      whereClause.userId = user.id;
+    if (role === UserRole.USER || role === UserRole.RESIDENT) {
+      whereClause.userId = userId;
     }
 
     if (facilityId) whereClause.facilityId = facilityId;
@@ -70,12 +57,7 @@ export async function GET(req: NextRequest) {
 // POST: Create booking
 export async function POST(req: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('accessToken')?.value;
-    if (!token) throw new ApiError(401, 'Unauthorized');
-
-    const payload = await verifyAccessToken(token);
-    if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
+    const { userId } = await requireAuth();
 
     const body = await req.json();
     const { facilityId, startTime, endTime, purpose, notes } = body;
@@ -133,7 +115,7 @@ export async function POST(req: NextRequest) {
 
     const booking = await prisma.facilityBooking.create({
       data: {
-        userId: payload.userId as string,
+        userId: userId,
         facilityId,
         startTime: start,
         endTime: end,
@@ -155,7 +137,7 @@ export async function POST(req: NextRequest) {
 
     // Current User Name (for the message)
     const currentUser = await prisma.user.findUnique({
-      where: { id: payload.userId as string },
+      where: { id: userId },
       select: { name: true },
     });
 

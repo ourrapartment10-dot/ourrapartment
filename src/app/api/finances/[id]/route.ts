@@ -1,31 +1,16 @@
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { verifyAccessToken } from '@/lib/auth/token';
-
-async function getAuthenticatedUser() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get('accessToken')?.value;
-
-  if (!token) return null;
-
-  const payload = await verifyAccessToken(token);
-  if (!payload || !payload.userId) return null;
-
-  return await prisma.user.findUnique({
-    where: { id: payload.userId as string },
-    select: { id: true, role: true },
-  });
-}
+import { requireAuth } from '@/lib/auth/middleware-helpers';
+// import { cookies } from 'next/headers';
 
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser();
+    const { userId, role } = await requireAuth();
 
-    if (!user || !['ADMIN', 'SUPER_ADMIN'].includes(user.role)) {
+    if (!['ADMIN', 'SUPER_ADMIN'].includes(role)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -64,9 +49,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser();
+    const { role } = await requireAuth();
 
-    if (!user || !['ADMIN', 'SUPER_ADMIN'].includes(user.role)) {
+    if (!['ADMIN', 'SUPER_ADMIN'].includes(role)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

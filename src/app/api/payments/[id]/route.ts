@@ -1,29 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
 import { PaymentStatus, PaymentType, PaymentMethod } from '@/generated/client'; // Fixed import
 import { createAndSendNotification } from '@/lib/notifications';
-
-async function getAuthenticatedUser() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get('accessToken')?.value;
-  if (!token) return null;
-  const payload = await verifyAccessToken(token);
-  if (!payload || !payload.userId) return null;
-  return await prisma.user.findUnique({
-    where: { id: payload.userId as string },
-  });
-}
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser();
-    if (!user)
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const { userId, role } = await requireAuth();
 
     const { id } = await params;
 
@@ -38,7 +24,7 @@ export async function GET(
       return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
 
     // Access control
-    if (user.role === 'RESIDENT' && payment.userId !== user.id) {
+    if (role === 'RESIDENT' && payment.userId !== userId) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
@@ -53,9 +39,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser();
-    if (!user)
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const { userId, role } = await requireAuth();
 
     const { id } = await params;
     const body = await request.json();
@@ -73,8 +57,8 @@ export async function PUT(
     }
 
     // Resident Update (Manual Payment Submission)
-    if (user.role === 'RESIDENT') {
-      if (existingPayment.userId !== user.id) {
+    if (role === 'RESIDENT') {
+      if (existingPayment.userId !== userId) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
       }
 
@@ -110,7 +94,7 @@ export async function PUT(
     }
 
     // Admin Update
-    if (user.role === 'ADMIN' || user.role === 'SUPER_ADMIN') {
+    if (role === 'ADMIN' || role === 'SUPER_ADMIN') {
       const {
         status,
         paymentMethod,
@@ -176,8 +160,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser();
-    if (!user || (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN')) {
+    const { role } = await requireAuth();
+    if (role !== 'ADMIN' && role !== 'SUPER_ADMIN') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 

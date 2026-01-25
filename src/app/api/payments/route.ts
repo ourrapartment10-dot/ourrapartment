@@ -1,31 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
 import { PaymentStatus, PaymentType, PaymentMethod } from '@/generated/client'; // Fixed import
 import { createAndSendNotification } from '@/lib/notifications';
 
-// Helper to get authenticated user
-async function getAuthenticatedUser() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get('accessToken')?.value;
-
-  if (!token) return null;
-
-  const payload = await verifyAccessToken(token);
-  if (!payload || !payload.userId) return null;
-
-  return await prisma.user.findUnique({
-    where: { id: payload.userId as string },
-  });
-}
-
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { userId, role } = await requireAuth();
 
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
@@ -43,7 +24,7 @@ export async function GET(request: NextRequest) {
     const where: any = {};
 
     // Role-based filtering
-    if (user.role === 'RESIDENT') {
+    if (role === 'RESIDENT') {
       // Allow residents to access community data for transparency if requested
       if (communityView === 'true') {
         // Open access to all payments (usually anonymous or summary)
@@ -51,11 +32,11 @@ export async function GET(request: NextRequest) {
         // We will allow it.
       } else {
         // Personal view
-        where.userId = user.id;
+        where.userId = userId;
       }
     } else if (
       queryUserId &&
-      (user.role === 'ADMIN' || user.role === 'SUPER_ADMIN')
+      (role === 'ADMIN' || role === 'SUPER_ADMIN')
     ) {
       where.userId = queryUserId;
     }
@@ -133,9 +114,9 @@ export async function GET(request: NextRequest) {
           ...p.user,
           property: (p.user as any).property
             ? {
-                ...(p.user as any).property,
-                unitNumber: (p.user as any).property.flatNumber, // Map flatNumber to unitNumber
-              }
+              ...(p.user as any).property,
+              unitNumber: (p.user as any).property.flatNumber, // Map flatNumber to unitNumber
+            }
             : null,
         },
       })),
@@ -176,8 +157,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser();
-    if (!user || (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN')) {
+    const { userId: currentUserId, role } = await requireAuth();
+    if (role !== 'ADMIN' && role !== 'SUPER_ADMIN') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 

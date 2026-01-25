@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
+// import { cookies } from 'next/headers';
 import { pusherServer } from '@/lib/pusher';
 
 // Correctly type the params as a Promise
@@ -12,17 +12,7 @@ export async function GET(
     try {
         const { conversationId } = await params;
 
-        const cookieStore = await cookies();
-        const token = cookieStore.get('accessToken')?.value;
-
-        if (!token) {
-            return new NextResponse('Unauthorized', { status: 401 });
-        }
-
-        const payload = await verifyAccessToken(token);
-        if (!payload || !payload.userId) {
-            return new NextResponse('Unauthorized', { status: 401 });
-        }
+        await requireAuth();
 
         // specific conversation messages
         const messages = await prisma.message.findMany({
@@ -70,20 +60,10 @@ export async function POST(
     try {
         const { conversationId } = await params;
 
-        const cookieStore = await cookies();
-        const token = cookieStore.get('accessToken')?.value;
-
-        if (!token) {
-            return new NextResponse('Unauthorized', { status: 401 });
-        }
-
-        const payload = await verifyAccessToken(token);
-        if (!payload || !payload.userId) {
-            return new NextResponse('Unauthorized', { status: 401 });
-        }
+        const { userId } = await requireAuth();
 
         const { content, replyToId } = await req.json();
-        const senderId = payload.userId as string;
+        const senderId = userId;
 
         if (!content?.trim()) {
             return new NextResponse('Content required', { status: 400 });

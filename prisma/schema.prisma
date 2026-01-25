@@ -46,6 +46,7 @@ enum PaymentType {
   FACILITY
   EVENT
   OTHER
+  SUBSCRIPTION
 }
 
 enum PaymentMethod {
@@ -509,4 +510,26 @@ model ServiceReview {
 
   @@unique([serviceProviderId, userId]) // One review per provider per user
   @@map("service_reviews")
+}
+
+model CommunitySubscription {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  planName        String
+  durationInDays  Int
+  amount          Float
+  startDate       DateTime
+  endDate         DateTime
+  status          String   @default("ACTIVE") // ACTIVE, EXPIRED
+  razorpayPaymentId String?
+  isLifetime        Boolean  @default(false)
+  
+  createdById     String?  @db.ObjectId
+  // createdBy       User?    @relation(fields: [createdById], references: [id])
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@map("community_subscriptions")
+  @@index([status])
+  @@index([endDate])
 }

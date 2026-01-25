@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { verifyAccessToken } from '@/lib/auth/token';
-import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth/middleware-helpers';
 import { handleApiError, ApiError } from '@/lib/api-error';
 import { UserRole } from '@/generated/client';
 
@@ -11,21 +10,7 @@ export async function DELETE(
 ) {
     try {
         const { id } = await params;
-        const cookieStore = await cookies();
-        const token = cookieStore.get('accessToken')?.value;
-
-        if (!token) throw new ApiError(401, 'Unauthorized');
-
-        const payload = await verifyAccessToken(token);
-        if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
-
-        // Get the requester role
-        const requester = await prisma.user.findUnique({
-            where: { id: payload.userId as string },
-            select: { id: true, role: true },
-        });
-
-        if (!requester) throw new ApiError(401, 'User not found');
+        const { userId, role } = await requireAuth();
 
         // Get the service provider to check ownership
         const service = await prisma.serviceProvider.findUnique({
@@ -35,8 +20,8 @@ export async function DELETE(
         if (!service) throw new ApiError(404, 'Service provider not found');
 
         // Allow Admin, Super Admin, or the user who created it
-        const isAdmin = requester.role === UserRole.ADMIN || requester.role === UserRole.SUPER_ADMIN;
-        const isOwner = service.addedById === requester.id;
+        const isAdmin = role === UserRole.ADMIN || role === UserRole.SUPER_ADMIN;
+        const isOwner = service.addedById === userId;
 
         if (!isAdmin && !isOwner) {
             throw new ApiError(403, 'You do not have permission to delete this service');
@@ -58,24 +43,10 @@ export async function PUT(
 ) {
     try {
         const { id } = await params;
-        const cookieStore = await cookies();
-        const token = cookieStore.get('accessToken')?.value;
-
-        if (!token) throw new ApiError(401, 'Unauthorized');
-
-        const payload = await verifyAccessToken(token);
-        if (!payload || !payload.userId) throw new ApiError(401, 'Unauthorized');
+        const { userId, role } = await requireAuth();
 
         const body = await req.json();
         const { name, category, phone, description, price } = body;
-
-        // Get the requester role
-        const requester = await prisma.user.findUnique({
-            where: { id: payload.userId as string },
-            select: { id: true, role: true },
-        });
-
-        if (!requester) throw new ApiError(401, 'User not found');
 
         // Get the service provider to check ownership
         const service = await prisma.serviceProvider.findUnique({
@@ -85,8 +56,8 @@ export async function PUT(
         if (!service) throw new ApiError(404, 'Service provider not found');
 
         // Allow Admin, Super Admin, or the user who created it
-        const isAdmin = requester.role === UserRole.ADMIN || requester.role === UserRole.SUPER_ADMIN;
-        const isOwner = service.addedById === requester.id;
+        const isAdmin = role === UserRole.ADMIN || role === UserRole.SUPER_ADMIN;
+        const isOwner = service.addedById === userId;
 
         if (!isAdmin && !isOwner) {
             throw new ApiError(403, 'You do not have permission to edit this service');

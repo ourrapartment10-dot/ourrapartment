@@ -8,7 +8,7 @@ const REFRESH_TOKEN_SECRET = new TextEncoder().encode(
 );
 
 const ACCESS_TOKEN_EXPIRY = '15m';
-const REFRESH_TOKEN_EXPIRY = '7d';
+const REFRESH_TOKEN_EXPIRY = '30d';
 
 export async function signAccessToken(payload: any) {
   return await new SignJWT(payload)
