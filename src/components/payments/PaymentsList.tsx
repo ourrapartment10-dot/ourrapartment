@@ -64,9 +64,50 @@ export default function PaymentsList({
 }: PaymentsListProps) {
   if (loading) {
     return (
-      <div className="p-20 text-center">
-        <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
-        <p className="mt-4 font-medium text-slate-500">Loading records...</p>
+      <div className="space-y-4 animate-pulse">
+        {/* Mobile Skeleton */}
+        <div className="grid grid-cols-1 gap-4 md:hidden">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="space-y-4 rounded-[2rem] border border-slate-100 bg-white p-6 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-slate-100" />
+                  <div className="space-y-1">
+                    <div className="h-3 w-24 rounded bg-slate-100" />
+                    <div className="h-2 w-16 rounded bg-slate-100" />
+                  </div>
+                </div>
+                <div className="h-6 w-16 rounded-lg bg-slate-100" />
+              </div>
+              <div className="space-y-2 border-y border-slate-50 py-4">
+                <div className="h-3 w-1/3 rounded bg-slate-100" />
+                <div className="h-8 w-1/2 rounded bg-slate-100" />
+              </div>
+              <div className="flex justify-end gap-2">
+                <div className="h-10 w-24 rounded-xl bg-slate-100" />
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Desktop Skeleton */}
+        <div className="hidden md:block overflow-hidden rounded-[2.5rem] border border-slate-100 bg-white">
+          <div className="space-y-0 divide-y divide-slate-100">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="flex items-center p-6 gap-6">
+                <div className="flex items-center gap-4 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-slate-100" />
+                  <div className="space-y-2">
+                    <div className="h-3 w-32 rounded bg-slate-100" />
+                    <div className="h-2 w-20 rounded bg-slate-100" />
+                  </div>
+                </div>
+                <div className="h-4 w-24 rounded bg-slate-100" />
+                <div className="h-4 w-24 rounded bg-slate-100" />
+                <div className="h-8 w-20 rounded-xl bg-slate-100" />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

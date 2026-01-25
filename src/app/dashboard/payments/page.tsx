@@ -334,21 +334,41 @@ export default function PaymentsPage() {
           </motion.div>
         </div>
 
-        {/* Statistics Component (Only on List view) */}
-        {statistics && currentTab === 'list' && (
+        {/* Statistics Component or Skeleton */}
+        {loading ? (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
           >
-            <PaymentStats statistics={statistics} />
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="rounded-[2rem] border border-white/50 bg-white/40 p-6 shadow-sm backdrop-blur-md h-32 animate-pulse">
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-2xl bg-white/50"></div>
+                  <div className="space-y-2">
+                    <div className="h-3 w-20 bg-white/50 rounded"></div>
+                    <div className="h-6 w-24 bg-white/50 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </motion.div>
+        ) : (
+          statistics && currentTab === 'list' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <PaymentStats statistics={statistics} />
+            </motion.div>
+          )
         )}
       </div>
 
       {/* Tab Navigation */}
       <div className="px-2">
-        <div className="scrollbar-hide flex w-full overflow-x-auto rounded-[2rem] border border-white/50 bg-white/60 p-1 shadow-sm backdrop-blur-md sm:w-fit">
+        <div className="scrollbar-hide flex w-full justify-between sm:justify-start overflow-x-auto rounded-[2rem] border border-white/50 bg-white/60 p-1 shadow-sm backdrop-blur-md sm:w-fit">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = currentTab === tab.id;
@@ -357,7 +377,7 @@ export default function PaymentsPage() {
                 key={tab.id}
                 onClick={() => setCurrentTab(tab.id)}
                 className={cn(
-                  'flex flex-shrink-0 items-center gap-1.5 rounded-[1.5rem] px-4 py-2.5 text-xs font-bold whitespace-nowrap transition-all sm:gap-2 sm:px-6 sm:py-3 sm:text-sm',
+                  'flex flex-shrink-0 items-center gap-1.5 rounded-[1.5rem] px-4 py-2.5 text-xs font-bold whitespace-nowrap transition-all sm:gap-2 sm:px-6 sm:py-3 sm:text-sm flex-1 justify-center sm:flex-none sm:justify-start',
                   isActive
                     ? 'bg-slate-900 text-white shadow-md'
                     : 'text-slate-500 hover:bg-white/50 hover:text-slate-900'
@@ -409,7 +429,7 @@ export default function PaymentsPage() {
               onPageChange={(page) =>
                 setPagination((prev) => ({ ...prev, page }))
               }
-              onView={() => {}}
+              onView={() => { }}
               onEdit={(p) => {
                 setEditingPayment(p);
                 setShowCreate(true);

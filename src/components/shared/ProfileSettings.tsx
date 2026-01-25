@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/components/auth/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PushNotificationManager } from './PushNotificationManager';
 
 export function ProfileSettings() {
   const { user, updateUser } = useAuth();
@@ -17,6 +18,8 @@ export function ProfileSettings() {
   // Profile form state
   const [name, setName] = useState(user?.name || '');
   const [phone, setPhone] = useState(user?.phone || '');
+  const [notificationsEnabled, setNotificationsEnabled] = useState(user?.notificationsEnabled ?? true);
+
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
@@ -28,6 +31,9 @@ export function ProfileSettings() {
     if (user) {
       setName(user.name || '');
       setPhone(user.phone || '');
+      if (user.notificationsEnabled !== undefined) {
+        setNotificationsEnabled(user.notificationsEnabled);
+      }
     }
   }, [user]);
 
@@ -44,11 +50,10 @@ export function ProfileSettings() {
       const res = await fetch('/api/user/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        // Preserving existing notification setting from user context
         body: JSON.stringify({
           name,
           phone,
-          notificationsEnabled: user?.notificationsEnabled
+          notificationsEnabled
         }),
       });
 
@@ -154,6 +159,31 @@ export function ProfileSettings() {
             className="w-full rounded-2xl border border-gray-100 bg-gray-50 px-5 py-4 text-sm font-medium text-gray-700 transition-all outline-none placeholder:text-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
           />
         </div>
+
+        {/* Notification Settings (Residents Only) */}
+        {user?.role === 'RESIDENT' && (
+          <div className="space-y-6 md:col-span-2 pt-4 border-t border-gray-100">
+            {/* In-App Notifications */}
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="text-sm font-bold text-gray-900">In-App Notifications</label>
+                <p className="text-xs font-medium text-gray-500">Receive alerts within the application</p>
+              </div>
+              <button
+                onClick={() => setNotificationsEnabled(!notificationsEnabled)}
+                type="button"
+                className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${notificationsEnabled ? 'bg-blue-600' : 'bg-slate-200'}`}
+              >
+                <span
+                  className={`inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${notificationsEnabled ? 'translate-x-6' : 'translate-x-1'}`}
+                />
+              </button>
+            </div>
+
+            {/* Push Notifications Manager */}
+            <PushNotificationManager />
+          </div>
+        )}
       </div>
       <div className="border-t border-gray-50 pt-4">
         <button

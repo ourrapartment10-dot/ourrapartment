@@ -165,7 +165,7 @@ export default function ComplaintCard({
                 </span>
               </div>
             </div>
-            <p className="line-clamp-3 text-sm leading-relaxed font-medium text-slate-500">
+            <p className="line-clamp-3 text-sm leading-relaxed font-medium text-slate-600">
               {complaint.description}
             </p>
           </div>
