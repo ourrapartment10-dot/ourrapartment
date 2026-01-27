@@ -11,6 +11,7 @@ import {
   List,
   Calendar as CalendarIcon,
   BarChart3,
+  Users,
 } from 'lucide-react';
 import PaymentStats from '@/components/payments/PaymentStats';
 import PaymentFilters from '@/components/payments/PaymentFilters';
@@ -66,14 +67,24 @@ export default function PaymentsPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // View Mode for Admins (Community vs Personal)
+  const [viewMode, setViewMode] = useState<'community' | 'personal'>('community');
+
   // Fetch paginated payments for the list view
   const fetchPayments = useCallback(async () => {
     setLoading(true);
     try {
+      const queryParams = { ...filters };
+
+      // If Admin is in 'personal' mode, force userId filter to their own ID
+      if (isAdmin && viewMode === 'personal' && user?.id) {
+        queryParams.userId = user.id;
+      }
+
       const query = new URLSearchParams({
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
-        ...filters,
+        ...queryParams,
       });
 
       const res = await fetch(`/api/payments?${query.toString()}`);
@@ -89,22 +100,28 @@ export default function PaymentsPage() {
     } finally {
       setLoading(false);
     }
-  }, [pagination.page, pagination.limit, filters]);
+  }, [pagination.page, pagination.limit, filters, isAdmin, viewMode, user?.id]);
 
   // Fetch all payments for Calendar and Charts
   const fetchAllPayments = useCallback(async () => {
-    // Optimized to fetch a large batch for analytics
+    if (!user) return;
     try {
+      const queryParams = { ...filters };
+
+      // Default communityView logic
+      let communityView = 'true';
+
+      // If Admin is in 'personal' mode
+      if (isAdmin && viewMode === 'personal') {
+        queryParams.userId = user.id;
+        communityView = 'false';
+      }
+
       const query = new URLSearchParams({
-        limit: '2000', // Fetch reasonably large number for analytics
-        communityView: 'true', // Allow gathering community stats even for residents
-        // We typically don't apply pagination filters here, but might apply date filters if they exist?
-        // For now, let's fetch 'all' relative to global context or if filters are applied, apply them too.
-        // It's better to respect filters if possible, or fetch ALL if the user wants general insights.
-        // Let's respect filters except page/limit to allow "Charting filtered data"
-        ...filters,
+        limit: '2000',
+        communityView,
+        ...queryParams,
       });
-      // Override page/limit from filters if they leaked in (they shouldn't as we construct explicitly)
 
       const res = await fetch(`/api/payments?${query.toString()}`);
       if (!res.ok) throw new Error('Failed to fetch analytics data');
@@ -113,9 +130,8 @@ export default function PaymentsPage() {
       setAllPayments(data.payments);
     } catch (error) {
       console.error('Analytics fetch error:', error);
-      // Silent fail or toast?
     }
-  }, [filters]);
+  }, [filters, isAdmin, viewMode, user]);
 
   useEffect(() => {
     if (user) {
@@ -134,17 +150,17 @@ export default function PaymentsPage() {
   const handleFilterChange = (newFilters: any) => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
     setPagination((prev) => ({ ...prev, page: 1 }));
-    // Also trigger refetch of all payments if in chart/calendar mode?
-    // Since useEffect [filters] is dependency of fetchAllPayments?, no, fetchAllPayments depends on filters?
-    // fetchAllPayments dependency list includes [filters]. So it will update function reference.
-    // We need to validte if we should auto-call it.
-    // Let's rely on the user switching tabs or maybe add a separate effect or just call it here if tab is active.
-    if (currentTab === 'calendar' || currentTab === 'charts') {
-      // It will be called by the effect hook if we add [filters] to dependency array of the effect.
-      // Currently the effect only depends on [currentTab, user].
-      // We should add logic to refetch when filters change if tab is active.
-    }
   };
+
+  // Trigger refetch when viewMode changes
+  useEffect(() => {
+    if (user) {
+      fetchPayments();
+      if (currentTab === 'calendar' || currentTab === 'charts') {
+        fetchAllPayments();
+      }
+    }
+  }, [viewMode]);
 
   // Effect to refetch all payments when filters change IF we are in analytics mode
   useEffect(() => {
@@ -252,7 +268,7 @@ export default function PaymentsPage() {
 
   const tabs = [
     { id: 'list', label: 'Payments List', icon: List },
-    ...(isAdmin
+    ...(isAdmin && viewMode === 'community'
       ? [{ id: 'verify', label: 'Verifications', icon: UserCheck }]
       : []),
     { id: 'calendar', label: 'Calendar', icon: CalendarIcon },
@@ -300,20 +316,43 @@ export default function PaymentsPage() {
                 transition={{ delay: 0.2 }}
                 className="max-w-lg text-lg leading-relaxed font-medium text-slate-500 lg:text-xl"
               >
-                {isAdmin
+                {isAdmin && viewMode === 'community'
                   ? 'Manage community finances, verify transactions, and track revenue seamlessly.'
                   : 'Track your dues, make easy payments, and manage your financial history.'}
               </motion.p>
             </div>
-          </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-col items-center gap-4 sm:flex-row"
-          >
+            {/* Admin View Toggle */}
             {isAdmin && (
+              <div className="inline-flex rounded-xl bg-slate-100 p-1">
+                <button
+                  onClick={() => setViewMode('community')}
+                  className={cn(
+                    'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold transition-all',
+                    viewMode === 'community'
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900'
+                  )}
+                >
+                  <Users className="h-4 w-4" />
+                  Community
+                </button>
+                <button
+                  onClick={() => setViewMode('personal')}
+                  className={cn(
+                    'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold transition-all',
+                    viewMode === 'personal'
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900'
+                  )}
+                >
+                  <UserCheck className="h-4 w-4" />
+                  My Payments
+                </button>
+              </div>
+            )}
+
+            {isAdmin && viewMode === 'community' && (
               <>
                 <button
                   onClick={() => setShowBulk(true)}
@@ -331,7 +370,14 @@ export default function PaymentsPage() {
                 </button>
               </>
             )}
-          </motion.div>
+
+            {/* Show 'Make Payment' for personal view (admin acting as resident layout)? 
+                Actually admins shouldn't see 'New Payment' in personal view? 
+                Or maybe they should see a restricted 'Pay' button? 
+                Usually residents see payment method on the list items. 
+                Keep it simple: Hide bulk actions. List items have 'Pay' button.
+            */}
+          </div>
         </div>
 
         {/* Statistics Component or Skeleton */}
@@ -443,7 +489,7 @@ export default function PaymentsPage() {
         )}
 
         {/* Verify Tab */}
-        {currentTab === 'verify' && isAdmin && (
+        {currentTab === 'verify' && isAdmin && viewMode === 'community' && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -480,18 +526,18 @@ export default function PaymentsPage() {
             </div>
             <PaymentCalendar
               payments={
-                isResident
+                isResident || (isAdmin && viewMode === 'personal')
                   ? allPayments.filter((p: any) => p.userId === user?.id)
                   : allPayments
               }
               onPaymentClick={(p) => {
                 // Maybe open edit or details modal?
-                if (isAdmin) {
+                if (isAdmin && viewMode === 'community') {
                   setEditingPayment(p);
                   setShowCreate(true);
                 }
               }}
-              onCreatePayment={isAdmin ? () => setShowCreate(true) : undefined}
+              onCreatePayment={isAdmin && viewMode === 'community' ? () => setShowCreate(true) : undefined}
               userRole={user?.role}
             />
           </motion.div>

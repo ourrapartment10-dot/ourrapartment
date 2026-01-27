@@ -61,9 +61,9 @@ export default function FacilitiesPage() {
     <div className="mx-auto max-w-[1600px] space-y-12 pb-20">
       {/* dynamic background elements */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-[-20%] right-[-10%] h-[70%] w-[70%] rounded-full bg-blue-50/60 blur-[150px]" />
-        <div className="absolute bottom-[-20%] left-[-10%] h-[70%] w-[70%] rounded-full bg-indigo-100/40 blur-[150px]" />
-        <div className="absolute top-[20%] left-[10%] h-[50%] w-[50%] rounded-full bg-slate-50/50 blur-[150px]" />
+        <div className="absolute top-[-20%] right-[-10%] h-[70%] w-[70%] rounded-full bg-[#50717B]/10 blur-[150px]" />
+        <div className="absolute bottom-[-20%] left-[-10%] h-[70%] w-[70%] rounded-full bg-slate-200/40 blur-[150px]" />
+        <div className="absolute top-[20%] left-[10%] h-[50%] w-[50%] rounded-full bg-[#50717B]/5 blur-[150px]" />
       </div>
 
       {/* Premium Header */}
@@ -73,7 +73,7 @@ export default function FacilitiesPage() {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex w-fit items-center gap-3 rounded-2xl bg-blue-50 px-4 py-2 text-blue-600"
+              className="flex w-fit items-center gap-3 rounded-2xl bg-[#50717B]/10 px-4 py-2 text-[#50717B]"
             >
               <Sparkles className="h-4 w-4" />
               <span className="text-[10px] font-black tracking-[0.2em] uppercase">
@@ -89,8 +89,8 @@ export default function FacilitiesPage() {
                 className="text-5xl leading-[0.9] font-[900] tracking-tighter text-slate-900 lg:text-7xl"
               >
                 Community <br />
-                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  Spaces.
+                <span className="bg-gradient-to-r from-[#50717B] to-slate-600 bg-clip-text text-transparent">
+                  Facilities.
                 </span>
               </motion.h1>
               <motion.p
@@ -114,7 +114,7 @@ export default function FacilitiesPage() {
             {isAdmin && (
               <button
                 onClick={() => setIsCreateModalOpen(true)}
-                className="flex w-full items-center justify-center gap-3 rounded-[2rem] bg-slate-900 px-10 py-5 text-sm font-black text-white shadow-[0_20px_40px_-10px_rgba(15,23,42,0.3)] transition-all hover:-translate-y-1 hover:bg-black active:scale-[0.98] sm:w-auto"
+                className="flex w-full items-center justify-center gap-3 rounded-[2rem] bg-[#50717B] px-10 py-5 text-sm font-black text-white shadow-[0_20px_40px_-10px_rgba(80,113,123,0.3)] transition-all hover:-translate-y-1 hover:bg-[#3E5861] active:scale-[0.98] sm:w-auto"
               >
                 <Plus className="h-5 w-5" />
                 Add New Facility
@@ -122,13 +122,13 @@ export default function FacilitiesPage() {
             )}
 
             <div className="group relative w-full sm:w-80">
-              <Search className="absolute top-1/2 left-6 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-blue-600" />
+              <Search className="absolute top-1/2 left-6 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-[#50717B]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search spaces..."
-                className="w-full rounded-[2rem] border border-slate-100 bg-white py-5 pr-6 pl-14 text-sm font-bold text-slate-900 shadow-sm transition-all placeholder:text-slate-300 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/5 focus:outline-none"
+                className="w-full rounded-[2rem] border border-slate-100 bg-white py-5 pr-6 pl-14 text-sm font-bold text-slate-900 shadow-sm transition-all placeholder:text-slate-300 focus:border-[#50717B] focus:ring-4 focus:ring-[#50717B]/5 focus:outline-none"
               />
             </div>
           </motion.div>
@@ -154,7 +154,7 @@ export default function FacilitiesPage() {
               {activeTab === 'browse' && (
                 <motion.div
                   layoutId="tab-bg"
-                  className="absolute inset-0 -z-10 bg-slate-900"
+                  className="absolute inset-0 -z-10 bg-[#50717B]"
                   transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                 />
               )}
@@ -176,7 +176,7 @@ export default function FacilitiesPage() {
               {activeTab !== 'browse' && (
                 <motion.div
                   layoutId="tab-bg"
-                  className="absolute inset-0 -z-10 bg-slate-900"
+                  className="absolute inset-0 -z-10 bg-[#50717B]"
                   transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                 />
               )}

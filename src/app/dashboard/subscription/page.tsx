@@ -206,12 +206,12 @@ export default function SubscriptionPage() {
             <div
                 onClick={() => setSelectedPlan(days)}
                 className={`relative cursor-pointer overflow-hidden rounded-3xl border transition-all duration-300 hover:shadow-xl ${selectedPlan === days
-                    ? 'border-indigo-600 bg-indigo-50/50 ring-2 ring-indigo-600 ring-offset-2'
-                    : 'border-slate-100 bg-white hover:border-indigo-200'
+                    ? 'border-[#211832] bg-[#211832]/5 ring-2 ring-[#211832] ring-offset-2'
+                    : 'border-slate-100 bg-white hover:border-[#211832]/20'
                     }`}
             >
                 {popular && (
-                    <div className="absolute top-0 right-0 rounded-bl-2xl bg-indigo-600 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-white">
+                    <div className="absolute top-0 right-0 rounded-bl-2xl bg-[#211832] px-4 py-1 text-[10px] font-black uppercase tracking-widest text-white">
                         Most Popular
                     </div>
                 )}
@@ -242,7 +242,7 @@ export default function SubscriptionPage() {
                 </div>
 
                 {/* Selection Indicator */}
-                <div className={`flex items-center justify-center border-t p-4 ${selectedPlan === days ? 'bg-indigo-600 border-indigo-600' : 'bg-slate-50 border-slate-100'}`}>
+                <div className={`flex items-center justify-center border-t p-4 ${selectedPlan === days ? 'bg-[#211832] border-[#211832]' : 'bg-slate-50 border-slate-100'}`}>
                     {selectedPlan === days ? (
                         <div className="flex items-center gap-2 text-white font-bold text-sm">
                             <CheckCircle2 className="h-5 w-5" /> Selected
@@ -256,22 +256,53 @@ export default function SubscriptionPage() {
     }
 
     return (
-        <div className="space-y-8 pb-12">
-            <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 w-fit text-blue-600">
-                    <Shield className="h-4 w-4" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Secure Gateway</span>
+        <div className="mx-auto max-w-[1600px] space-y-12 pb-20">
+            {/* Dynamic Background Elements */}
+            <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+                <div className="absolute top-[-20%] right-[-10%] h-[70%] w-[70%] rounded-full bg-[#211832]/10 blur-[150px]" />
+                <div className="absolute bottom-[-20%] left-[-10%] h-[70%] w-[70%] rounded-full bg-indigo-100/40 blur-[150px]" />
+            </div>
+
+            {/* Premium Header */}
+            <div className="relative px-2 pt-8">
+                <div className="max-w-2xl space-y-6">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="flex w-fit items-center gap-3 rounded-2xl bg-[#211832]/10 px-4 py-2 text-[#211832]"
+                    >
+                        <Shield className="h-4 w-4" />
+                        <span className="text-[10px] font-black tracking-[0.2em] uppercase">
+                            Secure Gateway
+                        </span>
+                    </motion.div>
+
+                    <div className="space-y-2">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-5xl leading-[0.9] font-[900] tracking-tighter text-slate-900 lg:text-7xl"
+                        >
+                            Subscription & <br />
+                            <span className="bg-gradient-to-r from-[#211832] to-slate-800 bg-clip-text text-transparent">
+                                Plans.
+                            </span>
+                        </motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="max-w-lg text-lg leading-relaxed font-medium text-slate-500 lg:text-xl"
+                        >
+                            Ensure your community has uninterrupted access to OurApartment's premium features.
+                        </motion.p>
+                    </div>
                 </div>
-                <h1 className="text-3xl font-[900] tracking-tighter text-slate-900 lg:text-5xl">
-                    {user?.role === UserRole.SUPER_ADMIN ? 'Manage Subscriptions' : 'Subscription Management'}
-                </h1>
-                <p className="text-slate-500 font-medium max-w-2xl">
-                    Ensure your community has uninterrupted access to OurApartment's premium features.
-                </p>
             </div>
 
             {/* Active Status Card */}
-            <div className={`relative overflow-hidden rounded-[2.5rem] p-8 md:p-12 ${subscription?.active ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white' : 'bg-gradient-to-br from-slate-800 to-slate-900 text-white'}`}>
+            <div className={`relative overflow-hidden rounded-[2.5rem] p-8 md:p-12 ${subscription?.active ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white' : 'bg-gradient-to-br from-[#211832] to-slate-900 text-white'}`}>
                 <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                     <div>
                         <div className="flex items-center gap-3">
@@ -374,7 +405,7 @@ export default function SubscriptionPage() {
                                 <button
                                     onClick={() => handleSubscribe(selectedPlan)}
                                     disabled={paymentLoading || flatCount < minFlatCount}
-                                    className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+                                    className="w-full sm:w-auto px-8 py-4 bg-[#211832] hover:bg-[#150f20] text-white rounded-xl font-bold shadow-lg shadow-[#211832]/20 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
                                 >
                                     {paymentLoading ? <Loader2 className="animate-spin h-5 w-5" /> : (
                                         <>
@@ -471,6 +502,7 @@ export default function SubscriptionPage() {
                     </div>
                 </div>
             )}
+            {/* Closing container */}
         </div>
     );
 }

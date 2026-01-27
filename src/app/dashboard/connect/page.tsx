@@ -66,17 +66,23 @@ export default function ConnectHubPage() {
   return (
     <div className="relative min-h-[calc(100vh-6rem)] pb-20 sm:pb-0">
       {/* Header / Title */}
+      {/* Dynamic Background Elements */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[-20%] right-[-10%] h-[70%] w-[70%] rounded-full bg-[#6E5034]/10 blur-[150px]" />
+        <div className="absolute bottom-[-20%] left-[-10%] h-[70%] w-[70%] rounded-full bg-amber-100/40 blur-[150px]" />
+      </div>
+
       {/* Header / Title */}
       <div className="relative px-2 pt-8 mb-8">
         <div className="max-w-2xl space-y-6">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex w-fit items-center gap-3 rounded-2xl bg-blue-50 px-4 py-2 text-blue-600"
+            className="flex w-fit items-center gap-3 rounded-2xl bg-[#6E5034]/10 px-4 py-2 text-[#6E5034]"
           >
             <MessageSquare className="h-4 w-4" />
             <span className="text-[10px] font-black tracking-[0.2em] uppercase">
-              Connect Space
+              Community Hub
             </span>
           </motion.div>
 
@@ -87,9 +93,9 @@ export default function ConnectHubPage() {
               transition={{ delay: 0.1 }}
               className="text-5xl leading-[0.9] font-[900] tracking-tighter text-slate-900 lg:text-7xl"
             >
-              Community <br />
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Conversations.
+              Connect <br />
+              <span className="bg-gradient-to-r from-[#6E5034] to-amber-700 bg-clip-text text-transparent">
+                Space.
               </span>
             </motion.h1>
             <motion.p
@@ -108,7 +114,7 @@ export default function ConnectHubPage() {
         {/* Top: Community Space CTA */}
         <div
           onClick={() => router.push('/dashboard/connect/community')}
-          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-gradient-to-r from-blue-700 to-blue-600 p-1 shadow-lg transition-all hover:scale-[1.01] hover:shadow-xl hover:shadow-blue-500/20"
+          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-gradient-to-r from-[#6E5034] to-amber-900 p-1 shadow-lg transition-all hover:scale-[1.01] hover:shadow-xl hover:shadow-[#6E5034]/20"
         >
           <div className="relative flex items-center gap-4 rounded-xl bg-white/10 p-4 backdrop-blur-sm transition-colors group-hover:bg-white/15">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/20 shadow-inner ring-4 ring-white/10 backdrop-blur-md">
@@ -116,7 +122,7 @@ export default function ConnectHubPage() {
             </div>
             <div className="flex-1">
               <h2 className="text-lg font-bold text-white">Community Space</h2>
-              <p className="text-sm font-medium text-blue-100 opacity-90">
+              <p className="text-sm font-medium text-amber-100 opacity-90">
                 Join the general discussion with everyone
               </p>
             </div>
@@ -185,7 +191,7 @@ export default function ConnectHubPage() {
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2 mb-1">
-                        <h4 className="font-bold text-[15px] text-slate-900 truncate group-hover:text-blue-600 transition-colors">
+                        <h4 className="font-bold text-[15px] text-slate-900 truncate group-hover:text-[#6E5034] transition-colors">
                           {other.name}
                         </h4>
                         <span className="text-[11px] font-semibold text-slate-400 whitespace-nowrap">
@@ -198,7 +204,7 @@ export default function ConnectHubPage() {
                         </p>
 
                         {!!conv.unreadCount && conv.unreadCount > 0 && (
-                          <span className="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-blue-600 px-1.5 text-[10px] font-bold text-white shadow-sm shadow-blue-200">
+                          <span className="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#6E5034] px-1.5 text-[10px] font-bold text-white shadow-sm shadow-amber-200">
                             {conv.unreadCount}
                           </span>
                         )}
@@ -215,7 +221,7 @@ export default function ConnectHubPage() {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsNewChatOpen(true)}
-        className="fixed bottom-20 right-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 shadow-lg shadow-blue-600/30 transition-all hover:scale-110 hover:bg-blue-700 active:scale-95 sm:bottom-8 sm:right-8 z-40"
+        className="fixed bottom-20 right-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#6E5034] shadow-lg shadow-[#6E5034]/30 transition-all hover:scale-110 hover:bg-[#8B6544] active:scale-95 sm:bottom-8 sm:right-8 z-40"
       >
         <Plus className="h-7 w-7 text-white" />
       </button>
