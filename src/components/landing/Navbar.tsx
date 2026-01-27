@@ -68,24 +68,27 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b border-gray-100 bg-white/80 shadow-sm backdrop-blur-md' : 'border-transparent bg-transparent'}`}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b border-gray-100 bg-white/80 shadow-sm backdrop-blur-xl' : 'border-transparent bg-transparent'}`}
     >
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl font-light tracking-tight text-gray-900">
-            Ourr <span className="text-primary font-bold">Apartment</span>
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg shadow-blue-200 transition-transform group-hover:scale-105">
+            <span className="text-xl font-black text-white">OA</span>
+          </div>
+          <span className="text-2xl font-black tracking-tighter text-slate-900">
+            Ourr<span className="text-blue-600">Apartment</span>
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-10 md:flex">
-          <nav className="flex gap-8 text-sm font-semibold text-gray-600">
+          <nav className="flex gap-8 text-sm font-bold tracking-wide text-slate-500">
             {['Features', 'How It Works', 'Contact'].map((item) => (
               <Link
                 key={item}
                 href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                className="hover:text-primary transition-colors"
+                className="hover:text-slate-900 transition-colors"
               >
                 {item}
               </Link>
@@ -98,7 +101,7 @@ export default function Navbar() {
                 onClick={handleInstallClick}
                 variant="outline"
                 size="sm"
-                className="border-primary text-primary hover:bg-primary gap-2 transition-all hover:text-white"
+                className="rounded-full border-blue-200 text-blue-600 hover:bg-blue-50 font-bold gap-2 transition-all"
               >
                 <Download className="h-4 w-4" />
                 Install App
@@ -106,13 +109,13 @@ export default function Navbar() {
             )}
             <Link
               href="/login"
-              className="hover:text-primary text-sm font-semibold text-gray-900 transition-colors"
+              className="hover:text-slate-900 text-sm font-bold text-slate-500 transition-colors"
             >
               Sign In
             </Link>
             <Link
               href="/register"
-              className="rounded-full bg-gray-900 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-gray-800 hover:shadow-lg"
+              className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-bold text-white transition-all shadow-lg hover:-translate-y-0.5 hover:bg-black hover:shadow-xl"
             >
               Get Started
             </Link>
@@ -122,31 +125,32 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="rounded-xl">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right">
-            <SheetHeader className="sr-only">
-              <SheetTitle>Navigation Menu</SheetTitle>
-              <SheetDescription>
-                Access different sections of our website including Features, How
-                It Works, and more.
+          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetHeader className="text-left">
+              <SheetTitle className="text-2xl font-black tracking-tighter">
+                Ourr<span className="text-blue-600">Apartment</span>
+              </SheetTitle>
+              <SheetDescription className="font-medium text-slate-500">
+                Menu
               </SheetDescription>
             </SheetHeader>
-            <div className="mt-8 flex flex-col gap-6">
+            <div className="mt-8 flex flex-col gap-4">
               {['Features', 'How It Works', 'Contact'].map((item) => (
                 <Link
                   key={item}
                   href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
                   onClick={() => setIsOpen(false)}
-                  className="hover:text-primary text-lg font-medium transition-colors"
+                  className="rounded-xl p-3 text-lg font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all"
                 >
                   {item}
                 </Link>
               ))}
-              <hr className="my-4" />
+              <hr className="my-4 border-slate-100" />
               {showInstallButton && (
                 <Button
                   onClick={() => {
@@ -154,7 +158,7 @@ export default function Navbar() {
                     setIsOpen(false);
                   }}
                   variant="outline"
-                  className="border-primary text-primary hover:bg-primary gap-2 transition-all hover:text-white"
+                  className="w-full justify-start gap-3 rounded-xl border-slate-200 p-6 text-base font-bold text-slate-600"
                 >
                   <Download className="h-5 w-5" />
                   Install App
@@ -163,14 +167,14 @@ export default function Navbar() {
               <Link
                 href="/login"
                 onClick={() => setIsOpen(false)}
-                className="rounded-lg border border-gray-200 px-4 py-3 text-center font-semibold hover:bg-gray-50"
+                className="flex w-full items-center justify-center rounded-xl border border-slate-200 p-4 text-base font-bold text-slate-900 hover:bg-slate-50 transition-all"
               >
                 Sign In
               </Link>
               <Link
                 href="/register"
                 onClick={() => setIsOpen(false)}
-                className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-3 text-center font-semibold text-white"
+                className="flex w-full items-center justify-center rounded-xl bg-slate-900 p-4 text-base font-bold text-white shadow-lg hover:bg-black transition-all"
               >
                 Get Started
               </Link>

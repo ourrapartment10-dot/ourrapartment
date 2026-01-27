@@ -252,6 +252,33 @@ export default function ChatInput({ onSendMessage, replyingTo, onCancelReply }: 
           </div>
         </div>
       )}
+      {/* Mention Suggestions */}
+      {showMentions && mentionResults.length > 0 && (
+        <div className="animate-in zoom-in-95 absolute bottom-24 left-16 z-30 w-64 overflow-hidden rounded-2xl border border-white/50 bg-white/95 shadow-xl ring-1 ring-black/5 backdrop-blur-xl">
+          <div className="p-2">
+            {mentionResults.map((user, index) => (
+              <button
+                key={user.id}
+                onClick={() => insertMention(user.name)}
+                className={cn(
+                  "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-colors",
+                  index === mentionIndex ? "bg-blue-50 text-blue-700" : "hover:bg-slate-50 text-slate-700"
+                )}
+                onMouseEnter={() => setMentionIndex(index)}
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-xs font-bold uppercase text-slate-500 overflow-hidden">
+                  {user.image ? (
+                    <img src={user.image} alt={user.name} className="h-full w-full object-cover" />
+                  ) : (
+                    user.name?.[0] || '@'
+                  )}
+                </div>
+                <span className="text-sm font-bold truncate">{user.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Main Bar */}
       <div className="mx-auto flex max-w-3xl items-end gap-3 rounded-[32px] border border-white bg-white p-2 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-black/5 transition-all focus-within:shadow-[0_12px_40px_rgba(0,0,0,0.08)]">

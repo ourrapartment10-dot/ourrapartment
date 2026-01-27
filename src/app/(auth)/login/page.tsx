@@ -5,91 +5,93 @@ import { MoveLeft } from 'lucide-react';
 export default function LoginPage() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-white lg:flex-row">
-      {/* Left Side: Brand & Quote - Genuinely fixed/static height */}
-      <div className="relative hidden h-full shrink-0 items-start justify-center overflow-hidden bg-emerald-950 p-8 lg:flex lg:w-[40%]">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20000ms] hover:scale-110"
-          style={{ backgroundImage: 'url("/auth-bg-v2.png")' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/90 via-emerald-950/40 to-emerald-950/90" />
+      {/* Left Side: Brand & Quote - Premium Gradient Background */}
+      <div className="relative hidden h-full shrink-0 items-start justify-center overflow-hidden bg-[#0f172a] p-12 lg:flex lg:w-[45%] xl:w-[40%]">
+        {/* Abstract Background Effects */}
+        <div className="absolute top-[-20%] right-[-10%] h-[600px] w-[600px] rounded-full bg-indigo-600/20 blur-[120px]" />
+        <div className="absolute bottom-[-20%] left-[-10%] h-[500px] w-[500px] rounded-full bg-violet-600/10 blur-[120px]" />
 
         {/* Content Container */}
-        <div className="pointer-events-none relative z-10 flex h-full w-full max-w-sm flex-col items-center justify-between py-12 text-center">
+        <div className="relative z-10 flex h-full w-full max-w-md flex-col justify-between text-left">
           <Link
             href="/"
-            className="group pointer-events-auto inline-flex flex-col items-center gap-1.5 text-white/60 transition-all hover:text-white"
+            className="group inline-flex items-center gap-2 text-slate-400 transition-all hover:text-white"
           >
-            <div className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-all group-hover:scale-105 group-hover:bg-white/10">
-              <MoveLeft className="h-4 w-4" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 transition-all group-hover:bg-white/10 group-hover:scale-110">
+              <span className="font-black text-white">OA</span>
             </div>
-            <span className="text-[9px] font-bold tracking-widest uppercase">
-              Home
+            <span className="text-sm font-bold tracking-widest uppercase">
+              OurrApartment
             </span>
           </Link>
 
-          <div className="flex flex-1 flex-col justify-center space-y-8 py-8">
-            <div className="mx-auto inline-flex scale-90 items-center justify-center rounded-[1.5rem] border border-white/10 bg-white/5 p-4 shadow-2xl backdrop-blur-2xl">
-              <span className="text-4xl text-emerald-400">🏢</span>
-            </div>
-
-            <div className="space-y-3">
-              <h2 className="font-outfit text-4xl leading-tight font-black tracking-tighter text-white">
-                Community <br />
-                <span className="bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-300 bg-clip-text text-transparent">
-                  Simplified.
-                </span>
-              </h2>
-              <p className="px-4 text-sm font-medium text-emerald-50/50">
-                The ultimate platform for modern residential management.
-              </p>
-            </div>
-
-            <blockquote className="mx-auto max-w-[280px] text-base leading-relaxed text-emerald-50/60 italic opacity-80">
-              &ldquo;Essential for modern living.&rdquo;
-            </blockquote>
+          <div className="space-y-6">
+            <h2 className="text-5xl font-[900] tracking-tighter text-white leading-[1.1]">
+              Welcome <br />
+              <span className="text-indigo-400">Back.</span>
+            </h2>
+            <p className="text-lg font-medium text-slate-400 max-w-sm leading-relaxed">
+              Log in to access your community dashboard, manage payments, and stay connected.
+            </p>
           </div>
 
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex scale-90 -space-x-3">
+          <div className="space-y-6">
+            <div className="flex -space-x-4">
               {[1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-emerald-500 bg-emerald-800 text-[10px] font-bold text-white capitalize shadow-2xl ring-4 ring-emerald-950/30"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#0f172a] bg-indigo-600 text-xs font-bold text-white shadow-lg"
                 >
-                  u{i}
+                  U{i}
                 </div>
               ))}
             </div>
-            <p className="text-[10px] font-bold tracking-[0.2em] text-emerald-400/60 uppercase">
-              Trusted by 500+ residents
-            </p>
+            <div>
+              <p className="text-white font-bold">Trusted by 500+ Residents</p>
+              <p className="text-slate-500 text-xs font-medium mt-1">Join the community today.</p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Right Side: Form - Independent scroll */}
-      <div className="custom-scrollbar relative h-full flex-1 overflow-y-auto bg-white lg:bg-gray-50/20">
-        {/* Mobile Header Background Decor */}
-        <div className="absolute inset-x-0 top-0 -z-10 h-48 bg-gradient-to-b from-emerald-50 to-white lg:hidden" />
+      {/* Right Side: Form */}
+      <div className="custom-scrollbar relative h-full flex-1 overflow-y-auto bg-white lg:bg-slate-50/30">
+        <div className="flex min-h-full flex-col items-center justify-center p-6 sm:p-12 lg:p-24">
 
-        <div className="flex min-h-full flex-col items-center justify-center p-6 sm:p-12 lg:p-20">
-          <Link
-            href="/"
-            className="group absolute top-8 left-6 flex items-center gap-2 font-bold text-emerald-700/60 transition-all hover:text-emerald-900 lg:hidden"
-          >
-            <div className="rounded-full bg-emerald-100 p-2 transition-colors group-hover:bg-emerald-200">
-              <MoveLeft className="h-4 w-4" />
+          <div className="w-full max-w-[420px] space-y-8">
+            <Link
+              href="/"
+              className="group mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition-all hover:border-indigo-600 hover:text-indigo-600 lg:hidden"
+            >
+              <MoveLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              <span>Back to Home</span>
+            </Link>
+
+            <div className="lg:hidden text-center mb-8">
+              <Link href="/" className="inline-block">
+                <h1 className="text-2xl font-black text-slate-900">Ourr<span className="text-indigo-600">Apartment</span></h1>
+              </Link>
             </div>
-            <span className="text-[10px] tracking-widest uppercase">Back</span>
-          </Link>
 
-          <div className="w-full max-w-md py-12 lg:py-0">
-            <LoginForm />
+            <div className="mb-8">
+              <h1 className="text-3xl font-[900] tracking-tight text-slate-900 mb-2">Sign In</h1>
+              <p className="text-slate-500 font-medium">Enter your credentials to continue.</p>
+            </div>
+
+            <div className="bg-white/50 backdrop-blur-sm lg:bg-transparent lg:shadow-none p-6 lg:p-0 rounded-3xl lg:rounded-none shadow-xl shadow-slate-200/50">
+              <LoginForm />
+            </div>
+
+            <p className="text-center text-sm font-bold text-slate-400 mt-8">
+              Don&apos;t have an account?{' '}
+              <Link href="/register" className="text-indigo-600 hover:text-indigo-700 hover:underline">
+                Create one
+              </Link>
+            </p>
           </div>
 
-          {/* Footer only visible if scrolled to bottom or on short mobile screens */}
-          <div className="mt-auto pt-12 pb-4 text-center">
-            <p className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase">
+          <div className="mt-auto pt-10 text-center lg:hidden">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-slate-300 uppercase">
               &copy; 2026 OurrApartment
             </p>
           </div>

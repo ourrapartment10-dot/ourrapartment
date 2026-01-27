@@ -392,25 +392,49 @@ export default function DashboardPage() {
 
           <div className="space-y-4">
             {data.activePolls && data.activePolls.length > 0 ? (
-              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-5 transition-all hover:bg-indigo-50 hover:border-indigo-100">
-                <div className="mb-3 flex items-center gap-2">
-                  <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-500">Active Poll</span>
+              <div className="flex flex-col justify-between rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-white p-5 transition-all hover:shadow-md h-full">
+                <div>
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex items-center gap-2 rounded-full bg-indigo-100 px-2 py-1">
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-indigo-600 animate-pulse" />
+                      <span className="text-[10px] font-black uppercase tracking-widest text-indigo-700">Active</span>
+                    </div>
+                    {data.activePolls[0].endsAt && (
+                      <div className="flex items-center gap-1 text-[10px] font-bold text-slate-400">
+                        <Timer className="h-3 w-3" />
+                        <span>
+                          {(() => {
+                            const diff = new Date(data.activePolls[0].endsAt).getTime() - new Date().getTime();
+                            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                            return days > 0 ? `${days}d left` : 'Ending soon';
+                          })()}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <h4 className="mb-2 text-sm font-black text-slate-900 leading-snug line-clamp-3">
+                    {data.activePolls[0].question}
+                  </h4>
+                  <p className="mb-6 text-xs font-medium text-slate-500">
+                    Make your voice heard in the community.
+                  </p>
                 </div>
-                <h4 className="mb-4 text-sm font-bold text-slate-900 line-clamp-2">
-                  {data.activePolls[0].question}
-                </h4>
+
                 <Link
                   href="/dashboard/announcements"
-                  className="block w-full rounded-xl bg-indigo-600 py-3 text-center text-xs font-bold text-white transition-transform active:scale-95"
+                  className="block w-full rounded-xl bg-indigo-600 py-3 text-center text-xs font-black uppercase tracking-wider text-white shadow-lg shadow-indigo-200 transition-all hover:bg-indigo-700 active:scale-95"
                 >
-                  Cast Your Vote
+                  Cast Vote
                 </Link>
               </div>
             ) : (
-              <div className="flex h-32 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-100">
-                <Vote className="mb-2 h-6 w-6 text-slate-300" />
-                <p className="text-xs font-bold text-slate-400">No active polls</p>
+              <div className="flex h-full min-h-[180px] flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-100 bg-slate-50/50 p-6 text-center">
+                <div className="mb-3 rounded-full bg-white p-3 shadow-sm">
+                  <Vote className="h-6 w-6 text-slate-300" />
+                </div>
+                <p className="text-xs font-bold text-slate-400">No active polls right now</p>
+                <p className="mt-1 text-[10px] font-medium text-slate-300">New polls will appear here</p>
               </div>
             )}
           </div>

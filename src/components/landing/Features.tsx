@@ -2,50 +2,75 @@
 
 import { motion, Variants } from 'framer-motion';
 import {
-  Home,
-  Megaphone,
-  Users,
-  ShieldCheck,
-  LayoutDashboard,
-  Bell,
+  Wallet,
+  Sparkles,
+  MessageSquare,
+  Shield,
+  BarChart3,
+  Wrench,
 } from 'lucide-react';
+import { cn } from '@/lib/utils'; // Assuming cn utility exists
 
 const features = [
   {
-    icon: <Home className="h-6 w-6" />,
-    title: 'Smart Maintenance',
+    icon: <Wallet className="h-6 w-6" />,
+    title: 'Financial Management',
     description:
-      'Report and track maintenance requests with priority levels, status updates, and photo attachments.',
+      'Track dues, manage payments, and view detailed financial reports with our comprehensive payment system.',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
+    hoverBg: 'group-hover:bg-blue-600',
+    ring: 'ring-blue-100',
   },
   {
-    icon: <Megaphone className="h-6 w-6" />,
-    title: 'Announcements',
+    icon: <Sparkles className="h-6 w-6" />,
+    title: 'Community Facilities',
     description:
-      'Stay informed with important community updates, events, and notices directly from management.',
+      'Book amenities effortlessly. Explore available spaces, manage reservations, and enjoy premium community living.',
+    color: 'text-[#50717B]',
+    bgColor: 'bg-[#50717B]/10',
+    hoverBg: 'group-hover:bg-[#50717B]',
+    ring: 'ring-[#50717B]/20',
   },
   {
-    icon: <Users className="h-6 w-6" />,
-    title: 'Visitor Management',
+    icon: <MessageSquare className="h-6 w-6" />,
+    title: 'Connect Space',
     description:
-      'Secure visitor registration and tracking system for enhanced community security and peace of mind.',
+      'Engage with your neighbors in the Community Hub. Discuss, share, and stay connected with everyone.',
+    color: 'text-[#6E5034]',
+    bgColor: 'bg-[#6E5034]/10',
+    hoverBg: 'group-hover:bg-[#6E5034]',
+    ring: 'ring-[#6E5034]/20',
   },
   {
-    icon: <ShieldCheck className="h-6 w-6" />,
-    title: 'Role-Based Access',
+    icon: <Shield className="h-6 w-6" />,
+    title: 'Secure Admin Controls',
     description:
-      'Granular access controls for residents, security guards, and administrators.',
+      'Advanced role-based access for Admins and Super Admins. Manage subscriptions, users, and global settings securely.',
+    color: 'text-[#211832]',
+    bgColor: 'bg-[#211832]/10',
+    hoverBg: 'group-hover:bg-[#211832]',
+    ring: 'ring-[#211832]/20',
   },
   {
-    icon: <LayoutDashboard className="h-6 w-6" />,
-    title: 'Real-Time Dashboard',
+    icon: <Wrench className="h-6 w-6" />,
+    title: 'Smart Complaints',
     description:
-      'Comprehensive overview of community activities, statistics, and important metrics at a glance.',
+      'Raise, track, and resolve maintenance issues efficiently with our dedicated complaint management system.',
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-50',
+    hoverBg: 'group-hover:bg-orange-600',
+    ring: 'ring-orange-100',
   },
   {
-    icon: <Bell className="h-6 w-6" />,
-    title: 'Instant Notifications',
+    icon: <BarChart3 className="h-6 w-6" />,
+    title: 'Insightful Analytics',
     description:
-      'Get notified immediately about maintenance updates, announcements, and visitor arrivals.',
+      'Gain valuable insights into occupancy rates, financial health, and community engagement with real-time charts.',
+    color: 'text-violet-600',
+    bgColor: 'bg-violet-50',
+    hoverBg: 'group-hover:bg-violet-600',
+    ring: 'ring-violet-100',
   },
 ];
 
@@ -77,7 +102,9 @@ export default function Features() {
             className="mb-6 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl"
           >
             Powerful Features for <br />
-            <span className="text-primary">Modern Communities</span>
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Modern Communities
+            </span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -87,7 +114,7 @@ export default function Features() {
             className="mx-auto max-w-2xl text-xl text-gray-600"
           >
             Everything you need to manage your community efficiently and
-            securely.
+            securely, all in one place.
           </motion.p>
         </div>
 
@@ -102,17 +129,25 @@ export default function Features() {
             <motion.div
               key={index}
               variants={item}
-              className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-2xl hover:shadow-gray-200/50"
+              className="group relative overflow-hidden rounded-[2.5rem] border border-gray-100 bg-white p-10 transition-all duration-300 hover:border-gray-200 hover:shadow-2xl hover:shadow-gray-200/50"
             >
-              <div className="bg-primary/10 text-primary ring-primary/20 group-hover:bg-primary mb-6 inline-flex rounded-2xl p-4 ring-1 transition-colors duration-300 group-hover:text-white">
+              <div
+                className={cn(
+                  'mb-6 inline-flex rounded-2xl p-4 ring-1 transition-colors duration-300 group-hover:text-white',
+                  feature.color,
+                  feature.bgColor,
+                  feature.ring,
+                  feature.hoverBg
+                )}
+              >
                 {feature.icon}
               </div>
 
-              <h3 className="mb-3 text-2xl font-bold text-gray-900">
+              <h3 className="mb-3 text-2xl font-black tracking-tight text-gray-900">
                 {feature.title}
               </h3>
 
-              <p className="leading-relaxed font-medium text-gray-600">
+              <p className="leading-relaxed font-medium text-gray-500">
                 {feature.description}
               </p>
             </motion.div>

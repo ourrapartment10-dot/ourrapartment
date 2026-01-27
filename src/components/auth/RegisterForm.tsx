@@ -80,7 +80,7 @@ export function RegisterForm() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-white/20 bg-white/40 p-8 shadow-2xl shadow-emerald-500/5 backdrop-blur-xl">
+      <div className="rounded-[2rem] border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-200/50">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {error && (
             <motion.div
@@ -121,7 +121,7 @@ export function RegisterForm() {
                 </label>
                 <div className="relative">
                   <select
-                    className="focus:ring-primary/20 focus:border-primary h-10 w-full appearance-none rounded-xl border border-gray-200 bg-white/50 pr-8 pl-9 text-sm transition-all outline-none focus:ring-2"
+                    className="focus:ring-indigo-500/20 focus:border-indigo-500 h-10 w-full appearance-none rounded-xl border border-gray-200 bg-white/50 pr-8 pl-9 text-sm transition-all outline-none focus:ring-2"
                     {...register('block')}
                   >
                     <option value="">Select</option>
@@ -159,7 +159,7 @@ export function RegisterForm() {
                 </label>
                 <div className="relative">
                   <select
-                    className="focus:ring-primary/20 focus:border-primary h-10 w-full appearance-none rounded-xl border border-gray-200 bg-white/50 pr-8 pl-9 text-sm transition-all outline-none focus:ring-2"
+                    className="focus:ring-indigo-500/20 focus:border-indigo-500 h-10 w-full appearance-none rounded-xl border border-gray-200 bg-white/50 pr-8 pl-9 text-sm transition-all outline-none focus:ring-2"
                     {...register('floor')}
                   >
                     <option value="">Select</option>
@@ -225,9 +225,8 @@ export function RegisterForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group bg-primary relative mt-2 flex h-12 w-full items-center justify-center overflow-hidden rounded-xl font-bold text-white shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:bg-emerald-600 active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100"
+            className="group relative mt-2 flex h-14 w-full items-center justify-center overflow-hidden rounded-xl bg-slate-900 font-bold text-white shadow-lg shadow-slate-900/20 transition-all duration-300 hover:bg-black hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100"
           >
-            <div className="absolute inset-0 translate-y-full bg-white/20 transition-transform duration-300 group-hover:translate-y-0" />
             <span className="relative flex items-center gap-2">
               {isSubmitting ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
